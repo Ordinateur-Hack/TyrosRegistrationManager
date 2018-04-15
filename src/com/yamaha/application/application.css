@@ -1,0 +1,38 @@
+.jfx-slider {
+	-jfx-default-thumb: #ff7043;
+}
+
+.jfx-slider .slider-value {
+	-fx-stroke: TRANSPARENT;
+	-fx-font-size: 1.2em;
+	-fx-font-family: sans-serif;
+}
+
+.jfx-slider .animated-thumb {
+    -fx-pref-width: 0px;
+    -fx-pref-height: 0px;
+}
+
+/*
+.jfx-slider .colored-track {
+    -fx-background-color: TRANSPARENT;
+}
+*/
+
+.jfx-slider:focused .thumb {
+    -fx-background-color: #29b6f6;
+    /* -fx-background-insets: -1; */
+}
+
+.jfx-slider:focused .colored-track {
+	-fx-background-color: #29b6f6;
+}
+
+/* Minimum */
+.jfx-slider:min:focused .thumb {
+	-fx-background-color: #CCCCCC;
+}
+
+.jfx-slider:min:focused .colored-track {
+	-fx-background-color: #CCCCCC;
+}

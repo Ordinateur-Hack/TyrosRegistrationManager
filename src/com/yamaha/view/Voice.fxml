@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="700.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/9.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.VoiceController">
+    <children>
+        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="20.0" ripplerFill="RED" style="-fx-background-color: dodgerblue;" text="Voice" textFill="WHITE">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </JFXButton>
+    </children>
+</AnchorPane>

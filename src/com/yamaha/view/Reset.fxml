@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0"
+            prefWidth="520.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.yamaha.controller.ResetController">
+    <children>
+        <JFXCheckBox fx:id="styleCheck" checkedColor="#29b6f6" layoutX="34.0" layoutY="26.0" text="Style">
+            <font>
+                <Font name="Segoe UI" size="12.0" />
+            </font>
+        </JFXCheckBox>
+        <JFXCheckBox fx:id="songCheck" checkedColor="#29b6f6" layoutX="34.0" layoutY="61.0" text="Song" />
+        <JFXCheckBox fx:id="voiceCheck" checkedColor="#29b6f6" layoutX="34.0" layoutY="96.0" text="Voice" />
+        <JFXButton buttonType="RAISED" layoutX="165.0" layoutY="208.0" onAction="#reset" prefHeight="35.0" prefWidth="190.0" style="-fx-background-color: #29b6f6;" text="Confirm Reset" textFill="WHITE" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="165.0">
+            <font>
+                <Font name="Segoe UI Bold" size="18.0" />
+            </font>
+        </JFXButton>
+    </children>
+</AnchorPane>

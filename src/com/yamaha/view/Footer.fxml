@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="66.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.FooterController">
+    <children>
+        <HBox alignment="CENTER" maxHeight="66.0" minWidth="1100.0" prefHeight="66.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-border-color: #D9DADC; -fx-border-width: 1 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GridPane alignment="CENTER" prefHeight="44.0" prefWidth="399.0" HBox.hgrow="NEVER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <JFXButton fx:id="prg1Button" buttonType="RAISED" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="1" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="prg2Button" buttonType="RAISED" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="2" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="prg3Button" buttonType="RAISED" layoutX="47.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="3" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="prg4Button" buttonType="RAISED" layoutX="86.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="4" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="prg5Button" buttonType="RAISED" layoutX="125.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="5" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="prg6Button" buttonType="RAISED" layoutX="164.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="6" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="prg7Button" buttonType="RAISED" layoutX="203.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="7" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="prg8Button" buttonType="RAISED" layoutX="242.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" text="8" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="Segoe UI Bold" size="18.0" />
+                            </font>
+                        </JFXButton>
+                    </children>
+                </GridPane>
+            </children>
+        </HBox>
+        <JFXButton fx:id="resetButton" buttonType="RAISED" layoutX="32.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="70.0" ripplerFill="WHITE" style="-fx-background-color: #29b6f6;" text="Reset" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="32.0">
+            <font>
+                <Font name="Segoe UI Bold" size="14.0" />
+            </font>
+        </JFXButton>
+    </children>
+</AnchorPane>
