@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MenuBarController {
 
-    private SpfF spffChunk = new SpfF(); // the root element of the file, the topmost element of the logical hierarchy
+    private SpfF spffChunk; // the root element of the file, the topmost element of the logical hierarchy
     private File file;
     private String fileData;
     private RMGroup currentRMGroup;
@@ -172,7 +172,7 @@ public class MenuBarController {
             alert.setOnCloseRequest(event -> loadFile());
         }
         try {
-            RGTParser.parseFileData(fileData, spffChunk);
+            spffChunk = RGTParser.parseFileData(fileData);
         } catch (Exception e) {
             System.err.println("Could not properly parse the file data.");
             e.printStackTrace();

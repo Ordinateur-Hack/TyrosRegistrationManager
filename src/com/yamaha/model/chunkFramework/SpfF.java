@@ -15,7 +15,7 @@ import java.util.List;
 public class SpfF extends Chunk {
 
     public static final String CHUNK_ID = "53706646"; // hex code for "SpfF" (ASCII coded)
-    private ArrayList<BHd> bhdChunks = new ArrayList<>(); // hierarchy: a SpfF-chunk owns several BHd-chunks
+    private ArrayList<BHd> bhdChunks = new ArrayList<>(9); // hierarchy: a SpfF-chunk owns several BHd-chunks
     private String headerData;
 
     /**

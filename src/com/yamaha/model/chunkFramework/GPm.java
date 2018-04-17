@@ -17,7 +17,7 @@ package com.yamaha.model.chunkFramework;
  */
 public class GPm extends Chunk {
 
-    public static final String TYPE_ID = "47506D"; // hex code for "GPm" (ASCII coded)
+    public static final String CHUNK_ID = "47506D"; // hex code for "GPm" (ASCII coded)
     private String type = ""; // the hex type of this chunk in a more user-friendly representation using the enum GPmType
     // !!! type = "" initialization in order to prevent null pointer exception in method getGPmChunk(int registrationNumber, GPmType gpmType)
 
@@ -62,7 +62,7 @@ public class GPm extends Chunk {
     }
 
     public String toHexString() { // see Assembler.java
-        return GPm.TYPE_ID + getHexType() + toHexNumberOfDataBytesString() + getHexData();
+        return GPm.CHUNK_ID + getHexType() + toHexNumberOfDataBytesString() + getHexData();
     }
 
 }

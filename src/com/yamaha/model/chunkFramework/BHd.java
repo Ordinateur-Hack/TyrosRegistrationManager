@@ -14,13 +14,13 @@ import java.util.List;
 public class BHd extends Chunk {
 
     public static final String CHUNK_ID = "424864"; // hex code for "BHd" (ASCII coded)
-    private List<GPm> gpmChunks = new ArrayList<>(); // hierarchy: a BHd-chunk owns several GPm-chunks
+    private ArrayList<GPm> gpmChunks = new ArrayList<>(); // hierarchy: a BHd-chunk owns several GPm-chunks
 
     /**
      * Returns a list of subordinated GPm-chunks.
      * @return the subordinated GPm-chunks.
      */
-    public List<GPm> getGPmChunks() {
+    public ArrayList<GPm> getGPmChunks() {
         return gpmChunks;
     }
 
