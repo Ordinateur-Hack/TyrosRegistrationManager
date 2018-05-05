@@ -8,7 +8,7 @@ package com.yamaha.model.chunkFramework;
  * <p> The CHUNK_ID is followed by the chunk type. Concerning the BHd-chunks, there are the sequence
  * type and the registration type. Concerning the GPm-chunks, there are a lot of different
  * types, e. g. several for the Style settings, others for the Voices and so on.
- * <p> The type of the chunk is followed by the number of data bytes following the "header" of each chunk.
+ * <p> The type of the chunk is followed by the number of data bytes.
  * (header: CHUNK_ID + type of chunk + number of data bytes; data: the actual data of the chunk)
  * @author Dominic Plein
  * @version 1.0
@@ -29,24 +29,10 @@ public abstract class Chunk {
     }
 
     /**
-     * Returns the number of bytes following the header of this chunk.
      * @return the number of bytes following the header of this chunk
      */
     public int getNumberOfDataBytes() {
-        return this.hexData.length() / 2;
-    }
-
-    public String toHexNumberOfDataBytesString() {
-        int numberOfDataBytes = this.numberOfDataBytes;
-        if (numberOfDataBytes < 16) {
-            return "000" + Integer.toHexString(numberOfDataBytes);
-        } else if (numberOfDataBytes < 256) {
-            return "00" + Integer.toHexString(numberOfDataBytes);
-        } else if (numberOfDataBytes < 4096) {
-            return "0" + Integer.toHexString(numberOfDataBytes);
-        } else {
-            return Integer.toHexString(numberOfDataBytes);
-        }
+        return hexData.length() / 2;
     }
 
     /**
@@ -66,16 +52,21 @@ public abstract class Chunk {
     }
 
     /**
-     * Sets the data to be stored in this chunk as a hex code
+     * Sets the data to be stored in this chunk as a hex code.
      * @param hexData the data to be stored in this chunk (hex code)
      */
     public void setHexData(String hexData) {
         this.hexData = hexData;
     }
 
-    public void changeHexData(int positionOfDataByte, String hexData) {
-        int beginIndex = (positionOfDataByte - 1) * 2;
+    /**
+     * Modifies a byte in the hexData at a given dataByte position.
+     * @param positionOfDataByte the position of the dataByte to be modified
+     * @param hexData the hexData to modify
+     */
+    public void changeHexDataByte(int positionOfDataByte, String hexData) {
         StringBuffer buf = new StringBuffer(this.hexData);
+        int beginIndex = (positionOfDataByte - 1) * 2;
         buf.replace(beginIndex, beginIndex + 2, hexData);
         this.hexData = buf.toString();
     }
@@ -98,10 +89,9 @@ public abstract class Chunk {
         return hexData.substring(beginIndex, beginIndex + 2);
     }
 
-    // Console Output
     @Override
-    public String toString() { // see Assembler.java
-        return "Chunk\t" + "Type: " + hexData + "\tNumberOfDataBytes: " + numberOfDataBytes
+    public String toString() { // see Merger.java
+        return "Chunk\tType: " + hexData + "\tNumberOfDataBytes: " + numberOfDataBytes
                 + "\tData: " + hexData;
     }
 
