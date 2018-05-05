@@ -1,5 +1,7 @@
 package com.yamaha.model.chunkFramework;
 
+import com.yamaha.model.Formatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +28,12 @@ public class BHd extends Chunk {
 
     @Override
     public String toString() {
-        return "BHd Chunk\t" + "Type: " + hexType + "\tNumberOfDataBytes: " + numberOfDataBytes
+        return "BHd Chunk\tType: " + hexType + "\tNumberOfDataBytes: " + numberOfDataBytes
                 + "\tData: " + hexData;
     }
 
     public String toHexString() {
-        return BHd.CHUNK_ID + getHexType() + toHexNumberOfDataBytesString() + getHexData();
+        return BHd.CHUNK_ID + getHexType() + Formatter.formatIntToHex(numberOfDataBytes, 2) + getHexData();
     }
 
 }
