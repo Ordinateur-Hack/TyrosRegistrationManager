@@ -6,12 +6,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -24,7 +23,7 @@ public class Main extends Application {
     private static FXMLLoader footerLoader;
 
     public static void main(String[] args) {
-         launch(args);
+        launch(args);
     }
 
     @Override
@@ -32,7 +31,7 @@ public class Main extends Application {
         /* Basic layout
         ----------------------------------
         |   ||                           |
-        |   ||                           |4
+        |   ||                           |
         |   ||                           |
         |   ||                           |
         |   ||                           |
@@ -55,20 +54,25 @@ public class Main extends Application {
             right.setBottom(footer);
 
             // Set up the center
-            AnchorPane center = FXMLLoader.load(getClass().getResource("/com/yamaha/view/Title.fxml"));
+            AnchorPane center = FXMLLoader.load(getClass().getResource("/com/yamaha/view/Home.fxml"));
             right.setCenter(center);
 
             root.setRight(right);
 
             // Set up the scene
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-            double width = bounds.getWidth() * 18/32;
-            double height = bounds.getHeight() * 20/32;
+            double width = bounds.getWidth() * 18 / 32;
+            double height = bounds.getHeight() * 20 / 32;
             Scene scene = new Scene(root, width, height);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
             // Set up the stage
-            primaryStage.setMinWidth(1200); primaryStage.setMinHeight(700);
+            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_big.jpg"));
+            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_small.jpg"));
+            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_medium.jpg"));
+            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_verySmall.jpg"));
+            primaryStage.setMinWidth(1100);
+            primaryStage.setMinHeight(700);
             // instead of primaryStage.centerOnScreen();
             // see discussion: https://stackoverflow.com/questions/29558449/javafx-center-stage-on-screen
             primaryStage.setX((bounds.getWidth() - width) / 2);
@@ -87,6 +91,7 @@ public class Main extends Application {
 
     /**
      * Returns the root node for controllers to use.
+     *
      * @return the root node
      */
     public static BorderPane getRoot() {
@@ -95,6 +100,7 @@ public class Main extends Application {
 
     /**
      * Returns the primaryStage passed into the start() method.
+     *
      * @return the primaryStage
      */
     public static Stage getPrimaryStage() {
