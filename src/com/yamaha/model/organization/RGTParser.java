@@ -5,7 +5,6 @@ import com.yamaha.model.chunkFramework.Chunk;
 import com.yamaha.model.chunkFramework.GPm;
 import com.yamaha.model.chunkFramework.SpfF;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
  * for editing via an Editor. The Parser looks for the typical structure of an
  * .RGT file: "SpfF", "BHd" and "GPm". These are the precedent ASCII character
  * strings of every chunk.
- * <p> NOTE: There is no "FileEnd" chunk. This ASCII character string that appears
+ * <p> <b>Note:</b> There is no "FileEnd" chunk. This ASCII character string that appears
  * at the end of every .RGT file is added later via the Merger.
  *
  * @author Dominic Plein
@@ -36,7 +35,7 @@ public class RGTParser {
         spffChunk.setHexData(fileData.substring(44)); // encompasses the following "BHd" chunks and their "GPm" chunks
 
         // Console Output
-        System.out.println("=============== SpfF Header Chunk ===============");
+        System.out.println("============ SpfF Header Chunk ===========");
         System.out.println(spffChunk.toString() + "\n");
     }
 
@@ -89,7 +88,6 @@ public class RGTParser {
             }
         }
 
-        // Console Output
         System.out.println("=============== GPm Chunks ===============");
         for (int i = 1; i <= 8; i++) {
             BHd bhdChunk = spffChunk.getBHdChunks().get(i);
@@ -104,10 +102,11 @@ public class RGTParser {
     /**
      * Extracts the data from the given fileData and fills the given chunk up with data pieces according to a
      * given matcher:<br>
-     *     hexType, numberOfDataBytes, hexData
+     * hexType, numberOfDataBytes, hexData
+     *
      * @param fileData the hex data containing the necessary information
-     * @param chunk the Chunk to fill up with the data
-     * @param matcher the Matcher to search for the specified beginning of the information piece
+     * @param chunk    the Chunk to fill up with the data
+     * @param matcher  the Matcher to search for the specified beginning of the information piece
      */
     private static void extractData(String fileData, Chunk chunk, Matcher matcher) {
         int beginIndex = matcher.end();
@@ -122,19 +121,20 @@ public class RGTParser {
      * Parses the given hex code and sorts it in chunks. First it sorts the SpfF Chunk,
      * then the BHd-chunks and finally the GPm-chunks for every BHd-chunk except for the
      * first BHd-chunk (it represents the registration sequence, thus it contains no GPm-chunks).<br>
-     * @param fileData  the hex fileData to be parsed
-     * @return the root element of the file, the topmost element of the logical hierarchy which has contains all of
-     * the BHd and GPm-chunks
+     *
+     * @param fileData the hex fileData to be parsed
+     * @return the root element of the file, the topmost element of the logical hierarchy which contains all of
+     * the BHd- and GPm-chunks
      */
     public static SpfF parseFileData(String fileData) {
         RGTParser.fileData = fileData;
-        RGTParser.spffChunk = spffChunk;
         // the following order of method calls is very important to maintain the logical hierarchy!
         // (1 SpfF-chunk --> 9 BHd-chunks --> several GPm-chunks except for first BHd-chunks)
+        System.out.println("<<<< RGTParser: Parsing hex code ...\n");
         parseSpfF();
         parseBHd();
         parseGPm();
-        System.out.println("Parsed hex code successfully!");
+        System.out.println("Parsed hex code successfully! SpfF-chunk updated. >>>>");
         return spffChunk;
     }
 
