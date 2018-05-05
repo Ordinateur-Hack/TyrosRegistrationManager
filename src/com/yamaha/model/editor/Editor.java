@@ -45,7 +45,7 @@ public abstract class Editor {
     public GPm getGPmChunk(GPmType gpmType) {
         GPm gpmChunk = null;
         for (GPm currentGPmChunk : bhdChunk.getGPmChunks()) {
-            if (currentGPmChunk.getType().equals(gpmType.name())) {
+            if (currentGPmChunk.getGPmType() == gpmType) {
                 gpmChunk = currentGPmChunk;
             }
         }
@@ -87,7 +87,7 @@ public abstract class Editor {
      */
     public void setEnabled(GPm gpmChunk, int positionOfDataByte, boolean isActive) {
         String hexData = isActive ? "7F" : "00";
-        gpmChunk.changeHexData(positionOfDataByte, hexData);
+        gpmChunk.changeHexDataByte(positionOfDataByte, hexData);
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class Editor {
      */
     public void setValueSlideControl(GPm gpmChunk, int positionOfDataByte, int value) {
         // exception handling if value < 0 || value > 127
-        gpmChunk.changeHexData(positionOfDataByte, Formatter.formatIntToHex(value, 1 /* one byte used */));
+        gpmChunk.changeHexDataByte(positionOfDataByte, Formatter.formatIntToHex(value, 1 /* one byte used */));
     }
 
     /**
@@ -146,7 +146,7 @@ public abstract class Editor {
     public void setValueSpinControl(GPm gpmChunk, int positionOfDataByte, int value) {
         // exception handling if value < -64 || value > 63
         String hexValue = Formatter.formatIntToHex(value + 64, 1 /* one byte used */);
-        gpmChunk.changeHexData(positionOfDataByte, hexValue);
+        gpmChunk.changeHexDataByte(positionOfDataByte, hexValue);
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class Editor {
      */
     public void setChanged(GPm gpmChunk, int positionOfDataByte, boolean hasChanged) {
         String hexData = hasChanged ? "FF" : "00";
-        gpmChunk.changeHexData(positionOfDataByte, hexData);
+        gpmChunk.changeHexDataByte(positionOfDataByte, hexData);
     }
 
     /**
