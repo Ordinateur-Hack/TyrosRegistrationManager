@@ -140,7 +140,7 @@ public class MenuBarController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Error when transfer the properties from the editors to the chunk's structure.");
+            System.err.println("Error while transferring the properties from the editors to the chunk's structure.");
         }
 //		styleController.rebindCriticalBindings();
 
