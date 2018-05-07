@@ -6,6 +6,13 @@ import javafx.scene.control.Label;
 // inspiration from https://stackoverflow.com/questions/35693180/javafx-wrap-content-text-in-alert-dialog
 public abstract class FXUtil {
 
+    /**
+     * Creates an alert with the given alert type and automatically breaks lines.
+     * @param alertType the alert type
+     * @param numberOfWordsInOneLine the number of words in one line (the next word is wrapped)
+     * @param message dialog's content
+     * @return the specified alert
+     */
     public static Alert createAlert(Alert.AlertType alertType, int numberOfWordsInOneLine, String message) {
         Alert alert = new Alert(alertType);
 
