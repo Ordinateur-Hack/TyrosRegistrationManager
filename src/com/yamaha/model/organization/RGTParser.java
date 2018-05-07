@@ -118,7 +118,7 @@ public class RGTParser {
     }
 
     /**
-     * Parses the given hex code and sorts it in chunks. First it sorts the SpfF Chunk,
+     * Parses the given hex code and sorts it in chunks. First it sorts the SpfF-chunk,
      * then the BHd-chunks and finally the GPm-chunks for every BHd-chunk except for the
      * first BHd-chunk (it represents the registration sequence, thus it contains no GPm-chunks).<br>
      *
@@ -130,11 +130,12 @@ public class RGTParser {
         RGTParser.fileData = fileData;
         // the following order of method calls is very important to maintain the logical hierarchy!
         // (1 SpfF-chunk --> 9 BHd-chunks --> several GPm-chunks except for first BHd-chunks)
-        System.out.println("<<<< RGTParser: Parsing hex code ...\n");
+        System.out.println("<<<< RGTParser: Parse hex code ...\n");
         parseSpfF();
         parseBHd();
         parseGPm();
         System.out.println("Parsed hex code successfully! SpfF-chunk updated. >>>>");
+        System.out.println();
         return spffChunk;
     }
 
