@@ -140,7 +140,7 @@ public class StyleEditor extends Editor {
 
 
     public StyleEditor(BHd bhdChunk) {
-        this.bhdChunk = bhdChunk;
+        super(bhdChunk);
         // exception handling for wrong registrationNumber
         // first: check whether there are any style information on the current registration button
         // initProperties();

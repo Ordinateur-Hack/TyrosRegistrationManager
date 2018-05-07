@@ -28,31 +28,34 @@ public class RegistrationProgram {
     // has Registration Memory Content group
     // how to check if the registration button is empty or not? iterate through the BHd-chunks; simply check the length of the BHd-chunk
 
-    int registrationNumber; // the number of the registration button (1-8)
-    BHd bhdChunk;
-    boolean isEmpty;
+    private int registrationNumber; // the number of the registration button (1-8)
+    private BHd bhdChunk;
+    private boolean isEmpty;
 
     private TitleEditor titleEditor;
     private StyleEditor styleEditor;
     // private VoiceEditor voice;
     // private SongEditor song;
     // ...
-    List<Editor> editors;
+    private List<Editor> editors;
 
 
     // Song, Voice etc.
 
     public RegistrationProgram(SpfF spffChunk, int registrationNumber) {
+        if (registrationNumber > 8 || registrationNumber < 1)
+            throw new IllegalArgumentException("The registrationNumber has to be in range of 1 to 8");
         this.registrationNumber = registrationNumber;
+
         bhdChunk = spffChunk.getBHdChunks().get(registrationNumber); // index 0 is bhdChunk for sequence, so BHd-chunk for first button is at index 1
-        isEmpty = bhdChunk.getNumberOfDataBytes() == 0 ? true : false;
+        isEmpty = bhdChunk.getNumberOfDataBytes() == 0 ? true : false; // check if the RegistrationProgram contains data
 
-        if (hasData()) {
+        if (!isEmpty) {
             titleEditor = new TitleEditor(bhdChunk);
-            styleEditor = new StyleEditor(bhdChunk);
+            // styleEditor = new StyleEditor(bhdChunk);
 
+            editors = Arrays.asList(titleEditor/*, styleEditor*/);
             // init properties for every editor
-            editors = Arrays.asList(titleEditor, styleEditor);
             for (Editor editor : editors) {
                 if (editor.isRepresented())
                     editor.initProperties();
@@ -106,6 +109,9 @@ public class RegistrationProgram {
         return styleEditor.isRepresented();
     }
 
+    /**
+     * @return the registration number of this RegistrationProgram
+     */
     public int getRegistrationNumber() {
         return registrationNumber;
     }

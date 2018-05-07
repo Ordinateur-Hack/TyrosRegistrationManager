@@ -1,16 +1,13 @@
 package com.yamaha.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.yamaha.application.Main;
 import com.yamaha.model.chunkFramework.SpfF;
 import com.yamaha.model.editor.RMGroup;
 import com.yamaha.model.editor.RegistrationProgram;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,15 +16,7 @@ public class FooterController {
     @FXML
     private JFXButton resetButton;
 
-    private RegistrationProgram prg1;
-    private RegistrationProgram prg2;
-    private RegistrationProgram prg3;
-    private RegistrationProgram prg4;
-    private RegistrationProgram prg5;
-    private RegistrationProgram prg6;
-    private RegistrationProgram prg7;
-    private RegistrationProgram prg8;
-    private List<RegistrationProgram> prgs;
+    private RegistrationProgram[] prgs;
     private RegistrationProgram currentPRG;
 
     @FXML
@@ -50,34 +39,33 @@ public class FooterController {
 
     @FXML
     public void initialize() {
-        prgButtons = Arrays.asList(prg1Button, prg2Button, prg3Button, prg4Button, prg5Button, prg6Button, prg7Button, prg8Button);
+        prgButtons = Arrays.asList(prg1Button, prg2Button, prg3Button, prg4Button, prg5Button, prg6Button,
+                prg7Button, prg8Button);
         for (JFXButton prgButton : prgButtons)
             prgButton.setDisable(true);
 
-        initResetButton();
+        // initResetButton();
     }
 
+    /**
+     * Initializes the PRG-buttons by setting up the RegistrationPrograms.
+     *
+     * @param spffChunk the root element of the file structure
+     */
     public void initPRG(SpfF spffChunk) {
-        prg1 = new RegistrationProgram(spffChunk, 1);
-        prg2 = new RegistrationProgram(spffChunk, 2);
-        prg3 = new RegistrationProgram(spffChunk, 3);
-        prg4 = new RegistrationProgram(spffChunk, 4);
-        prg5 = new RegistrationProgram(spffChunk, 5);
-        prg6 = new RegistrationProgram(spffChunk, 6);
-        prg7 = new RegistrationProgram(spffChunk, 7);
-        prg8 = new RegistrationProgram(spffChunk, 8);
-        prgs = Arrays.asList(prg1, prg2, prg3, prg4, prg5, prg6, prg7, prg8);
-        currentPRG = prg1;
-
-        for (JFXButton prgButton : prgButtons) {
-            prgButton.setStyle("-fx-background-color: #29b6f6");
-            if (prgs.get(prgButtons.indexOf(prgButton)).hasData())
-                prgButton.setDisable(false);
-                // although at the beginning all buttons are disabled, buttons which don't store any data need to be disabled
+        prgs = new RegistrationProgram[8];
+        for (int i = 1; i <= 8; i++) {
+            prgs[i-1] = new RegistrationProgram(spffChunk, i); // link every PRG-button to a RegistrationProgram
+            if (prgs[i-1].hasData()) {
+                prgButtons.get(i-1).setDisable(false);
+            } else {
+                // although at the beginning all buttons are disabled, buttons which don't store any data need to be
+                // disabled
                 // during runtime because they can be enabled when loading the second, third ... file.
-            else
-                prgButton.setDisable(true);
+                prgButtons.get(i-1).setDisable(true);
+            }
         }
+        currentPRG = prgs[0]; // first PRG-button as starting point
     }
 
     @FXML
@@ -88,14 +76,17 @@ public class FooterController {
 
         // new PRG
         prgIndex = prgButtons.indexOf(actionEvent.getSource());
-        currentPRG = prgs.get(prgIndex);
+        currentPRG = prgs[prgIndex];
         prgButtons.get(prgIndex).setStyle("-fx-background-color:  #ff7043"); // orange
 
         initMenuBarControls();
     }
 
+    /**
+     * The menu bar controls are initialized every time the user clicks on another PRG-button.
+     */
     private void initMenuBarControls() {
-        MenuBarController menuBarController = com.yamaha.application.Main.getMenuBarController();
+        MenuBarController menuBarController = Main.getMenuBarController();
         RMGroup currentRMGroup = menuBarController.getCurrentRMGroup();
 
         if (!currentPRG.hasRMGroup(currentRMGroup))
@@ -103,18 +94,19 @@ public class FooterController {
         else
             menuBarController.loadRegistrationMemoryContentGroup(currentRMGroup);
 
-        menuBarController.getRMGroupButton(RMGroup.STYLE).setDisable(!currentPRG.hasRMGroup(RMGroup.STYLE)); // later: for every RMGroup
+        // find another solution for this one here
+        // menuBarController.getRMGroupButton(RMGroup.STYLE).setDisable(!currentPRG.hasRMGroup(RMGroup.STYLE));
+        // later: for every RMGroup
     }
 
     /**
-     * Returns the current Registration Program.
-     * @return the current Registration Program
+     * @return the current RegistrationProgram
      */
     public RegistrationProgram getCurrentPRG() {
         return currentPRG;
     }
 
-    public List<RegistrationProgram> getPRGs() {
+    public RegistrationProgram[] getPRGs() {
         return prgs;
     }
 
@@ -130,14 +122,9 @@ public class FooterController {
     */
 
     public void initResetButton() {
-        resetButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isControlDown()) {
-                    resetButton.setStyle("-fx-background-color: #c63f17");
-                }
-            }
+        resetButton.setOnMouseClicked(event -> {
+            if (event.isControlDown())
+                resetButton.setStyle("-fx-background-color: #c63f17");
         });
     }
 

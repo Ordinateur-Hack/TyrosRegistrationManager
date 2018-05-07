@@ -22,8 +22,9 @@ public abstract class Editor {
     protected BHd bhdChunk;
     protected int registrationNumber; // the number of the registration button: 1-8
 
-    public Editor() {
-//		spffChunk = new SpfF(); // create a new, empty SpfF-chunk that is filled up via the RGTParser
+    public Editor(BHd bhdChunk) {
+        this.bhdChunk = bhdChunk;
+        initProperties();
     }
 
 //	/**

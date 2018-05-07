@@ -10,13 +10,12 @@ public class TitleEditor extends Editor {
     String title;
 
     public TitleEditor(BHd bhdChunk) {
-        this.bhdChunk = bhdChunk;
-        initProperties();
+        super(bhdChunk);
     }
 
     @Override
     public boolean isRepresented() {
-        return getGPmChunk(GPmType.REGISTRATION_NAME) != null ? true : false;
+        return getGPmChunk(GPmType.REGISTRATION_NAME) != null;
     }
 
     @Override
