@@ -41,6 +41,8 @@ public class Main extends Application {
         ----------------------------------
          */
         try {
+            System.out.println("<<<< Set up layout ...");
+
             // Set up the menu bar
             menuBarLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/MenuBar.fxml"));
             AnchorPane menuBar = menuBarLoader.load();
@@ -67,10 +69,10 @@ public class Main extends Application {
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
             // Set up the stage
-            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_big.jpg"));
+//            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_big.jpg"));
             primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_small.jpg"));
-            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_medium.jpg"));
-            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_verySmall.jpg"));
+//            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_medium.jpg"));
+//            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_verySmall.jpg"));
             primaryStage.setMinWidth(1100);
             primaryStage.setMinHeight(700);
             // instead of primaryStage.centerOnScreen();
@@ -83,6 +85,10 @@ public class Main extends Application {
             Main.primaryStage = primaryStage;
             primaryStage.show();
 
+            System.out.println("Set up layout successfully >>>>");
+            System.out.println();
+
+
         } catch (Exception e) {
             System.err.println("Could not properly set up the window.");
             e.printStackTrace();
@@ -90,18 +96,14 @@ public class Main extends Application {
     }
 
     /**
-     * Returns the root node for controllers to use.
-     *
-     * @return the root node
+     * @return the root node for controllers to use
      */
     public static BorderPane getRoot() {
         return root;
     }
 
     /**
-     * Returns the primaryStage passed into the start() method.
-     *
-     * @return the primaryStage
+     * @return the primaryStage passed into the start() method
      */
     public static Stage getPrimaryStage() {
         return primaryStage;
@@ -115,7 +117,7 @@ public class Main extends Application {
     }
 
     /**
-     * @return the footer controller
+     * @return the controller for the footer
      */
     public static FooterController getFooterController() {
         return footerLoader.getController();
