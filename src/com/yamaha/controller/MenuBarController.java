@@ -54,8 +54,12 @@ public class MenuBarController {
     public void initialize() {
         rmGroupButtons = Arrays.asList(songButton, styleButton, voiceButton); // extend later!
         // Set Home button as starting point
-        currentButton = homeButton; // this has to be done only once
-        changeButtonActive(homeButton);
+
+        // this has to be done only once
+        currentButton = homeButton;
+        currentRMGroup = RMGroup.TITLE;
+
+        // changeButtonActive(homeButton);
 
         // Disable most buttons
         for (JFXButton rmGroupButton : rmGroupButtons)
@@ -94,7 +98,6 @@ public class MenuBarController {
         this.file = selectedFile;
 
         loadStructure();
-        loadHome(); // as a starting point
 
         String fullFileName = selectedFile.getName();
         // remove file ending .RGT for the displayed file name
@@ -198,18 +201,18 @@ public class MenuBarController {
         }
     }
 
-    public JFXButton getRMGroupButton(RMGroup rmGroup) {
-        switch (rmGroup) {
-            case SONG:
-                return songButton;
-            case STYLE:
-                return styleButton;
-            case VOICE:
-                return voiceButton;
-            default:
-                return null;
-        }
-    }
+//    public JFXButton getRMGroupButton(RMGroup rmGroup) {
+//        switch (rmGroup) {
+//            case SONG:
+//                return songButton;
+//            case STYLE:
+//                return styleButton;
+//            case VOICE:
+//                return voiceButton;
+//            default:
+//                return null;
+//        }
+//    }
 
     public void loadRegistrationMemoryContentGroup(RMGroup rmGroup) {
         String rmPath = rmGroup.toString();
@@ -234,7 +237,8 @@ public class MenuBarController {
 
 //		changeButtonActive(rmGroupButtonToActivate);
         try {
-            changeButtonActive(getNewButton(rmGroup));
+            changeButtonActive(getButtonForRMGroup(rmGroup));
+            currentRMGroup = rmGroup;
         } catch (NullPointerException e) {
             e.printStackTrace();
             System.err.println("Failed to get the button for the appropriate RMGroup. \n"
@@ -243,12 +247,16 @@ public class MenuBarController {
         currentRMGroup = rmGroup;
     }
 
-    private JFXButton getNewButton(RMGroup rmGroup) {
+    /**
+     * @param rmGroup the Registration Memory Content Group
+     * @return the button responsible for the given rmGroup
+     */
+    private JFXButton getButtonForRMGroup(RMGroup rmGroup) {
         switch (rmGroup) {
-            case STYLE:
-                return styleButton;
             case TITLE:
                 return homeButton;
+            case STYLE:
+                return styleButton;
             default:
                 return null;
         }
