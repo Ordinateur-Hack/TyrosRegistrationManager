@@ -62,7 +62,9 @@ public class FooterController {
                 // although at the beginning all buttons are disabled, buttons which don't store any data need to be
                 // disabled
                 // during runtime because they can be enabled when loading the second, third ... file.
-                prgButtons.get(i-1).setDisable(true);
+                // however the method initialize() is called beforehand which sets all buttons to disabled
+                // examine this behaviour later
+                // prgButtons.get(i-1).setDisable(true);
             }
         }
         currentPRG = prgs[0]; // first PRG-button as starting point
