@@ -99,6 +99,7 @@ public class MenuBarController {
 
         loadStructure();
 
+        // Show File Name
         String fullFileName = selectedFile.getName();
         // remove file ending .RGT for the displayed file name
         fileName.setText(fullFileName.substring(0, fullFileName.length() - 4));
@@ -234,13 +235,13 @@ public class MenuBarController {
         // to the Views extend EditorController!
 
 //		changeButtonActive(rmGroupButtonToActivate);
+        currentRMGroup = rmGroup;
         try {
             changeButtonActive(getButtonForRMGroup(rmGroup));
-            currentRMGroup = rmGroup;
         } catch (NullPointerException e) {
             e.printStackTrace();
             System.err.println("Failed to get the button for the appropriate RMGroup. \n"
-                    + "There is no button for this RMGroup.");
+                    + "There is no button for this RMGroup?");
         }
         currentRMGroup = rmGroup;
     }
