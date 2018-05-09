@@ -35,7 +35,7 @@ public class TitleEditor extends Editor {
     public void initTitle() {
         GPm gpmChunk = getGPmChunk(GPmType.REGISTRATION_NAME);
         String title = Converter.hexToAscii(gpmChunk.getHexData());
-        setTitle(title);
+        this.title = title;
     }
 
     public void setTitle(String title) {
