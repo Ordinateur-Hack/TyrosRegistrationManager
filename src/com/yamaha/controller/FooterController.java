@@ -44,6 +44,11 @@ public class FooterController {
         for (JFXButton prgButton : prgButtons)
             prgButton.setDisable(true);
 
+        // reset color
+        for (JFXButton prgButton : prgButtons) {
+            prgButton.setStyle("-fx-background-color: #29b6f6");
+        }
+
         // initResetButton();
     }
 
@@ -53,6 +58,8 @@ public class FooterController {
      * @param spffChunk the root element of the file structure
      */
     public void initPRG(SpfF spffChunk) {
+        initialize();
+
         prgs = new RegistrationProgram[8];
         for (int i = 1; i <= 8; i++) {
             prgs[i-1] = new RegistrationProgram(spffChunk, i); // link every PRG-button to a RegistrationProgram
