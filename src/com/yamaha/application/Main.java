@@ -21,7 +21,7 @@ public class Main extends Application {
     private static BorderPane rootPane = new BorderPane();
 
     // Create a static root (right side of the view) to pass to the controllers
-    private static BorderPane editorsPane = new BorderPane();
+    private static BorderPane rightPane = new BorderPane();
 
     private static FXMLLoader menuBarLoader;
     private static FXMLLoader footerLoader;
@@ -52,20 +52,16 @@ public class Main extends Application {
             AnchorPane menuBar = menuBarLoader.load();
             rootPane.setLeft(menuBar);
 
-            editorsPane = new BorderPane();
+            rightPane = new BorderPane();
 
             // Set up the footer
             footerLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/Footer.fxml"));
             AnchorPane footer = footerLoader.load();
-            editorsPane.setBottom(footer);
+            rightPane.setBottom(footer);
 
-            // Set up the center
-            AnchorPane center = new AnchorPane();
-            center.setStyle("-fx-background-color: white");
-            // AnchorPane center = FXMLLoader.load(getClass().getResource("/com/yamaha/view/Home.fxml"));
-            editorsPane.setCenter(center);
+            loadEmptyEditorsPane();
 
-            rootPane.setRight(editorsPane);
+            rootPane.setRight(rightPane);
 
             // Set up the scene
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -111,8 +107,8 @@ public class Main extends Application {
     /**
      * @return the pane containing the editor for controllers to use
      */
-    public static BorderPane getEditorsPane() {
-        return editorsPane;
+    public static BorderPane getRightPane() {
+        return rightPane;
     }
 
     /**
@@ -134,6 +130,16 @@ public class Main extends Application {
      */
     public static FooterController getFooterController() {
         return footerLoader.getController();
+    }
+
+    /**
+     * Loads an empty pane for editors.
+     */
+    public static void loadEmptyEditorsPane() {
+        // Set up the center
+        AnchorPane center = new AnchorPane();
+        center.setStyle("-fx-background-color: white");
+        rightPane.setCenter(center);
     }
 
 //    public static void showResetUI(AnchorPane root) {
