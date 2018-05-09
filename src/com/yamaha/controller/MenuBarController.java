@@ -60,6 +60,7 @@ public class MenuBarController {
         // Disable most buttons
         for (JFXButton rmGroupButton : rmGroupButtons)
             rmGroupButton.setDisable(true);
+        homeButton.setDisable(true);
         saveButton.setDisable(true);
     }
 
@@ -91,6 +92,7 @@ public class MenuBarController {
         this.file = selectedFile;
 
         loadStructure();
+        loadHome(); // as a starting point
 
         String fullFileName = selectedFile.getName();
         // remove file ending .RGT for the displayed file name
@@ -206,16 +208,24 @@ public class MenuBarController {
     public void loadRegistrationMemoryContentGroup(RMGroup rmGroup) {
         String rmPath = rmGroup.toString();
         rmPath = rmPath.charAt(0) + rmPath.substring(1).toLowerCase();
+        if (rmGroup == RMGroup.TITLE)
+            rmPath = "Home"; // This has to be done in order to guarantee consistency: the linked RMGroup is called
+        // TITLE and not HOME. The keyboard doesn't has something comparable to 'Home', this is only to provide the
+        // user with first information and an overview.
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + rmPath + ".fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/yamaha/view/" + rmPath + ".fxml"));
         AnchorPane loaderUI = null;
         try {
             loaderUI = loader.load();
         } catch (Exception e) {
+            System.err.println("Could not properly load the UI linked to the requested Registration Memory Content " +
+                    "Group");
             e.printStackTrace();
         }
-        Main.getRoot().setCenter(loaderUI);
-        ((EditorController) loader.getController()).updateUI();
+        Main.getEditorsPane().setCenter(loaderUI);
+        ((EditorController) loader.getController()).updateUI(); // it has to be ensured that all Controllers linked
+        // to the Views extend EditorController!
+
 //		changeButtonActive(rmGroupButtonToActivate);
         try {
             changeButtonActive(getNewButton(rmGroup));
@@ -292,7 +302,7 @@ public class MenuBarController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Main.getRoot().setCenter(voice);
+        Main.getEditorsPane().setCenter(voice);
         // initialize
         changeButtonActive(voiceButton);
         currentRMGroup = RMGroup.VOICE;
