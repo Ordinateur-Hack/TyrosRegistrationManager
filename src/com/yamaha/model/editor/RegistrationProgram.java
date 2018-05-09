@@ -28,10 +28,11 @@ public class RegistrationProgram {
     // has Registration Memory Content group
     // how to check if the registration button is empty or not? iterate through the BHd-chunks; simply check the length of the BHd-chunk
 
-    private int registrationNumber; // the number of the registration button (1-8)
+    private int registrationNumber; // the number of the registration button (in range 1 to 8)
     private BHd bhdChunk;
     private boolean isEmpty;
 
+    // Editors
     private TitleEditor titleEditor;
     private StyleEditor styleEditor;
     // private VoiceEditor voice;
@@ -48,9 +49,9 @@ public class RegistrationProgram {
         this.registrationNumber = registrationNumber;
 
         bhdChunk = spffChunk.getBHdChunks().get(registrationNumber); // index 0 is bhdChunk for sequence, so BHd-chunk for first button is at index 1
-        isEmpty = bhdChunk.getNumberOfDataBytes() == 0 ? true : false; // check if the RegistrationProgram contains data
+        isEmpty = bhdChunk.getNumberOfDataBytes() == 0; // check if the RegistrationProgram contains data
 
-        if (!isEmpty) {
+        if (!isEmpty) { // initialize the editors
             titleEditor = new TitleEditor(bhdChunk);
             // styleEditor = new StyleEditor(bhdChunk);
 
