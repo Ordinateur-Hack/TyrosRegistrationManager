@@ -8,6 +8,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -17,7 +18,10 @@ public class Main extends Application {
     private static Stage primaryStage;
 
     // Create a static root node to pass to the controllers
-    private static BorderPane root = new BorderPane();
+    private static BorderPane rootPane = new BorderPane();
+
+    // Create a static root (right side of the view) to pass to the controllers
+    private static BorderPane editorsPane = new BorderPane();
 
     private static FXMLLoader menuBarLoader;
     private static FXMLLoader footerLoader;
@@ -46,26 +50,28 @@ public class Main extends Application {
             // Set up the menu bar
             menuBarLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/MenuBar.fxml"));
             AnchorPane menuBar = menuBarLoader.load();
-            root.setLeft(menuBar);
+            rootPane.setLeft(menuBar);
 
-            BorderPane right = new BorderPane();
+            editorsPane = new BorderPane();
 
             // Set up the footer
             footerLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/Footer.fxml"));
             AnchorPane footer = footerLoader.load();
-            right.setBottom(footer);
+            editorsPane.setBottom(footer);
 
             // Set up the center
-            AnchorPane center = FXMLLoader.load(getClass().getResource("/com/yamaha/view/Home.fxml"));
-            right.setCenter(center);
+            AnchorPane center = new AnchorPane();
+            center.setStyle("-fx-background-color: white");
+            // AnchorPane center = FXMLLoader.load(getClass().getResource("/com/yamaha/view/Home.fxml"));
+            editorsPane.setCenter(center);
 
-            root.setRight(right);
+            rootPane.setRight(editorsPane);
 
             // Set up the scene
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
             double width = bounds.getWidth() * 18 / 32;
             double height = bounds.getHeight() * 20 / 32;
-            Scene scene = new Scene(root, width, height);
+            Scene scene = new Scene(rootPane, width, height);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
             // Set up the stage
@@ -96,10 +102,17 @@ public class Main extends Application {
     }
 
     /**
-     * @return the root node for controllers to use
+     * @return the root pane for controllers to use
      */
-    public static BorderPane getRoot() {
-        return root;
+    public static BorderPane getRootPane() {
+        return rootPane;
+    }
+
+    /**
+     * @return the pane containing the editor for controllers to use
+     */
+    public static BorderPane getEditorsPane() {
+        return editorsPane;
     }
 
     /**
