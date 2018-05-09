@@ -69,6 +69,8 @@ public class MenuBarController {
      */
     @FXML
     public void loadFile() {
+        System.out.println("<<< MenuBarController: Load a file ...");
+
         // Set up the fileChooser
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load .RGT file");
@@ -97,10 +99,14 @@ public class MenuBarController {
         String fullFileName = selectedFile.getName();
         // remove file ending .RGT for the displayed file name
         fileName.setText(fullFileName.substring(0, fullFileName.length() - 4));
-        for (JFXButton groupButton : rmGroupButtons)
-            groupButton.setDisable(true);
-        saveButton.setDisable(false); // from now on: save Button stays active all the time
+        for (JFXButton rmgroupButton : rmGroupButtons)
+            rmgroupButton.setDisable(true);
+        // from now on: saveButton and homeButton stay active all the time
+        homeButton.setDisable(false);
+        saveButton.setDisable(false);
 
+        System.out.println("Loaded file successfully >>>");
+        System.out.println();
     }
 
     /**
@@ -279,8 +285,6 @@ public class MenuBarController {
 //		((StyleController) styleLoader.getController()).updateUI();
 //		changeButtonActive(styleButton);
 //		currentRMGroup = RMGroup.STYLE;
-
-
         loadRegistrationMemoryContentGroup(RMGroup.STYLE);
     }
 
