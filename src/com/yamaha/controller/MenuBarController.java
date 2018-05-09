@@ -104,9 +104,7 @@ public class MenuBarController {
         fileName.setText(fullFileName.substring(0, fullFileName.length() - 4));
         for (JFXButton rmgroupButton : rmGroupButtons)
             rmgroupButton.setDisable(true);
-        // from now on: saveButton and homeButton stay active all the time
-        homeButton.setDisable(false);
-        saveButton.setDisable(false);
+        saveButton.setDisable(false); // from now on: saveButton stays active all the time
 
         System.out.println("Loaded file successfully >>>");
         System.out.println();
@@ -260,6 +258,15 @@ public class MenuBarController {
             default:
                 return null;
         }
+    }
+
+    /**
+     * Enables or disables the button associated with the given rmGroup.
+     * @param rmGroup the Registration Memory Content group
+     * @param enabled indicated whether the button should be enabled or disabled
+     */
+    public void enableRMGroupButton(RMGroup rmGroup, boolean enabled) {
+        getButtonForRMGroup(rmGroup).setDisable(!enabled);
     }
 
     @FXML
