@@ -5,7 +5,7 @@ import com.yamaha.application.Main;
 import com.yamaha.model.editor.TitleEditor;
 import javafx.fxml.FXML;
 
-public class HomeController extends EditorController{
+public class HomeController extends EditorController {
 
     private TitleEditor titleEditor;
 
@@ -14,18 +14,13 @@ public class HomeController extends EditorController{
 
     @FXML
     public void initialize() {
-        addListeners();
+        registrationButtonName.textProperty().addListener(change ->
+                titleEditor.setTitle(registrationButtonName.getText()));
     }
 
     public void updateUI() {
         titleEditor = Main.getFooterController().getCurrentPRG().getTitleEditor();
         registrationButtonName.setText(titleEditor.getTitle());
-    }
-
-    private void addListeners() {
-        registrationButtonName.textProperty().addListener(change -> {
-            titleEditor.setTitle(registrationButtonName.getText());
-        });
     }
 
 }
