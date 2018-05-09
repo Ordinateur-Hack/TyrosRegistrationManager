@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class RGTParser {
 
     private static String fileData;
-    private static SpfF spffChunk = new SpfF(); // the root element of the file, the topmost element of the logical
+    private static SpfF spffChunk; // the root element of the file, the topmost element of the logical
     // hierarchy
 
     /**
@@ -127,6 +127,7 @@ public class RGTParser {
      * the BHd- and GPm-chunks
      */
     public static SpfF parseFileData(String fileData) {
+        spffChunk = new SpfF();
         RGTParser.fileData = fileData;
         // the following order of method calls is very important to maintain the logical hierarchy!
         // (1 SpfF-chunk --> 9 BHd-chunks --> several GPm-chunks except for first BHd-chunks)
