@@ -91,7 +91,7 @@ public class FooterController {
         if (!currentPRG.hasRMGroup(currentRMGroup))
             menuBarController.loadHome();
         else
-            menuBarController.loadRegistrationMemoryContentGroup(currentRMGroup);
+            menuBarController.loadRMGroup(currentRMGroup);
 
         // find another solution for this one here
         // menuBarController.getRMGroupButton(RMGroup.STYLE).setDisable(!currentPRG.hasRMGroup(RMGroup.STYLE));

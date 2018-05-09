@@ -212,7 +212,7 @@ public class MenuBarController {
 //        }
 //    }
 
-    public void loadRegistrationMemoryContentGroup(RMGroup rmGroup) {
+    public void loadRMGroup(RMGroup rmGroup) {
         String rmPath = rmGroup.toString();
         rmPath = rmPath.charAt(0) + rmPath.substring(1).toLowerCase();
         if (rmGroup == RMGroup.TITLE)
@@ -282,7 +282,7 @@ public class MenuBarController {
 //		((HomeController) homeLoader.getController()).updateUI();
 //		changeButtonActive(homeButton);
 //		currentRMGroup = RMGroup.TITLE;
-        loadRegistrationMemoryContentGroup(RMGroup.TITLE);
+        loadRMGroup(RMGroup.TITLE);
     }
 
     @FXML
@@ -300,7 +300,7 @@ public class MenuBarController {
 //		((StyleController) styleLoader.getController()).updateUI();
 //		changeButtonActive(styleButton);
 //		currentRMGroup = RMGroup.STYLE;
-        loadRegistrationMemoryContentGroup(RMGroup.STYLE);
+        loadRMGroup(RMGroup.STYLE);
     }
 
     public StyleController getStyleController() {
