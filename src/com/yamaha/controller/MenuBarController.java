@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MenuBarController {
 
-    private SpfF spffChunk = new SpfF(); // the root element of the file, the topmost element of the logical hierarchy
+    private SpfF spffChunk; // the root element of the file, the topmost element of the logical hierarchy
     private File file;
     private String fileData;
     private RMGroup currentRMGroup;
@@ -33,8 +33,10 @@ public class MenuBarController {
     @FXML
     private JFXButton homeButton;
     @FXML
+    // Load button calls 'loadFile' on action
     private JFXButton saveButton;
-    // Registration Memory Content Groups
+
+    // Registration Memory Content Groups:
     @FXML
     private JFXButton songButton;
     @FXML
@@ -50,16 +52,21 @@ public class MenuBarController {
      */
     @FXML
     public void initialize() {
+        rmGroupButtons = Arrays.asList(songButton, styleButton, voiceButton); // extend later!
         // Set Home button as starting point
         currentButton = homeButton;
-        changeButtonActive(homeButton);
+        currentRMGroup = RMGroup.TITLE;
 
-        rmGroupButtons = Arrays.asList(songButton, styleButton, voiceButton); // extend later!
+        // changeButtonActive(homeButton);
 
         // Disable most buttons
-        for (JFXButton groupButton : rmGroupButtons)
-            groupButton.setDisable(true);
+        for (JFXButton rmGroupButton : rmGroupButtons)
+            rmGroupButton.setDisable(true);
+        homeButton.setDisable(true);
         saveButton.setDisable(true);
+
+        Main.loadEmptyEditorsPane();
+        currentButton.setStyle("-fx-background-color: transparent");
     }
 
     /**
@@ -67,6 +74,9 @@ public class MenuBarController {
      */
     @FXML
     public void loadFile() {
+        initialize(); // manual initialization needed when second file is loaded
+        System.out.println("<<< MenuBarController: Load a file ...");
+
         // Set up the fileChooser
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load .RGT file");
@@ -83,21 +93,57 @@ public class MenuBarController {
             Alert alert = FXUtil.createAlert(Alert.AlertType.WARNING, 15, "You canceled the load file task. If you " +
                     "have " +
                     "already load one file, the program will continue working with this file.");
-            alert.setTitle("File Warning");
+            alert.setTitle("Warning");
             alert.setHeaderText("No File Selected");
             alert.showAndWait();
         }
-        this.file = selectedFile;
+        file = selectedFile;
 
         loadStructure();
 
+        // Show File Name
         String fullFileName = selectedFile.getName();
         // remove file ending .RGT for the displayed file name
         fileName.setText(fullFileName.substring(0, fullFileName.length() - 4));
-        for (JFXButton groupButton : rmGroupButtons)
-            groupButton.setDisable(true);
-        saveButton.setDisable(false); // from now on: save Button stays active all the time
+        for (JFXButton rmGroupButton : rmGroupButtons)
+            rmGroupButton.setDisable(true);
+        saveButton.setDisable(false); // from now on: saveButton stays active all the time
 
+        System.out.println("Loaded file successfully >>>");
+        System.out.println();
+    }
+
+    /**
+     * Initializes the file:<br>
+     * Extracts the hex code, parses it and sets up the PRG buttons.
+     */
+    private void loadStructure() {
+        try {
+            fileData = FileHandler.convertFileToHex(file);
+        } catch (IOException e) {
+            System.err.println("No file found by the system while trying to convert it to hex code.");
+            e.printStackTrace();
+            Alert alert = FXUtil.createAlert(Alert.AlertType.ERROR, 15, "The File could not be found by the system. " +
+                    "Please try this again.");
+            alert.showAndWait();
+            alert.setOnCloseRequest(event -> loadFile());
+        }
+        try {
+            spffChunk = RGTParser.parseFileData(fileData);
+        } catch (Exception e) {
+            System.err.println("Could not properly parse the file data.");
+            e.printStackTrace();
+            Alert alert = FXUtil.createAlert(Alert.AlertType.ERROR, 15, "The selected file could not properly be " +
+                    "parsed. Please check if it is a valid .RGT-file.");
+            alert.showAndWait();
+            alert.setOnCloseRequest(event -> loadFile());
+        }
+        try {
+            Main.getFooterController().initPRG(spffChunk);
+        } catch (Exception e) {
+            System.err.println("Could not properly set up the PRG buttons.");
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -140,7 +186,7 @@ public class MenuBarController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Error when transfer the properties from the editors to the chunk's structure.");
+            System.err.println("Error while transferring the properties from the editors to the chunk's structure.");
         }
 //		styleController.rebindCriticalBindings();
 
@@ -156,81 +202,90 @@ public class MenuBarController {
         }
     }
 
-    /**
-     * Initializes the file:<br>
-     * Extracts the hex code, parses it and sets up the PRG buttons.
-     */
-    private void loadStructure() {
-        try {
-            fileData = FileHandler.convertFileToHex(file);
-        } catch (IOException e) {
-            System.err.println("No file found by the system while trying to convert it to hex code.");
-            e.printStackTrace();
-            Alert alert = FXUtil.createAlert(Alert.AlertType.ERROR, 15, "The File could not be found by the system. " +
-                    "Please try this again.");
-            alert.showAndWait();
-            alert.setOnCloseRequest(event -> loadFile());
-        }
-        try {
-            RGTParser.parseFileData(fileData, spffChunk);
-        } catch (Exception e) {
-            System.err.println("Could not properly parse the file data.");
-            e.printStackTrace();
-        }
-        try {
-            Main.getFooterController().initPRG(spffChunk);
-        } catch (Exception e) {
-            System.err.println("Could not properly set up the PRG buttons.");
-            e.printStackTrace();
-        }
-    }
+//    public JFXButton getRMGroupButton(RMGroup rmGroup) {
+//        switch (rmGroup) {
+//            case SONG:
+//                return songButton;
+//            case STYLE:
+//                return styleButton;
+//            case VOICE:
+//                return voiceButton;
+//            default:
+//                return null;
+//        }
+//    }
 
-    public JFXButton getRMGroupButton(RMGroup rmGroup) {
-        switch (rmGroup) {
-            case SONG:
-                return songButton;
-            case STYLE:
-                return styleButton;
-            case VOICE:
-                return voiceButton;
-            default:
-                return null;
-        }
-    }
-
-    public void loadRegistrationMemoryContentGroup(RMGroup rmGroup) {
+    public void loadRMGroup(RMGroup rmGroup) {
         String rmPath = rmGroup.toString();
         rmPath = rmPath.charAt(0) + rmPath.substring(1).toLowerCase();
+        if (rmGroup == RMGroup.TITLE)
+            rmPath = "Home"; // This has to be done in order to guarantee consistency: the linked RMGroup is called
+        // TITLE and not HOME. The keyboard doesn't has something comparable to 'Home', this is only to provide the
+        // user with first information and an overview.
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + rmPath + ".fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/yamaha/view/" + rmPath + ".fxml"));
         AnchorPane loaderUI = null;
         try {
             loaderUI = loader.load();
         } catch (Exception e) {
+            System.err.println("Could not properly load the UI linked to the requested Registration Memory Content " +
+                    "Group");
             e.printStackTrace();
         }
-        Main.getRoot().setCenter(loaderUI);
-        ((EditorController) loader.getController()).updateUI();
+        Main.getRightPane().setCenter(loaderUI);
+        ((EditorController) loader.getController()).updateUI(); // it has to be ensured that all Controllers linked
+        // to the Views extend EditorController!
+
 //		changeButtonActive(rmGroupButtonToActivate);
+        currentRMGroup = rmGroup;
         try {
-            changeButtonActive(getNewButton(rmGroup));
+            changeButtonActive(getButtonForRMGroup(rmGroup));
         } catch (NullPointerException e) {
             e.printStackTrace();
             System.err.println("Failed to get the button for the appropriate RMGroup. \n"
-                    + "There is no button for this RMGroup.");
+                    + "There is no button for this RMGroup?");
         }
         currentRMGroup = rmGroup;
     }
 
-    private JFXButton getNewButton(RMGroup rmGroup) {
+    /**
+     * @param rmGroup the Registration Memory Content Group
+     * @return the button responsible for the given rmGroup
+     */
+    private JFXButton getButtonForRMGroup(RMGroup rmGroup) {
         switch (rmGroup) {
-            case STYLE:
-                return styleButton;
             case TITLE:
                 return homeButton;
+            case STYLE:
+                return styleButton;
             default:
                 return null;
         }
+    }
+
+    /**
+     * Enables or disables the button associated with the given rmGroup.
+     * @param rmGroup the Registration Memory Content group
+     * @param enabled indicated whether the button should be enabled or disabled
+     */
+    public void enableRMGroupButton(RMGroup rmGroup, boolean enabled) {
+        getButtonForRMGroup(rmGroup).setDisable(!enabled);
+    }
+
+    @FXML
+    public void loadHome() {
+//		FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
+//		AnchorPane home = null;
+//		try {
+//			home = homeLoader.load();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		Main.getRoot().setCenter(home);
+//		((HomeController) homeLoader.getController()).updateUI();
+//		changeButtonActive(homeButton);
+//		currentRMGroup = RMGroup.TITLE;
+        loadRMGroup(RMGroup.TITLE);
     }
 
     @FXML
@@ -248,9 +303,7 @@ public class MenuBarController {
 //		((StyleController) styleLoader.getController()).updateUI();
 //		changeButtonActive(styleButton);
 //		currentRMGroup = RMGroup.STYLE;
-
-
-        loadRegistrationMemoryContentGroup(RMGroup.STYLE);
+        loadRMGroup(RMGroup.STYLE);
     }
 
     public StyleController getStyleController() {
@@ -271,26 +324,10 @@ public class MenuBarController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Main.getRoot().setCenter(voice);
+        Main.getRightPane().setCenter(voice);
         // initialize
         changeButtonActive(voiceButton);
         currentRMGroup = RMGroup.VOICE;
-    }
-
-    @FXML
-    public void loadHome() {
-//		FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
-//		AnchorPane home = null;
-//		try {
-//			home = homeLoader.load();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		Main.getRoot().setCenter(home);
-//		((HomeController) homeLoader.getController()).updateUI();
-//		changeButtonActive(homeButton);
-//		currentRMGroup = RMGroup.TITLE;
-        loadRegistrationMemoryContentGroup(RMGroup.TITLE);
     }
 
     /**
@@ -300,8 +337,9 @@ public class MenuBarController {
      * @param newButton the new active button
      */
     private void changeButtonActive(JFXButton newButton) {
+        // Set old button
         currentButton.setStyle("-fx-background-color: transparent");
-        // set new Button
+        // Set new Button
         currentButton = newButton;
         currentButton.setStyle("-fx-background-color: #053B82");
     }

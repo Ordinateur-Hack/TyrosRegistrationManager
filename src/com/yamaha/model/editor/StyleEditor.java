@@ -140,7 +140,7 @@ public class StyleEditor extends Editor {
 
 
     public StyleEditor(BHd bhdChunk) {
-        this.bhdChunk = bhdChunk;
+        super(bhdChunk);
         // exception handling for wrong registrationNumber
         // first: check whether there are any style information on the current registration button
         // initProperties();
@@ -256,7 +256,7 @@ public class StyleEditor extends Editor {
 
     public void transferStylePartProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        gpmChunk.changeHexData(StyleFunction.STYLE_PART.getDataBytePosition(), Formatter.formatIntToHex(getStylePart().getRepresentationNumber(), 1));
+        gpmChunk.changeHexDataByte(StyleFunction.STYLE_PART.getDataBytePosition(), Formatter.formatIntToHex(getStylePart().getRepresentationNumber(), 1));
     }
 
 
@@ -308,7 +308,7 @@ public class StyleEditor extends Editor {
     public void transferFingeringTypeProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         String hexFingeringType = Formatter.formatIntToHex(getFingeringType().getRepresentationNumber(), 1);
-        gpmChunk.changeHexData(StyleFunction.FINGERING_TYPE.getDataBytePosition(), hexFingeringType);
+        gpmChunk.changeHexDataByte(StyleFunction.FINGERING_TYPE.getDataBytePosition(), hexFingeringType);
     }
 
 
@@ -486,7 +486,7 @@ public class StyleEditor extends Editor {
         // upload channelCombination (hex value representation)
         channelCombination = Formatter.formatIntToHex(channelCombinationNumber, 1);
         // upload the data of the gpmChunk
-        gpmChunk.changeHexData(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition(), channelCombination);
+        gpmChunk.changeHexDataByte(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition(), channelCombination);
         setChannelEnabled(styleChannel, isChannelActive);
     }
 

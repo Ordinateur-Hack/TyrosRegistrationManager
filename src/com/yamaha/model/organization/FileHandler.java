@@ -29,6 +29,7 @@ public class FileHandler {
     }
 
     /**
+     * Writes data to a given file.
      * @param file the file to which the hex code is written
      * @param hexData the hex code that is written to the file
      * @throws IOException if the file cannot be found (if an I/O error occurs)

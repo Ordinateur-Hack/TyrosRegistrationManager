@@ -6,25 +6,28 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
     private static Stage primaryStage;
 
     // Create a static root node to pass to the controllers
-    private static BorderPane root = new BorderPane();
+    private static BorderPane rootPane = new BorderPane();
+
+    // Create a static root (right side of the view) to pass to the controllers
+    private static BorderPane rightPane = new BorderPane();
 
     private static FXMLLoader menuBarLoader;
     private static FXMLLoader footerLoader;
 
     public static void main(String[] args) {
-         launch(args);
+        launch(args);
     }
 
     @Override
@@ -32,7 +35,7 @@ public class Main extends Application {
         /* Basic layout
         ----------------------------------
         |   ||                           |
-        |   ||                           |4
+        |   ||                           |
         |   ||                           |
         |   ||                           |
         |   ||                           |
@@ -42,33 +45,38 @@ public class Main extends Application {
         ----------------------------------
          */
         try {
+            System.out.println("<<<< Set up layout ...");
+
             // Set up the menu bar
             menuBarLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/MenuBar.fxml"));
             AnchorPane menuBar = menuBarLoader.load();
-            root.setLeft(menuBar);
+            rootPane.setLeft(menuBar);
 
-            BorderPane right = new BorderPane();
+            rightPane = new BorderPane();
 
             // Set up the footer
             footerLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/Footer.fxml"));
             AnchorPane footer = footerLoader.load();
-            right.setBottom(footer);
+            rightPane.setBottom(footer);
 
-            // Set up the center
-            AnchorPane center = FXMLLoader.load(getClass().getResource("/com/yamaha/view/Title.fxml"));
-            right.setCenter(center);
+            loadEmptyEditorsPane();
 
-            root.setRight(right);
+            rootPane.setRight(rightPane);
 
             // Set up the scene
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-            double width = bounds.getWidth() * 18/32;
-            double height = bounds.getHeight() * 20/32;
-            Scene scene = new Scene(root, width, height);
+            double width = bounds.getWidth() * 18 / 32;
+            double height = bounds.getHeight() * 20 / 32;
+            Scene scene = new Scene(rootPane, width, height);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
             // Set up the stage
-            primaryStage.setMinWidth(1200); primaryStage.setMinHeight(700);
+//            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_big.jpg"));
+            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_small.jpg"));
+//            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_medium.jpg"));
+//            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_verySmall.jpg"));
+            primaryStage.setMinWidth(1100);
+            primaryStage.setMinHeight(700);
             // instead of primaryStage.centerOnScreen();
             // see discussion: https://stackoverflow.com/questions/29558449/javafx-center-stage-on-screen
             primaryStage.setX((bounds.getWidth() - width) / 2);
@@ -79,6 +87,10 @@ public class Main extends Application {
             Main.primaryStage = primaryStage;
             primaryStage.show();
 
+            System.out.println("Set up layout successfully >>>>");
+            System.out.println();
+
+
         } catch (Exception e) {
             System.err.println("Could not properly set up the window.");
             e.printStackTrace();
@@ -86,16 +98,21 @@ public class Main extends Application {
     }
 
     /**
-     * Returns the root node for controllers to use.
-     * @return the root node
+     * @return the root pane for controllers to use
      */
-    public static BorderPane getRoot() {
-        return root;
+    public static BorderPane getRootPane() {
+        return rootPane;
     }
 
     /**
-     * Returns the primaryStage passed into the start() method.
-     * @return the primaryStage
+     * @return the pane containing the editor for controllers to use
+     */
+    public static BorderPane getRightPane() {
+        return rightPane;
+    }
+
+    /**
+     * @return the primaryStage passed into the start() method
      */
     public static Stage getPrimaryStage() {
         return primaryStage;
@@ -109,10 +126,20 @@ public class Main extends Application {
     }
 
     /**
-     * @return the footer controller
+     * @return the controller for the footer
      */
     public static FooterController getFooterController() {
         return footerLoader.getController();
+    }
+
+    /**
+     * Loads an empty pane for editors.
+     */
+    public static void loadEmptyEditorsPane() {
+        // Set up the center
+        AnchorPane center = new AnchorPane();
+        center.setStyle("-fx-background-color: white");
+        rightPane.setCenter(center);
     }
 
 //    public static void showResetUI(AnchorPane root) {

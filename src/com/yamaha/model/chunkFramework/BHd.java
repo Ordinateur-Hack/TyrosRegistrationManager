@@ -1,5 +1,7 @@
 package com.yamaha.model.chunkFramework;
 
+import com.yamaha.model.Formatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,24 +16,24 @@ import java.util.List;
 public class BHd extends Chunk {
 
     public static final String CHUNK_ID = "424864"; // hex code for "BHd" (ASCII coded)
-    private List<GPm> gpmChunks = new ArrayList<>(); // hierarchy: a BHd-chunk owns several GPm-chunks
+    private ArrayList<GPm> gpmChunks = new ArrayList<>(); // hierarchy: a BHd-chunk owns several GPm-chunks
 
     /**
      * Returns a list of subordinated GPm-chunks.
      * @return the subordinated GPm-chunks.
      */
-    public List<GPm> getGPmChunks() {
+    public ArrayList<GPm> getGPmChunks() {
         return gpmChunks;
     }
 
     @Override
     public String toString() {
-        return "BHd Chunk\t" + "Type: " + hexType + "\tNumberOfDataBytes: " + numberOfDataBytes
+        return "BHd Chunk\tType: " + hexType + "\tNumberOfDataBytes: " + numberOfDataBytes
                 + "\tData: " + hexData;
     }
 
     public String toHexString() {
-        return BHd.CHUNK_ID + getHexType() + toHexNumberOfDataBytesString() + getHexData();
+        return BHd.CHUNK_ID + getHexType() + Formatter.formatIntToHex(numberOfDataBytes, 2) + getHexData();
     }
 
 }

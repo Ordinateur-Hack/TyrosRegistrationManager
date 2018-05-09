@@ -10,13 +10,12 @@ public class TitleEditor extends Editor {
     String title;
 
     public TitleEditor(BHd bhdChunk) {
-        this.bhdChunk = bhdChunk;
-        initProperties();
+        super(bhdChunk);
     }
 
     @Override
     public boolean isRepresented() {
-        return getGPmChunk(GPmType.REGISTRATION_NAME) != null ? true : false;
+        return getGPmChunk(GPmType.REGISTRATION_NAME) != null;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class TitleEditor extends Editor {
     public void initTitle() {
         GPm gpmChunk = getGPmChunk(GPmType.REGISTRATION_NAME);
         String title = Converter.hexToAscii(gpmChunk.getHexData());
-        setTitle(title);
+        this.title = title;
     }
 
     public void setTitle(String title) {

@@ -13,17 +13,20 @@ import com.yamaha.model.chunkFramework.GPmType;
  * this with the controls for the UI. The "basic controls" in the editor are used
  * by its subclasses of to easily manipulate values for controls on the keyboard
  * (e. g. on the keyboard there are several slide controls etc.).
+ *
  * @author Dominic Plein
  * @version 1.0
  */
 public abstract class Editor {
 
-    //	protected SpfF spffChunk; // the root of the hierarchy, needed to get the BHd and GPm-chunks and to manipulate them
+    //	protected SpfF spffChunk; // the root of the hierarchy, needed to get the BHd and GPm-chunks and to manipulate
+    // them
     protected BHd bhdChunk;
     protected int registrationNumber; // the number of the registration button: 1-8
 
-    public Editor() {
-//		spffChunk = new SpfF(); // create a new, empty SpfF-chunk that is filled up via the RGTParser
+    public Editor(BHd bhdChunk) {
+        this.bhdChunk = bhdChunk;
+        initProperties();
     }
 
 //	/**
@@ -38,14 +41,15 @@ public abstract class Editor {
      * Searches in the BHd-chunk of the given registration number (registration button)
      * and returns the GPm-chunk of the given GPmType. This method might return null
      * if there is no corresponding GPm-chunk in the BHd-chunk.
+     *
      * @param registrationNumber the registration number (number of the registration button)
-     * @param gpmType the GPmType to specify which GPm-chunk to return
+     * @param gpmType            the GPmType to specify which GPm-chunk to return
      * @return the searched GPm-chunk if it exists
      */
     public GPm getGPmChunk(GPmType gpmType) {
         GPm gpmChunk = null;
         for (GPm currentGPmChunk : bhdChunk.getGPmChunks()) {
-            if (currentGPmChunk.getType().equals(gpmType.name())) {
+            if (currentGPmChunk.getGPmType() == gpmType) {
                 gpmChunk = currentGPmChunk;
             }
         }
@@ -53,9 +57,10 @@ public abstract class Editor {
     }
 
     /**
-     * Returns if this Registration Memory Contents Group, e. g. Style, Voice, Song etc. (subclasses of Editor), is represented in the BHdChunk, meaning the registration button.
-     * True if the BHdChunk contains the GPmChunks for this specific Registration Memory Contents Group.
-     * @return true if this Registration Memory Contents Group is represented in the BHdChunk
+     * Returns if this Registration Memory Content Group, e. g. Style, Voice, Song etc. (subclasses of Editor), is
+     * represented in the BHdChunk, meaning the registration button.
+     *
+     * @return true if the Registration Memory Content Group linked to this editor is represented in the BHdChunk
      * @see RegistrationProgram
      */
     public abstract boolean isRepresented();
@@ -77,24 +82,29 @@ public abstract class Editor {
     // GENERAL CONTROLS (used in subclasses of editor)
 
     // On/Off toggle button
+
     /**
      * Represents an on/off toggle button on the keyboard.
      * Sets the data of a specified GPm-chunk to "active" or "disabled", thus
      * it can activate or disable a keyboard function.
-     * @param gpmChunk the GPm-chunk to be manipulated
-     * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents the on/off toggle button
-     * @param isActive true if the functionality is activated, determines the state of the functionality (on/off)
+     *
+     * @param gpmChunk           the GPm-chunk to be manipulated
+     * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents the on/off toggle
+     *                           button
+     * @param isActive           true if the functionality is activated, determines the state of the functionality
+     *                           (on/off)
      */
     public void setEnabled(GPm gpmChunk, int positionOfDataByte, boolean isActive) {
         String hexData = isActive ? "7F" : "00";
-        gpmChunk.changeHexData(positionOfDataByte, hexData);
+        gpmChunk.changeHexDataByte(positionOfDataByte, hexData);
     }
 
     /**
      * Returns what the state of a keyboard functionality would be
      * if the data contained the given isActiveValue as a hex value.
+     *
      * @param isActiveValue the hex value of the data byte which determines if a keyboard
-     * functionality is activated or disabled.
+     *                      functionality is activated or disabled.
      * @return true if, and only if the isActiveValue represents the "activated value" ("7F") for
      * keyboard functionalities with two states (on/off).
      */
@@ -110,16 +120,19 @@ public abstract class Editor {
     }
 
     // Slide control
+
     /**
      * Represents a slide control on the keyboard.
      * Sets the value of this slide control.
-     * @param gpmChunk the GPm-chunk to be manipulated
+     *
+     * @param gpmChunk           the GPm-chunk to be manipulated
      * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents a slide control
-     * @param value the value this slide control is set to (usually within the range of 0 to 127, sometimes: 1 to 127)
+     * @param value              the value this slide control is set to (usually within the range of 0 to 127,
+     *                           sometimes: 1 to 127)
      */
     public void setValueSlideControl(GPm gpmChunk, int positionOfDataByte, int value) {
         // exception handling if value < 0 || value > 127
-        gpmChunk.changeHexData(positionOfDataByte, Formatter.formatIntToHex(value, 1 /* one byte used */));
+        gpmChunk.changeHexDataByte(positionOfDataByte, Formatter.formatIntToHex(value, 1 /* one byte used */));
     }
 
     /**
@@ -127,8 +140,9 @@ public abstract class Editor {
      * if the data contained the given hex value.
      * (Basically this method just converts the hex value to
      * an Integer.)
+     *
      * @param value the hex value of the data byte which determines
-     * the value of a slide control
+     *              the value of a slide control
      * @return what the value of a slide control would be with the given input hex value
      */
     public int getValueSlideControl(String value) {
@@ -136,17 +150,20 @@ public abstract class Editor {
     }
 
     // Spin control
+
     /**
      * Represents a spin control on the keyboard.
      * Sets the value of this spin control.
-     * @param gpmChunk the GPm-chunk to be manipulated
+     *
+     * @param gpmChunk           the GPm-chunk to be manipulated
      * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents a spin control
-     * @param value the value this spin control is set to (usually within the range of -64 to +63, sometimes: -63 to +63)
+     * @param value              the value this spin control is set to (usually within the range of -64 to +63,
+     *                           sometimes: -63 to +63)
      */
     public void setValueSpinControl(GPm gpmChunk, int positionOfDataByte, int value) {
         // exception handling if value < -64 || value > 63
         String hexValue = Formatter.formatIntToHex(value + 64, 1 /* one byte used */);
-        gpmChunk.changeHexData(positionOfDataByte, hexValue);
+        gpmChunk.changeHexDataByte(positionOfDataByte, hexValue);
     }
 
     /**
@@ -154,8 +171,9 @@ public abstract class Editor {
      * if the data contained the given hex value.
      * (Basically this method just converts the hex value to
      * an Integer.)
+     *
      * @param value the hex value of the data byte which determines
-     * the value of a spin control
+     *              the value of a spin control
      * @return what the value of a spin control would be with the given input hex value
      */
     public int getValueSpinControl(String value) {
@@ -163,20 +181,23 @@ public abstract class Editor {
     }
 
     // "Change Byte" Indicator
+
     /**
      * Represents a "Change Byte". This byte of a GPm-chunk indicates whether a related property has changed.
      * <p>NOTE: This "Change Byte" hasn't been fully examined.
-     * @param gpmChunk the GPm-chunk to be manipulated
+     *
+     * @param gpmChunk           the GPm-chunk to be manipulated
      * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents the "change byte"
-     * @param hasChanged true if the related property has changed
+     * @param hasChanged         true if the related property has changed
      */
     public void setChanged(GPm gpmChunk, int positionOfDataByte, boolean hasChanged) {
         String hexData = hasChanged ? "FF" : "00";
-        gpmChunk.changeHexData(positionOfDataByte, hexData);
+        gpmChunk.changeHexDataByte(positionOfDataByte, hexData);
     }
 
     /**
      * Returns if the given hex value of the "change byte" stands for a change or not.
+     *
      * @param hasChanged the hex value of the "change byte"
      * @return true if the hex value represents a change
      */
