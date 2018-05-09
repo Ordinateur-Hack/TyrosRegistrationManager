@@ -60,8 +60,7 @@ public class FooterController {
                 prgButtons.get(i-1).setDisable(false);
             } else {
                 // although at the beginning all buttons are disabled, buttons which don't store any data need to be
-                // disabled
-                // during runtime because they can be enabled when loading the second, third ... file.
+                // disabled during runtime because they can be enabled when loading the second, third ... file.
                 prgButtons.get(i-1).setDisable(true);
             }
         }
@@ -87,7 +86,7 @@ public class FooterController {
      */
     private void initMenuBarControls() {
         MenuBarController menuBarController = Main.getMenuBarController();
-        RMGroup currentRMGroup = menuBarController.getCurrentRMGroup(); // the RMGroup before changing the PRG
+        RMGroup currentRMGroup = menuBarController.getCurrentRMGroup(); // last RMGroup before changing the PRG
 
         if (!currentPRG.hasRMGroup(currentRMGroup))
             menuBarController.loadHome();
@@ -97,6 +96,22 @@ public class FooterController {
         // find another solution for this one here
         // menuBarController.getRMGroupButton(RMGroup.STYLE).setDisable(!currentPRG.hasRMGroup(RMGroup.STYLE));
         // later: for every RMGroup
+
+        // check which RMGroups are represented in the PRG to be load
+        // accordingly to this information, disable/enable the appropriate MenuBarControls
+
+        /*for (RMGroup rmGroup : RMGroup.values()) {
+            if (currentPRG.hasRMGroup(rmGroup))
+                menuBarController.enableRMGroup(rmGroup, true);
+            else
+                menuBarController.enableRMGroup(rmGroup, false);
+        }*/
+
+        if (currentPRG.hasRMGroup(RMGroup.TITLE))
+            menuBarController.enableRMGroup(RMGroup.TITLE, true);
+        else
+            menuBarController.enableRMGroup(RMGroup.TITLE,false);
+
     }
 
     /**
