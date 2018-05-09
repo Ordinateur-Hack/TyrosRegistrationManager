@@ -54,8 +54,6 @@ public class MenuBarController {
     public void initialize() {
         rmGroupButtons = Arrays.asList(songButton, styleButton, voiceButton); // extend later!
         // Set Home button as starting point
-
-        // this has to be done only once
         currentButton = homeButton;
         currentRMGroup = RMGroup.TITLE;
 
@@ -66,6 +64,9 @@ public class MenuBarController {
             rmGroupButton.setDisable(true);
         homeButton.setDisable(true);
         saveButton.setDisable(true);
+
+        Main.loadEmptyEditorsPane();
+        currentButton.setStyle("-fx-background-color: transparent");
     }
 
     /**
@@ -73,6 +74,7 @@ public class MenuBarController {
      */
     @FXML
     public void loadFile() {
+        initialize(); // manual initialization needed when second file is loaded
         System.out.println("<<< MenuBarController: Load a file ...");
 
         // Set up the fileChooser
@@ -95,7 +97,7 @@ public class MenuBarController {
             alert.setHeaderText("No File Selected");
             alert.showAndWait();
         }
-        this.file = selectedFile;
+        file = selectedFile;
 
         loadStructure();
 
@@ -103,8 +105,8 @@ public class MenuBarController {
         String fullFileName = selectedFile.getName();
         // remove file ending .RGT for the displayed file name
         fileName.setText(fullFileName.substring(0, fullFileName.length() - 4));
-        for (JFXButton rmgroupButton : rmGroupButtons)
-            rmgroupButton.setDisable(true);
+        for (JFXButton rmGroupButton : rmGroupButtons)
+            rmGroupButton.setDisable(true);
         saveButton.setDisable(false); // from now on: saveButton stays active all the time
 
         System.out.println("Loaded file successfully >>>");
@@ -230,7 +232,7 @@ public class MenuBarController {
                     "Group");
             e.printStackTrace();
         }
-        Main.getEditorsPane().setCenter(loaderUI);
+        Main.getRightPane().setCenter(loaderUI);
         ((EditorController) loader.getController()).updateUI(); // it has to be ensured that all Controllers linked
         // to the Views extend EditorController!
 
@@ -322,7 +324,7 @@ public class MenuBarController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Main.getEditorsPane().setCenter(voice);
+        Main.getRightPane().setCenter(voice);
         // initialize
         changeButtonActive(voiceButton);
         currentRMGroup = RMGroup.VOICE;
