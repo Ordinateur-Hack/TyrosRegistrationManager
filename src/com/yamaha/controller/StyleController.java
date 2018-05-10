@@ -27,7 +27,7 @@ public class StyleController extends EditorController {
 
     private StyleEditor styleEditor;
 
-    // Labels
+    //<editor-fold desc="FXML Labels">
     @FXML
     private TextField volumeStyleTextField;
     @FXML
@@ -48,9 +48,9 @@ public class StyleController extends EditorController {
     private TextField volumePHR2TextField;
 
     private List<TextField> volumeStyleTextFields;
+    //</editor-fold>
 
-
-    // Sliders
+    //<editor-fold desc="FXML Sliders">
     @FXML
     private JFXSlider volumeStyleSlider;
     @FXML
@@ -71,9 +71,9 @@ public class StyleController extends EditorController {
     private JFXSlider volumePHR2Slider;
 
     private List<JFXSlider> volumeStyleSliders;
+    //</editor-fold>
 
-
-    // Toggle Buttons
+    //<editor-fold desc="FXML Toggle Buttons">
     @FXML
     private JFXToggleButton RHY1Toggle;
     @FXML
@@ -94,17 +94,19 @@ public class StyleController extends EditorController {
     private List<JFXToggleButton> styleChannelToggels;
 
     @FXML
-    private JFXToggleButton toggleACMP;
+    private JFXToggleButton ACMPToggle;
     @FXML
-    private JFXToggleButton toggleSyncStart;
+    private JFXToggleButton SyncStartToggle;
     @FXML
-    private JFXToggleButton toggleSyncStop;
+    private JFXToggleButton SyncStopToggle;
+    //</editor-fold>
 
-    // ComboBoxes
+    //<editor-fold desc="FXML Combo Boxes">
     @FXML
     private JFXComboBox<FingeringType> fingeringTypeComboBox;
+    //</editor-fold>
 
-    // Buttons
+    //<editor-fold desc="FXML Buttons">
     @FXML
     private JFXButton intro1Button;
     @FXML
@@ -127,7 +129,7 @@ public class StyleController extends EditorController {
     private JFXButton ending2Button;
     @FXML
     private JFXButton ending3Button;
-
+    //</editor-fold>
 
     @FXML
     public void initialize() {
@@ -154,53 +156,44 @@ public class StyleController extends EditorController {
         addResetCtrlFunctionality(volumeStyleSlider, () -> styleEditor.initVolumeStyleProperty());
         volumeStyleTextField.textProperty().bindBidirectional(volumeStyleSlider.valueProperty(), new
                 NumberStringConverter(NumberFormat.getIntegerInstance()));
+        volumeStyleTextField.setTextFormatter(getTextFormatter());
         addNumberRangeLimitation(volumeStyleTextField);
 
-        int i = 1;
-        for (JFXSlider volumeStyleSlider : volumeStyleSliders) {
-            final int j = i;
-            volumeStyleSlider.valueProperty().bindBidirectional(styleEditor.volumeProperty(StyleChannel.getChannel(j)));
-            addResetCtrlFunctionality(volumeStyleSlider, () -> styleEditor.initVolumeProperty(StyleChannel.getChannel
-                    (j)));
-            i++;
-        }
+        for (int i = 0; i < 8; i++) {
+            StyleChannel styleChannel = StyleChannel.getChannel(i + 1);
+            volumeStyleSliders.get(i).valueProperty().bindBidirectional(styleEditor.volumeProperty(styleChannel));
+            addResetCtrlFunctionality(volumeStyleSlider, () -> styleEditor.initVolumeProperty(styleChannel));
 
-        i = 0;
-        for (TextField volumeTextField : volumeStyleTextFields) {
-            final int j = i;
-            volumeTextField.textProperty().bindBidirectional(volumeStyleSliders.get(j).valueProperty(), new
-                    NumberStringConverter(NumberFormat.getIntegerInstance()));
-            volumeTextField.setTextFormatter(getTextFormatter());
-            addNumberRangeLimitation(volumeTextField);
-            i++;
+            TextField volumeStyleTextField = volumeStyleTextFields.get(i);
+            volumeStyleTextField.textProperty().bindBidirectional(volumeStyleSliders.get(i).valueProperty(),
+                    new NumberStringConverter(NumberFormat.getIntegerInstance()));
+            volumeStyleTextField.setTextFormatter(getTextFormatter());
+            addNumberRangeLimitation(volumeStyleTextField);
         }
-
 
         // ACMP
-        toggleACMP.selectedProperty().bindBidirectional(styleEditor.isACMPEnabledProperty());
-        addResetCtrlFunctionality(toggleACMP, () -> styleEditor.initIsACMPEnabledProperty());
+        ACMPToggle.selectedProperty().bindBidirectional(styleEditor.isACMPEnabledProperty());
+        addResetCtrlFunctionality(ACMPToggle, () -> styleEditor.initIsACMPEnabledProperty());
 
-        toggleSyncStart.selectedProperty().bindBidirectional(styleEditor.isSyncStartEnabledProperty());
-        addResetCtrlFunctionality(toggleSyncStart, () -> styleEditor.initIsSyncStartEnabledProperty());
+        SyncStartToggle.selectedProperty().bindBidirectional(styleEditor.isSyncStartEnabledProperty());
+        addResetCtrlFunctionality(SyncStartToggle, () -> styleEditor.initIsSyncStartEnabledProperty());
 
-        toggleSyncStop.selectedProperty().bindBidirectional(styleEditor.isSyncStopEnabledProperty());
-        addResetCtrlFunctionality(toggleSyncStop, () -> styleEditor.initIsSyncStopEnabledProperty());
+        SyncStopToggle.selectedProperty().bindBidirectional(styleEditor.isSyncStopEnabledProperty());
+        addResetCtrlFunctionality(SyncStopToggle, () -> styleEditor.initIsSyncStopEnabledProperty());
 
         fingeringTypeComboBox.valueProperty().bindBidirectional(styleEditor.fingeringTypeProperty());
         addResetCtrlFunctionality(fingeringTypeComboBox, () -> styleEditor.initFingeringTypeProperty());
-        fingeringTypeComboBox.disableProperty().bind(toggleACMP.selectedProperty().not());
+        fingeringTypeComboBox.disableProperty().bind(ACMPToggle.selectedProperty().not());
 
-        i = 1;
-        for (JFXToggleButton styleChannelToggel : styleChannelToggels) {
-            final int j = i;
-            styleChannelToggel.selectedProperty().bindBidirectional(styleEditor.isChannelEnabledProperty(StyleChannel
-                    .getChannel(j)));
-            addResetCtrlFunctionality(styleChannelToggel, () -> styleEditor.initIsChannelEnabledProperty(StyleChannel
-                    .getChannel(j)));
-            i++;
+        for (int i = 0; i < 8; i++) {
+            JFXToggleButton styleChannelToggel = styleChannelToggels.get(i);
+            StyleChannel styleChannel = StyleChannel.getChannel(i + 1);
+            styleChannelToggel.selectedProperty().bindBidirectional(styleEditor.isChannelEnabledProperty(styleChannel));
+            addResetCtrlFunctionality(styleChannelToggel, () -> styleEditor.initIsChannelEnabledProperty(styleChannel));
         }
 
         // StylePart
+        /// ...
 
     }
 
@@ -233,15 +226,22 @@ public class StyleController extends EditorController {
         }
     }
 
-    // Text Labels
+    /**
+     * Sets a value range (0-127) for numbers in the given textField.
+     * @param textField the textField to which the restriction should be applied
+     */
     private void addNumberRangeLimitation(TextField textField) {
         textField.textProperty().addListener(change -> {
             try {
-                if (!textField.getText().equals("")) {
+                String text = textField.getText();
+                if (!text.equals("")) {
+                    if (text.matches("0\\d"))
+                        textField.setText(String.valueOf(text.charAt(1)));
+
                     int value = Integer.parseInt(textField.getText());
                     if (value < 0)
                         textField.setText("0");
-                    if (value > 127)
+                    else if (value > 127)
                         textField.setText("127");
                 }
             } catch (NumberFormatException e) {
@@ -259,14 +259,15 @@ public class StyleController extends EditorController {
     }
 
     private UnaryOperator<TextFormatter.Change> getFilter() {
-        return change -> {
-            String text = change.getText();
-            if (text.matches("\\d{1,3}")) {
-                return change;
+        return new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String text = change.getText();
+                if (change.getText().matches("\\d+") || text.isEmpty()) {
+                    return change;
+                }
+                return null;
             }
-            if (text.isEmpty())
-                return change;
-            return null;
         };
     }
 
