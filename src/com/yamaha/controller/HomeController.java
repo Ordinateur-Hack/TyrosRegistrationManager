@@ -10,17 +10,13 @@ public class HomeController extends EditorController {
     private TitleEditor titleEditor;
 
     @FXML
-    private JFXTextField registrationButtonName;
+    private JFXTextField prgName;
 
-    @FXML
-    public void initialize() {
-        registrationButtonName.textProperty().addListener(change ->
-                titleEditor.setTitle(registrationButtonName.getText()));
-    }
 
     public void updateUI() {
         titleEditor = Main.getFooterController().getCurrentPRG().getTitleEditor();
-        registrationButtonName.setText(titleEditor.getTitle());
+        prgName.textProperty().bindBidirectional(titleEditor.titleProperty());
+        addResetCtrlFunctionality(prgName, () -> titleEditor.initTitleProperty());
     }
 
 }

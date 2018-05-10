@@ -4,10 +4,12 @@ import com.yamaha.model.Converter;
 import com.yamaha.model.chunkFramework.BHd;
 import com.yamaha.model.chunkFramework.GPm;
 import com.yamaha.model.chunkFramework.GPmType;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class TitleEditor extends Editor {
 
-    String title;
+    StringProperty title;
 
     public TitleEditor(BHd bhdChunk) {
         super(bhdChunk);
@@ -20,37 +22,62 @@ public class TitleEditor extends Editor {
 
     @Override
     public void initProperties() {
-        initTitle();
+        initTitleProperty();
     }
 
     @Override
     public void mergeProperties() {
-        changeTitle();
+        mergeTitleProperty();
     }
 
 
     // |||||||||||||||||||
     // ||||   Title   ||||
     // |||||||||||||||||||
-    public void initTitle() {
+
+    /**
+     * Initializes the property title by searching in the chunk's structure.
+     */
+    public void initTitleProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.REGISTRATION_NAME);
         String title = Converter.hexToAscii(gpmChunk.getHexData());
-        this.title = title;
+        setTitle(title);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    /**
+     * @return the title of the PRG
+     */
+    public final String getTitle() {
+        if (title != null)
+            return title.get();
+        return null;
     }
 
-    public void changeTitle() {
-        GPm gpmChunk = getGPmChunk(GPmType.REGISTRATION_NAME);
-        String hexTitle = Converter.asciitoHex(title);
-        gpmChunk.setNumberOfDataBytes(hexTitle.length() / 2);
-        gpmChunk.setHexData(hexTitle.toString());
+    /**
+     * Sets the property title.
+     * @param title the title of the PRG
+     */
+    public final void setTitle(String title) {
+        titleProperty().set(title);
     }
 
-    public String getTitle() {
+    /**
+     * @return the property title
+     */
+    public final StringProperty titleProperty() {
+        if (title == null)
+            title = new SimpleStringProperty("InitialValue");
         return title;
+    }
+
+    /**
+     * Merge the property title into the chunk's structure.
+     */
+    public void mergeTitleProperty() {
+        GPm gpmChunk = getGPmChunk(GPmType.REGISTRATION_NAME);
+        String hexTitle = Converter.asciitoHex(getTitle());
+        gpmChunk.setNumberOfDataBytes(hexTitle.length() / 2);
+        gpmChunk.setHexData(hexTitle);
     }
 
 }
