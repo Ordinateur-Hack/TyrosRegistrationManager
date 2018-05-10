@@ -1,5 +1,8 @@
 package com.yamaha.model.editor;
 
+/**
+ * This enum represents the FingeringType for the ACMP (accompaniment of the style).
+ */
 public enum FingeringType {
 
     SINGLE_FINGER(1, "Single Finger"),
