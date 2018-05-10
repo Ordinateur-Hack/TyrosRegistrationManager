@@ -6,7 +6,7 @@ import com.yamaha.model.chunkFramework.GPm;
 import com.yamaha.model.chunkFramework.GPmType;
 
 /**
- * The editor can manipulate the GPm-chunk in order to change the parameters
+ * The editor can manipulate the GPm-chunks in order to change the parameters
  * of the keyboard functionalities. It provides a method for searching a specific
  * GPm-chunk based on the GPmType. Further, the editor provides methods to edit basic controls,
  * such as a slide control, a spin control and a toggle button. <p>Do not mistake
@@ -15,36 +15,24 @@ import com.yamaha.model.chunkFramework.GPmType;
  * (e. g. on the keyboard there are several slide controls etc.).
  *
  * @author Dominic Plein
- * @version 1.0
  */
 public abstract class Editor {
 
-    //	protected SpfF spffChunk; // the root of the hierarchy, needed to get the BHd and GPm-chunks and to manipulate
-    // them
     protected BHd bhdChunk;
-    protected int registrationNumber; // the number of the registration button: 1-8
 
     public Editor(BHd bhdChunk) {
         this.bhdChunk = bhdChunk;
-        initProperties();
+        // DO NOT init the properties here, as this has to be done by the RegistrationProgram
+        // after having checked if the editor is represented in the PRG!
     }
 
-//	/**
-//	 * Returns the spffChunk: the root element owned by this editor.
-//	 * @return the spffChunk owned by this editor
-//	 */
-//	public SpfF getSpfFChunk() {
-//		return spffChunk;
-//	}
-
     /**
-     * Searches in the BHd-chunk of the given registration number (registration button)
-     * and returns the GPm-chunk of the given GPmType. This method might return null
-     * if there is no corresponding GPm-chunk in the BHd-chunk.
-     *
-     * @param registrationNumber the registration number (number of the registration button)
-     * @param gpmType            the GPmType to specify which GPm-chunk to return
-     * @return the searched GPm-chunk if it exists
+     * Searches in the BHd-chunk associated with this Editor and returns the GPm-chunk associated with the given
+     * GPmType. This method might return null if there is no corresponding GPm-chunk in the BHd-chunk. However,
+     * before initializing the properties in the Editor, the RegistrationProgram checks if this Editor is represented
+     * in the current PRG.
+     * @param gpmType the GPmType of the GPm-chunk searched for
+     * @return the searched GPm-chunk (null if it does not exist)
      */
     public GPm getGPmChunk(GPmType gpmType) {
         GPm gpmChunk = null;
@@ -53,13 +41,10 @@ public abstract class Editor {
                 gpmChunk = currentGPmChunk;
             }
         }
-        return gpmChunk; // might return null!
+        return gpmChunk;
     }
 
     /**
-     * Returns if this Registration Memory Content Group, e. g. Style, Voice, Song etc. (subclasses of Editor), is
-     * represented in the BHdChunk, meaning the registration button.
-     *
      * @return true if the Registration Memory Content Group linked to this editor is represented in the BHdChunk
      * @see RegistrationProgram
      */
