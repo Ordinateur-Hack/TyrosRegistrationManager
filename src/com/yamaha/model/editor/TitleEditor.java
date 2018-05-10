@@ -24,7 +24,7 @@ public class TitleEditor extends Editor {
     }
 
     @Override
-    public void transferProperties() {
+    public void mergeProperties() {
         changeTitle();
     }
 

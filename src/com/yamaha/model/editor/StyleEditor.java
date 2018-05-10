@@ -163,7 +163,7 @@ public class StyleEditor extends Editor {
         }
     }
 
-    public void transferProperties() {
+    public void mergeProperties() {
         transferVolumeStyleProperty();
         transferIsACMPEnabledProperty();
         transferStylePartProperty();

@@ -57,11 +57,11 @@ public abstract class Editor {
     public abstract void initProperties();
 
     /**
-     * Transfers the properties of this Editor to the actual chunk's structure.
+     * Merge the properties of this Editor into the actual chunk's structure.
      * This includes writing hex code in the GPm-chunks which are later used to
      * reconstruct the file in order to save it.
      */
-    public abstract void transferProperties();
+    public abstract void mergeProperties();
 
 
     // GENERAL CONTROLS (used in subclasses of editor)

@@ -68,7 +68,7 @@ public class RegistrationProgram {
         if (hasData()) {
             for (Editor editor: editors) {
                 if (editor.isRepresented())
-                    editor.transferProperties();
+                    editor.mergeProperties();
             }
         }
     }
