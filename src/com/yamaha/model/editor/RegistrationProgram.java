@@ -53,9 +53,9 @@ public class RegistrationProgram {
 
         if (!isEmpty) { // initialize the editors
             titleEditor = new TitleEditor(bhdChunk);
-            // styleEditor = new StyleEditor(bhdChunk);
+            styleEditor = new StyleEditor(bhdChunk);
 
-            editors = Arrays.asList(titleEditor/*, styleEditor*/);
+            editors = Arrays.asList(titleEditor, styleEditor);
             // init properties for every editor
             for (Editor editor : editors) {
                 if (editor.isRepresented())
@@ -105,10 +105,10 @@ public class RegistrationProgram {
         return titleEditor;
     }
 
-    // Registration Memory Content Groups
+/*    // Registration Memory Content Groups
     public boolean hasStyle() {
         return styleEditor.isRepresented();
-    }
+    }*/
 
     /**
      * @return the registration number of this RegistrationProgram

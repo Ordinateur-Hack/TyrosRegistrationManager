@@ -114,11 +114,14 @@ public class FooterController {
                 menuBarController.enableRMGroup(rmGroup, false);
         }*/
 
-        if (currentPRG.hasRMGroup(RMGroup.TITLE))
-            menuBarController.enableRMGroupButton(RMGroup.TITLE, true);
-        else
-            menuBarController.enableRMGroupButton(RMGroup.TITLE,false);
-
+        List<RMGroup> workingRMGroups = Arrays.asList(RMGroup.TITLE, RMGroup.STYLE);
+        for (RMGroup rmGroup : workingRMGroups) {
+            if (currentPRG.hasRMGroup(rmGroup)) {
+                menuBarController.enableRMGroupButton(rmGroup, true);
+            } else {
+                menuBarController.enableRMGroupButton(rmGroup, false);
+            }
+        }
     }
 
     /**

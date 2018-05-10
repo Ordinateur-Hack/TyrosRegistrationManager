@@ -18,7 +18,6 @@ import java.util.List;
  * <p> The Style class extends from Editor in order to get the methods for editing the
  * basic controls on the keyboard.
  * @author Dominic Plein
- * @version 1.0
  */
 public class StyleEditor extends Editor {
 
@@ -148,7 +147,7 @@ public class StyleEditor extends Editor {
 
     @Override
     public boolean isRepresented() {
-        return getGPmChunk(GPmType.STANDARD_STYLE) != null /*&& getGPmChunk(GPmType.STYLE_ATTRIBUTES) != null*/ ? true : false;
+        return getGPmChunk(GPmType.STANDARD_STYLE) != null /*&& getGPmChunk(GPmType.STYLE_ATTRIBUTES) != null*/;
     }
 
     public void initProperties() {
