@@ -17,6 +17,7 @@ import java.util.List;
  * ways.
  * <p> The Style class extends from Editor in order to get the methods for editing the
  * basic controls on the keyboard.
+ *
  * @author Dominic Plein
  */
 public class StyleEditor extends Editor {
@@ -25,18 +26,22 @@ public class StyleEditor extends Editor {
      * A StyleFunction represents a functionality/property of a style, e. g. the volume,
      * which channels are activated etc. Used to simplify the access to the different
      * style properties without having to remember all the data byte positions.
+     *
      * @author Dominic Plein
      * @version 1.0
      */
     public enum StyleFunction {
+        // Standard Style 07
         VOLUME(1),
         ACMP(3), // accompaniment
         STYLE_PART(4),
-        FINGERING_TYPE(9),
+        FINGERING_TYPE(9), // refers to accompaniment
         SYNC_START(11),
         SYNC_STOP(12),
+
+        // Style Attributes 08
         CHANNEL_COMBINATION(8), // the channel combination is stored in one byte unlike in the Song where
-        // every channel has "its own byte"
+        // every channel has its own byte
         VOLUME_CHANNEL_CHANGE(12);
 
         // NOTE: All properties concerning style channels are set using the Channel enum and not this StyleFunction enum
@@ -54,7 +59,6 @@ public class StyleEditor extends Editor {
         }
 
         /**
-         * Returns the position of the data byte for a specific StyleFunction.
          * @return the position of the data byte for a specific StyleFunction
          */
         public int getDataBytePosition() {
@@ -63,6 +67,7 @@ public class StyleEditor extends Editor {
 
         /**
          * Returns the StyleChannel of a specific StyleFunction.
+         *
          * @return the StyleChannel of a specific StyleFunction
          */
         public StyleChannel getChannel() {
@@ -88,6 +93,7 @@ public class StyleEditor extends Editor {
         ENDING_3(34);
 
         int representationNumber;
+
         StylePart(int representationNumber) {
             this.representationNumber = representationNumber;
         }
@@ -123,7 +129,8 @@ public class StyleEditor extends Editor {
     private BooleanProperty isPADOn;
     private BooleanProperty isPHR1On;
     private BooleanProperty isPHR2On;
-    private List<BooleanProperty> areChannelsEnabled = Arrays.asList(isRHY1On, isRHY2On, isBASSOn, isCHD1On, isCHD2On, isPADOn, isPHR1On, isPHR2On);
+    private List<BooleanProperty> areChannelsEnabled = Arrays.asList(isRHY1On, isRHY2On, isBASSOn, isCHD1On,
+            isCHD2On, isPADOn, isPHR1On, isPHR2On);
 
     private IntegerProperty volumeRHY1;
     private IntegerProperty volumeRHY2;
@@ -133,21 +140,19 @@ public class StyleEditor extends Editor {
     private IntegerProperty volumePAD;
     private IntegerProperty volumePHR1;
     private IntegerProperty volumePHR2;
-    private List<IntegerProperty> volumeList = Arrays.asList(volumeStyle, volumeRHY1, volumeRHY2, volumeBASS, volumeCHD1, volumeCHD2, volumePAD, volumePHR1, volumePHR2);
+    private List<IntegerProperty> volumeChannels = Arrays.asList(volumeStyle, volumeRHY1, volumeRHY2, volumeBASS,
+            volumeCHD1, volumeCHD2, volumePAD, volumePHR1, volumePHR2);
 
     private ObjectProperty<FingeringType> fingeringType;
 
-
     public StyleEditor(BHd bhdChunk) {
         super(bhdChunk);
-        // exception handling for wrong registrationNumber
-        // first: check whether there are any style information on the current registration button
-        // initProperties();
     }
 
     @Override
     public boolean isRepresented() {
-        return getGPmChunk(GPmType.STANDARD_STYLE) != null /*&& getGPmChunk(GPmType.STYLE_ATTRIBUTES) != null*/;
+        return getGPmChunk(GPmType.STANDARD_STYLE) != null && getGPmChunk(GPmType.STYLE_ATTRIBUTES) != null;
+        // actually the first condition is sufficient because the two GPm-chunks come never alone
     }
 
     public void initProperties() {
@@ -156,7 +161,8 @@ public class StyleEditor extends Editor {
         initStylePartProperty();
         initFingeringTypeProperty();
         initIsSyncStartEnabledProperty();
-        initIsSyncStopEnabledProperty();;
+        initIsSyncStopEnabledProperty();
+        ;
         for (StyleChannel styleChannel : StyleChannel.values()) {
             initIsChannelEnabledProperty(styleChannel);
             initVolumeProperty(styleChannel);
@@ -164,26 +170,27 @@ public class StyleEditor extends Editor {
     }
 
     public void mergeProperties() {
-        transferVolumeStyleProperty();
-        transferIsACMPEnabledProperty();
-        transferStylePartProperty();
-        transferFingeringTypeProperty();
-        transferIsSyncStartEnabledProperty();
-        transferIsSyncStopEnabledProperty();
+        mergeVolumeStyleProperty();
+        mergeIsACMPEnabledProperty();
+        mergeStylePartProperty();
+        mergeFingeringTypeProperty();
+        mergeIsSyncStartEnabledProperty();
+        mergeIsSyncStopEnabledProperty();
         for (StyleChannel styleChannel : StyleChannel.values()) {
-            transferVolumeProperty(styleChannel);
-            transferIsChannelEnabledProperty(styleChannel);
+            mergeVolumeProperty(styleChannel);
+            mergeIsChannelEnabledProperty(styleChannel);
         }
     }
 
-    // ================================================================================================================= //
+// ================================================================================================================= //
+
 
     // ||||||||||||||||||
     // ||||   ACMP   ||||
     // ||||||||||||||||||
 
     /**
-     * Initializes the property isACMPActive by searching in the chunk's structure.
+     * Initializes the property isACMPEnabled by searching in the chunk's structure.
      */
     public void initIsACMPEnabledProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
@@ -192,7 +199,6 @@ public class StyleEditor extends Editor {
     }
 
     /**
-     * Returns if ACMP is enabled.
      * @return true if ACMP is enabled
      */
     public final boolean isACMPEnabled() {
@@ -203,6 +209,7 @@ public class StyleEditor extends Editor {
 
     /**
      * Sets the property isACMPActive to enabled or disabled.
+     *
      * @param isACMPEnabled true if ACMP is enabled
      */
     public final void setACMPEnabled(boolean isACMPEnabled) {
@@ -210,8 +217,7 @@ public class StyleEditor extends Editor {
     }
 
     /**
-     * Returns the property isACMPActive.
-     * @return the property isACMPActive
+     * @return the property isACMPEnabled
      */
     public final BooleanProperty isACMPEnabledProperty() {
         if (isACMPEnabled == null)
@@ -222,7 +228,7 @@ public class StyleEditor extends Editor {
     /**
      * Transfers the property isACMPActive to the chunk's structure.
      */
-    public void transferIsACMPEnabledProperty() {
+    public void mergeIsACMPEnabledProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         setEnabled(gpmChunk, StyleFunction.ACMP.getDataBytePosition(), isACMPEnabled());
     }
@@ -233,7 +239,8 @@ public class StyleEditor extends Editor {
     // |||||||||||||||||||||||
     public void initStylePartProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        int representationNumber = Integer.parseInt(gpmChunk.getHexData(StyleFunction.STYLE_PART.getDataBytePosition()), 16);
+        int representationNumber = Integer.parseInt(gpmChunk.getHexData(StyleFunction.STYLE_PART.getDataBytePosition
+                ()), 16);
         setStylePart(StylePart.getStylePart(representationNumber));
     }
 
@@ -253,11 +260,11 @@ public class StyleEditor extends Editor {
         return stylePart;
     }
 
-    public void transferStylePartProperty() {
+    public void mergeStylePartProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        gpmChunk.changeHexDataByte(StyleFunction.STYLE_PART.getDataBytePosition(), Formatter.formatIntToHex(getStylePart().getRepresentationNumber(), 1));
+        gpmChunk.changeHexDataByte(StyleFunction.STYLE_PART.getDataBytePosition(), Formatter.formatIntToHex
+                (getStylePart().getRepresentationNumber(), 1));
     }
-
 
 
     // ||||||||||||||||||||||||||||
@@ -275,6 +282,7 @@ public class StyleEditor extends Editor {
 
     /**
      * Returns the FingeringType of the ACMP.
+     *
      * @return the FingeringType of the ACMP
      */
     public final FingeringType getFingeringType() {
@@ -285,6 +293,7 @@ public class StyleEditor extends Editor {
 
     /**
      * Sets the property fingeringType of the ACMP.
+     *
      * @param fingeringType the FingeringType of the ACMP
      */
     public void setFingeringType(FingeringType fingeringType) {
@@ -293,6 +302,7 @@ public class StyleEditor extends Editor {
 
     /**
      * Returns the property fingeringType.
+     *
      * @return the property fingeringType
      */
     public final ObjectProperty<FingeringType> fingeringTypeProperty() {
@@ -304,7 +314,7 @@ public class StyleEditor extends Editor {
     /**
      * Transfers the property fingeringType to the chunk's structure.
      */
-    public void transferFingeringTypeProperty() {
+    public void mergeFingeringTypeProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         String hexFingeringType = Formatter.formatIntToHex(getFingeringType().getRepresentationNumber(), 1);
         gpmChunk.changeHexDataByte(StyleFunction.FINGERING_TYPE.getDataBytePosition(), hexFingeringType);
@@ -337,7 +347,7 @@ public class StyleEditor extends Editor {
         return isSyncStartEnabled;
     }
 
-    public void transferIsSyncStartEnabledProperty() {
+    public void mergeIsSyncStartEnabledProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         setEnabled(gpmChunk, StyleFunction.SYNC_START.getDataBytePosition(), isSyncStartEnabled());
     }
@@ -371,7 +381,7 @@ public class StyleEditor extends Editor {
         return isSyncStopEnabled;
     }
 
-    public void transferIsSyncStopEnabledProperty() {
+    public void mergeIsSyncStopEnabledProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         setEnabled(gpmChunk, StyleFunction.SYNC_STOP.getDataBytePosition(), isSyncStopEnabled());
     }
@@ -383,6 +393,7 @@ public class StyleEditor extends Editor {
 
     /**
      * Initializes the state (active or disabled) of the given StyleChannel by searching in the file.
+     *
      * @param styleChannel the channel to be examined
      */
     public void initIsChannelEnabledProperty(StyleChannel styleChannel) {
@@ -398,8 +409,10 @@ public class StyleEditor extends Editor {
          * Example for the progression channel 3: 4, 5, 6, 7 / 12, 13, 14, 15 / 20, 21, 22, 23 / ...
          */
         GPm gpmChunk = getGPmChunk(GPmType.STYLE_ATTRIBUTES);
-        channelCombination = gpmChunk.getHexData(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition()); // the channel combination number (hex value)
-        int channelCombinationNumber = Integer.parseInt(channelCombination, 16); // the channel combination number (as an Integer)
+        channelCombination = gpmChunk.getHexData(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition()); // the
+        // channel combination number (hex value)
+        int channelCombinationNumber = Integer.parseInt(channelCombination, 16); // the channel combination number
+        // (as an Integer)
         int channelNumber = styleChannel.getChannelNumber();
         int power = (int) Math.pow(2, channelNumber - 1);
 
@@ -428,8 +441,7 @@ public class StyleEditor extends Editor {
         if (isChannelEnabled(styleChannel)) { // if channel is active
             if (!isChannelEnabled) // change the state only if user wants to change it to disabled
                 isChannelEnabledProperty(styleChannel).set(false);
-        }
-        else { // if channel is disabled
+        } else { // if channel is disabled
             if (isChannelEnabled) { // change the state only, if user wants to change it to enabled
                 isChannelEnabledProperty(styleChannel).set(true);
             }
@@ -446,9 +458,10 @@ public class StyleEditor extends Editor {
      * Sets the channel of this style to active or disabled according to the previously set property.
      * <p>In contrast to setChannelActive, this method only changes the hex code but not the
      * attributes of the Style Editor.
+     *
      * @param styleChannel the channel to be manipulated
      */
-    public void transferIsChannelEnabledProperty(StyleChannel styleChannel) {
+    public void mergeIsChannelEnabledProperty(StyleChannel styleChannel) {
         /*
          * The StyleChannel with the channel number can be activated or disabled
          * using the following approach:
@@ -462,8 +475,10 @@ public class StyleEditor extends Editor {
          * channelCombinationNumber would be 08.
          */
         GPm gpmChunk = getGPmChunk(GPmType.STYLE_ATTRIBUTES);
-        channelCombination = gpmChunk.getHexData(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition()); // the channel combination number (hex value)
-        int channelCombinationNumber = Integer.parseInt(channelCombination, 16); // the channel combination number (as an Integer)
+        channelCombination = gpmChunk.getHexData(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition()); // the
+        // channel combination number (hex value)
+        int channelCombinationNumber = Integer.parseInt(channelCombination, 16); // the channel combination number
+        // (as an Integer)
         int channelNumber = styleChannel.getChannelNumber();
         int power = (int) Math.pow(2, channelNumber - 1);
 
@@ -473,14 +488,14 @@ public class StyleEditor extends Editor {
 
         if (wasChannelActive && !isChannelActive) {
             channelCombinationNumber -= power;
-        }
-        else if (!wasChannelActive && isChannelActive) {
+        } else if (!wasChannelActive && isChannelActive) {
             channelCombinationNumber += power;
         }
 
 //		int channelCombinationNumber = 0;// set all channels inactive
 //		if (areChannelsActive.get(channelNumber - 1))
-//			channelCombinationNumber += power; // then check if the current channel should be active and add power; if it is disabled, nothing else has to be done
+//			channelCombinationNumber += power; // then check if the current channel should be active and add power; if
+// it is disabled, nothing else has to be done
 
         // upload channelCombination (hex value representation)
         channelCombination = Formatter.formatIntToHex(channelCombinationNumber, 1);
@@ -488,7 +503,6 @@ public class StyleEditor extends Editor {
         gpmChunk.changeHexDataByte(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition(), channelCombination);
         setChannelEnabled(styleChannel, isChannelActive);
     }
-
 
 
     // ||||||||||||||||||||||||||||
@@ -502,8 +516,8 @@ public class StyleEditor extends Editor {
     }
 
     public final int getVolumeStyle() {
-        if (volumeList.get(0) != null)
-            return volumeList.get(0).get();
+        if (volumeChannels.get(0) != null)
+            return volumeChannels.get(0).get();
         return 0;
     }
 
@@ -512,12 +526,12 @@ public class StyleEditor extends Editor {
     }
 
     public final IntegerProperty volumeStyleProperty() {
-        if (volumeList.get(0) == null)
-            volumeList.set(0, new SimpleIntegerProperty(0));
-        return volumeList.get(0);
+        if (volumeChannels.get(0) == null)
+            volumeChannels.set(0, new SimpleIntegerProperty(0));
+        return volumeChannels.get(0);
     }
 
-    public void transferVolumeStyleProperty() {
+    public void mergeVolumeStyleProperty() {
         // exception handling if volume < 0 || volume > 127
         GPm gpmChunk = getGPmChunk(GPmType.STYLE_ATTRIBUTES);
         setValueSlideControl(gpmChunk, StyleFunction.VOLUME.getDataBytePosition(), getVolumeStyle());
@@ -530,13 +544,14 @@ public class StyleEditor extends Editor {
 
     public void initVolumeProperty(StyleChannel styleChannel) {
         GPm gpmChunk = getGPmChunk(GPmType.STYLE_ATTRIBUTES);
-        int volume = getValueSlideControl(gpmChunk.getHexData(styleChannel.getChannelNumber() + 12 /* position of data byte for the first channel is 13 */));
+        int volume = getValueSlideControl(gpmChunk.getHexData(styleChannel.getChannelNumber() + 12 /* position of
+        data byte for the first channel is 13 */));
         setVolume(styleChannel, volume);
     }
 
     public final int getVolume(StyleChannel styleChannel) {
-        if (volumeList.get(styleChannel.getChannelNumber()) != null)
-            return volumeList.get(styleChannel.getChannelNumber()).get(); // volume for channel 1 is at index 1
+        if (volumeChannels.get(styleChannel.getChannelNumber()) != null)
+            return volumeChannels.get(styleChannel.getChannelNumber()).get(); // volume for channel 1 is at index 1
         return 0;
     }
 
@@ -545,18 +560,18 @@ public class StyleEditor extends Editor {
     }
 
     public final IntegerProperty volumeProperty(StyleChannel styleChannel) {
-        if (volumeList.get(styleChannel.getChannelNumber()) == null)
-            volumeList.set(styleChannel.getChannelNumber(), new SimpleIntegerProperty(0));
-        return volumeList.get(styleChannel.getChannelNumber());
+        int channelNumber = styleChannel.getChannelNumber();
+        if (volumeChannels.get(channelNumber) == null)
+            volumeChannels.set(channelNumber, new SimpleIntegerProperty(0));
+        return volumeChannels.get(channelNumber);
     }
 
-    public void transferVolumeProperty(StyleChannel styleChannel) {
+    public void mergeVolumeProperty(StyleChannel styleChannel) {
         GPm gpmChunk = getGPmChunk(GPmType.STYLE_ATTRIBUTES);
-        setValueSlideControl(gpmChunk, styleChannel.getChannelNumber() + 12 /* position of data byte for the first channel is 13 */,
-                getVolume(styleChannel));
+        setValueSlideControl(gpmChunk, styleChannel.getChannelNumber() + 12 /* position of data byte for the first
+        channel is 13 */, getVolume(styleChannel));
 
-        // indicated volume change (change byte that indicates if the volume for a channel has changed)
-        // change byte not fully examined!
+        // indicated volume change
         setChanged(gpmChunk, StyleFunction.VOLUME_CHANNEL_CHANGE.getDataBytePosition(), true);
     }
 
