@@ -63,114 +63,110 @@ public abstract class Editor {
      */
     public abstract void mergeProperties();
 
+// ================================================================================================================= //
 
-    // GENERAL CONTROLS (used in subclasses of editor)
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // ||||   GENERAL CONTROLS (used in subclasses of Editor   ||||
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    // On/Off toggle button
+    //<editor-fold desc="On/Off toggle button">
 
     /**
      * Represents an on/off toggle button on the keyboard.
-     * Sets the data of a specified GPm-chunk to "active" or "disabled", thus
-     * it can activate or disable a keyboard function.
+     * Sets the data of a specified GPm-chunk to enabled or disabled,
+     * thus it can enable or disable a keyboard function.
      *
      * @param gpmChunk           the GPm-chunk to be manipulated
      * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents the on/off toggle
      *                           button
-     * @param isActive           true if the functionality is activated, determines the state of the functionality
+     * @param isActive           true if the functionality is enabled; determines the state of the functionality
      *                           (on/off)
      */
     public void setEnabled(GPm gpmChunk, int positionOfDataByte, boolean isActive) {
-        String hexData = isActive ? "7F" : "00";
+        String hexData = isActive ? "7F" : "00"; // on/off
         gpmChunk.changeHexDataByte(positionOfDataByte, hexData);
     }
 
     /**
      * Returns what the state of a keyboard functionality would be
      * if the data contained the given isActiveValue as a hex value.
-     *
      * @param isActiveValue the hex value of the data byte which determines if a keyboard
-     *                      functionality is activated or disabled.
-     * @return true if, and only if the isActiveValue represents the "activated value" ("7F") for
+     *                      functionality is enabled or disabled
+     * @return true if the isActiveValue represents an "enabled value" for
      * keyboard functionalities with two states (on/off).
      */
     public boolean isEnabled(String isActiveValue) {
         switch (isActiveValue) {
-            case "7F": // keyboard functionality: on
+            case "7F": // on
                 return true;
-            case "00": // keyboard functionality: off
+            case "00": // off
                 return false;
             default:
                 return false;
         }
     }
+    //</editor-fold>
 
-    // Slide control
+    //<editor-fold desc="Slide control">
 
     /**
-     * Represents a slide control on the keyboard.
-     * Sets the value of this slide control.
-     *
+     * Represents a slide control on the keyboard and sets its value.
      * @param gpmChunk           the GPm-chunk to be manipulated
      * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents a slide control
      * @param value              the value this slide control is set to (usually within the range of 0 to 127,
      *                           sometimes: 1 to 127)
+     * @throws IllegalArgumentException if the value is not in range of 0 to 127
      */
-    public void setValueSlideControl(GPm gpmChunk, int positionOfDataByte, int value) {
-        // exception handling if value < 0 || value > 127
-        gpmChunk.changeHexDataByte(positionOfDataByte, Formatter.formatIntToHex(value, 1 /* one byte used */));
+    public void setValueSlideControl(GPm gpmChunk, int positionOfDataByte, int value) throws IllegalArgumentException {
+        if (value < 0 || value > 127)
+            throw new IllegalArgumentException("The value of the slide control has to be in range of 0 to 127.");
+        String hexData = Formatter.formatIntToHex(value, 1);
+        gpmChunk.changeHexDataByte(positionOfDataByte, hexData);
     }
 
     /**
-     * Returns what the value of a slide control would be
-     * if the data contained the given hex value.
-     * (Basically this method just converts the hex value to
-     * an Integer.)
-     *
-     * @param value the hex value of the data byte which determines
-     *              the value of a slide control
+     * Returns what the value of a slide control would be if the data contained the given hex value.
+     * (Basically this method just converts the hex value to an Integer.)
+     * @param value the hex value of the data byte which determines the value of a slide control
      * @return what the value of a slide control would be with the given input hex value
      */
     public int getValueSlideControl(String value) {
         return Integer.parseInt(value, 16);
     }
+    //</editor-fold>
 
-    // Spin control
+    //<editor-fold desc="Spin control">
 
     /**
-     * Represents a spin control on the keyboard.
-     * Sets the value of this spin control.
-     *
+     * Represents a spin control on the keyboard and sets its value.
      * @param gpmChunk           the GPm-chunk to be manipulated
      * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents a spin control
      * @param value              the value this spin control is set to (usually within the range of -64 to +63,
      *                           sometimes: -63 to +63)
+     * @throws IllegalArgumentException if the value is not in range of -64 to 63
      */
-    public void setValueSpinControl(GPm gpmChunk, int positionOfDataByte, int value) {
-        // exception handling if value < -64 || value > 63
-        String hexValue = Formatter.formatIntToHex(value + 64, 1 /* one byte used */);
+    public void setValueSpinControl(GPm gpmChunk, int positionOfDataByte, int value) throws IllegalArgumentException {
+        if (value < -64 || value > 63)
+            throw new IllegalArgumentException("The value of the spin control has to be in range of -64 to 63.");
+        String hexValue = Formatter.formatIntToHex(value + 64, 1);
         gpmChunk.changeHexDataByte(positionOfDataByte, hexValue);
     }
 
     /**
-     * Returns what the value of a spin control would be
-     * if the data contained the given hex value.
-     * (Basically this method just converts the hex value to
-     * an Integer.)
-     *
-     * @param value the hex value of the data byte which determines
-     *              the value of a spin control
+     * Returns what the value of a spin control would be if the data contained the given hex value.
+     * @param value the hex value of the data byte which determines the value of a spin control
      * @return what the value of a spin control would be with the given input hex value
      */
     public int getValueSpinControl(String value) {
-        return Integer.parseInt(value, 16);
+        return Integer.parseInt(value, 16) - 64;
     }
+    //</editor-fold>
 
-    // "Change Byte" Indicator
+    //<editor-fold desc="'Change Byte' Indicator">
 
     /**
      * Represents a "Change Byte". This byte of a GPm-chunk indicates whether a related property has changed.
-     * <p>NOTE: This "Change Byte" hasn't been fully examined.
-     *
+     * <p>NOTE: This "Change Byte" hasn't been fully examined in the specification.
      * @param gpmChunk           the GPm-chunk to be manipulated
      * @param positionOfDataByte the position of the data byte in the GPm-chunk which represents the "change byte"
      * @param hasChanged         true if the related property has changed
@@ -182,7 +178,6 @@ public abstract class Editor {
 
     /**
      * Returns if the given hex value of the "change byte" stands for a change or not.
-     *
      * @param hasChanged the hex value of the "change byte"
      * @return true if the hex value represents a change
      */
@@ -196,6 +191,7 @@ public abstract class Editor {
                 return false;
         }
     }
+    //</editor-fold>
 
 
     // --> BHd sequence data will probably be manipulated directly via the BHd-chunk, no subordinate elements
