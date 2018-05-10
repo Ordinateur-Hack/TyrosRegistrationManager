@@ -20,7 +20,7 @@ public class BHd extends Chunk {
 
     /**
      * Returns a list of subordinated GPm-chunks.
-     * @return the subordinated GPm-chunks.
+     * @return the subordinated GPm-chunks
      */
     public ArrayList<GPm> getGPmChunks() {
         return gpmChunks;
