@@ -96,14 +96,7 @@ public abstract class Editor {
      * keyboard functionalities with two states (on/off).
      */
     public boolean isEnabled(String isActiveValue) {
-        switch (isActiveValue) {
-            case "7F": // on
-                return true;
-            case "00": // off
-                return false;
-            default:
-                return false;
-        }
+        return isActiveValue.equals("7F");
     }
     //</editor-fold>
 
@@ -182,14 +175,7 @@ public abstract class Editor {
      * @return true if the hex value represents a change
      */
     public boolean hasChanged(String hasChanged) {
-        switch (hasChanged) {
-            case "FF": // change
-                return true;
-            case "00": // no change
-                return false;
-            default:
-                return false;
-        }
+        return hasChanged.equals("FF");
     }
     //</editor-fold>
 
