@@ -258,6 +258,9 @@ public class StyleController extends EditorController {
         return textFormatter;
     }
 
+    /**
+     * @return the filter used to keep the text in the volumeStyleTextFields in the desired format
+     */
     private UnaryOperator<TextFormatter.Change> getFilter() {
         return new UnaryOperator<TextFormatter.Change>() {
             @Override
@@ -271,19 +274,7 @@ public class StyleController extends EditorController {
         };
     }
 
-    private void addResetCtrlFunctionality(Node node, Performer performer) {
-        node.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isControlDown()) {
-                    performer.perform();
-                    Main.getMenuBarController().loadStyle();
-                }
-
-            }
-        });
-    }
 
 }
 
