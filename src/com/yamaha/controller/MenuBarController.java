@@ -57,8 +57,6 @@ public class MenuBarController {
         currentButton = homeButton;
         currentRMGroup = RMGroup.TITLE;
 
-        // changeButtonActive(homeButton);
-
         // Disable most buttons
         for (JFXButton rmGroupButton : rmGroupButtons)
             rmGroupButton.setDisable(true);
@@ -274,35 +272,11 @@ public class MenuBarController {
 
     @FXML
     public void loadHome() {
-//		FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
-//		AnchorPane home = null;
-//		try {
-//			home = homeLoader.load();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		Main.getRoot().setCenter(home);
-//		((HomeController) homeLoader.getController()).updateUI();
-//		changeButtonActive(homeButton);
-//		currentRMGroup = RMGroup.TITLE;
         loadRMGroup(RMGroup.TITLE);
     }
 
     @FXML
     public void loadStyle() {
-//		FXMLLoader styleLoader = new FXMLLoader(getClass().getResource("/view/Style.fxml"));
-//		AnchorPane styleUI = null;
-//		try {
-//			styleUI = styleLoader.load();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		Main.getRoot().setCenter(styleUI);
-//		// initialize the data
-//		((StyleController) styleLoader.getController()).updateUI();
-//		changeButtonActive(styleButton);
-//		currentRMGroup = RMGroup.STYLE;
         loadRMGroup(RMGroup.STYLE);
     }
 
