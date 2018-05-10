@@ -102,7 +102,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <JFXToggleButton fx:id="toggleACMP" alignment="CENTER_LEFT" layoutX="14.0" layoutY="350.0" prefHeight="58.0" prefWidth="126.0" text="ACMP" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
+        <JFXToggleButton fx:id="ACMPToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="350.0" prefHeight="58.0" prefWidth="126.0" text="ACMP" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
         <GridPane layoutX="9.0" layoutY="78.0" prefHeight="30.0" prefWidth="670.0" AnchorPane.leftAnchor="9.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -201,8 +201,8 @@
                 <Font name="Segoe UI" size="14.0" />
             </font>
         </Label>
-        <JFXToggleButton fx:id="toggleSyncStart" alignment="CENTER_LEFT" layoutX="14.0" layoutY="393.0" prefHeight="58.0" prefWidth="126.0" text="Sync Start" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
-        <JFXToggleButton fx:id="toggleSyncStop" alignment="CENTER_LEFT" layoutX="14.0" layoutY="436.0" prefHeight="58.0" prefWidth="126.0" text="Sync Stop" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
+        <JFXToggleButton fx:id="SyncStartToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="393.0" prefHeight="58.0" prefWidth="126.0" text="Sync Start" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
+        <JFXToggleButton fx:id="SyncStopToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="436.0" prefHeight="58.0" prefWidth="126.0" text="Sync Stop" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
         <JFXComboBox fx:id="fingeringTypeComboBox" focusColor="#29b6f6" layoutX="165.0" layoutY="366.0" prefHeight="25.0" prefWidth="194.0" promptText="Fingering Type" />
     </children>
 </AnchorPane>
