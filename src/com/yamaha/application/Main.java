@@ -54,8 +54,6 @@ public class Main extends Application {
             AnchorPane menuBar = menuBarLoader.load();
             rootPane.setLeft(menuBar);
 
-            rightPane = new BorderPane();
-
             // Set up the footer
             footerLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/Footer.fxml"));
             AnchorPane footer = footerLoader.load();
@@ -63,7 +61,7 @@ public class Main extends Application {
 
             loadEmptyEditorsPane();
 
-            rootPane.setRight(rightPane);
+            rootPane.setCenter(rightPane);
 
             // Set up the scene
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
