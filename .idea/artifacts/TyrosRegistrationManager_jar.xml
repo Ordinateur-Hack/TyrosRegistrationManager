@@ -1,9 +1,9 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="TyrosRegistrationManager:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/TyrosRegistrationManager_jar</output-path>
+    <output-path />
     <root id="archive" name="TyrosRegistrationManager.jar">
       <element id="module-output" name="TyrosRegistrationManager" />
-      <element id="extracted-dir" path="C:/Program Files (x86)/Java/External Libraries/jfoenix-9.0.3.jar" path-in-jar="/" />
+      <element id="file-copy" path="C:/Program Files (x86)/Java/External Libraries/jfoenix-9.0.1.jar" />
     </root>
   </artifact>
 </component>
