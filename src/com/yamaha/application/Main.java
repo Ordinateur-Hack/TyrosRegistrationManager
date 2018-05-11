@@ -7,9 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -69,6 +71,13 @@ public class Main extends Application {
             double height = bounds.getHeight() * 20 / 32;
             Scene scene = new Scene(rootPane, width, height);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+            scene.setOnMouseClicked(event -> {
+                if (event.getButton().equals(MouseButton.PRIMARY)) {
+                    if (event.getClickCount() == 2)
+                        primaryStage.setFullScreen(true);
+                }
+            });
 
             // Set up the stage
 //            primaryStage.getIcons().add(new Image("/com/yamaha/images/icon2_big.jpg"));
