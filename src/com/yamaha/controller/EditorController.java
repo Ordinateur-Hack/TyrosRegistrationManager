@@ -9,7 +9,7 @@ public abstract class EditorController {
     /**
      * Refreshes the UI and rebinds the properties used in this EditorController.
      */
-    public abstract void updateUI();
+    protected abstract void updateUI();
 
     /**
      * Adds a reset functionality to the specified node. When clicking on the node while holding down the control
