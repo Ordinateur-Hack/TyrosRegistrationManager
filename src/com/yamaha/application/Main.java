@@ -58,6 +58,7 @@ public class Main extends Application {
             footerLoader = new FXMLLoader(getClass().getResource("/com/yamaha/view/Footer.fxml"));
             AnchorPane footer = footerLoader.load();
             rightPane.setBottom(footer);
+            rightPane.setMinWidth(0);
 
             loadEmptyEditorsPane();
 
