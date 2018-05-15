@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A Style can manipulate many functionalities/properties of a style on the keyboard.
+ * A StyleEditor can manipulate many functionalities/properties of a style on the keyboard.
  * A style on the keyboard is an accompaniment for the player, so to speak his band,
  * whereby the player doesn't fade into the background. The style is just supporting
  * him with up to eight independent instruments which can be adjusted in many different
  * ways.
- * <p> The Style class extends from Editor in order to get the methods for editing the
+ * <p> The StyleEditor extends from Editor in order to get the methods for editing the
  * basic controls on the keyboard.
  *
  * @author Dominic Plein
