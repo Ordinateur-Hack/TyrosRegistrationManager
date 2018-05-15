@@ -1,7 +1,13 @@
 package com.yamaha.model;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+
+import java.util.function.Consumer;
 
 // inspiration from https://stackoverflow.com/questions/35693180/javafx-wrap-content-text-in-alert-dialog
 public abstract class FXUtil {
@@ -37,4 +43,29 @@ public abstract class FXUtil {
         return alert;
     }
 
+    // Toggle Group - Use ToggleButtons as RadioButtons (always one button selected)
+    // inspiration from http://www.jensd.de/wordpress/?p=2381
+    /**
+     * Adds a "AlwaysOneSelectedSupport" to the specified {@link ToggleGroup}.
+     * <br>This means that the ToggleGroup will behave like a {@link RadioButton}, that can only be selected but not
+     * to set to an unselected state.
+     * @param toggleGroup a ToggleGroup consisting of ToggleButtons
+     * @throws IllegalArgumentException if the toggleGroup does not fully consist of ToggleButtons
+     */
+    public static void addAlwaysOneSelectedSupport(final ToggleGroup toggleGroup) throws IllegalArgumentException {
+        for (Toggle toggle : toggleGroup.getToggles()) {
+            if (!(toggle instanceof ToggleButton))
+                throw new IllegalArgumentException("All elements in the ToggleGroup must be instances of " +
+                        "ToggleButtons.");
+            ((ToggleButton) toggle).addEventFilter(MouseEvent.MOUSE_PRESSED, consumeMouseEventFilter);
+        }
+    }
+
+    private static EventHandler<MouseEvent> consumeMouseEventFilter = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            if (((Toggle) event.getSource()).isSelected())
+                event.consume();
+        }
+    };
 }

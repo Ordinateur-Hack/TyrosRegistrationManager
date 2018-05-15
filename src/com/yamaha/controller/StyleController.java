@@ -1,10 +1,11 @@
 package com.yamaha.controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.JFXToggleNode;
 import com.yamaha.application.Main;
+import com.yamaha.model.FXUtil;
 import com.yamaha.model.editor.FingeringType;
 import com.yamaha.model.editor.StyleChannel;
 import com.yamaha.model.editor.StyleEditor;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.converter.NumberStringConverter;
 
@@ -90,6 +92,8 @@ public class StyleController extends EditorController {
 
     private List<JFXToggleButton> channelToggels;
 
+    private ToggleGroup styleSection;
+
     @FXML
     private JFXToggleButton controlACMPToggle;
     @FXML
@@ -105,27 +109,27 @@ public class StyleController extends EditorController {
 
     //<editor-fold desc="FXML Buttons">
     @FXML
-    private JFXButton intro1Button;
+    private ToggleButton intro1Button;
     @FXML
-    private JFXButton intro2Button;
+    private ToggleButton intro2Button;
     @FXML
-    private JFXButton intro3Button;
+    private ToggleButton intro3Button;
     @FXML
-    private JFXButton mainAButton;
+    private ToggleButton mainAButton;
     @FXML
-    private JFXButton mainBButton;
+    private ToggleButton mainBButton;
     @FXML
-    private JFXButton mainCButton;
+    private ToggleButton mainCButton;
     @FXML
-    private JFXButton mainDButton;
+    private ToggleButton mainDButton;
     @FXML
-    private JFXButton breakFillButton;
+    private ToggleButton breakFillButton;
     @FXML
-    private JFXButton ending1Button;
+    private ToggleButton ending1Button;
     @FXML
-    private JFXButton ending2Button;
+    private ToggleButton ending2Button;
     @FXML
-    private JFXButton ending3Button;
+    private ToggleButton ending3Button;
     //</editor-fold>
 
     @FXML
@@ -137,6 +141,11 @@ public class StyleController extends EditorController {
         channelToggels = Arrays.asList(channelRHY1Toggle, channelRHY2Toggle, channelBASSToggle, channelCHD1Toggle,
                 channelCHD2Toggle, channelPADToggle, channelPHR1Toggle, channelPHR2Toggle);
         fingeringTypeComboBox.getItems().addAll(FingeringType.values());
+
+        styleSection = new ToggleGroup();
+        styleSection.getToggles().addAll(intro1Button, intro2Button, intro3Button, mainAButton, mainBButton,
+                mainCButton, mainDButton, breakFillButton, ending1Button, ending2Button, ending3Button);
+        FXUtil.addAlwaysOneSelectedSupport(styleSection);
     }
 
     public void updateUI() {
@@ -145,7 +154,7 @@ public class StyleController extends EditorController {
     }
 
     private void addBindings() {
-        // Volume
+        // Volume (Sliders and TextFields)
         volumeStyleSlider.valueProperty().bindBidirectional(styleEditor.volumeStyleProperty());
         addResetCtrlFunctionality(volumeStyleSlider, () -> styleEditor.initVolumeStyleProperty());
         volumeGeneralTextField.textProperty().bindBidirectional(volumeStyleSlider.valueProperty(), new
@@ -165,7 +174,17 @@ public class StyleController extends EditorController {
             addNumberRangeLimitation(volumeStyleTextField);
         }
 
-        // ACMP
+        // Channels (Toggels)
+        for (int i = 0; i < 8; i++) {
+            JFXToggleButton styleChannelToggel = channelToggels.get(i);
+            StyleChannel styleChannel = StyleChannel.getChannel(i + 1);
+            styleChannelToggel.selectedProperty().bindBidirectional(styleEditor.isChannelEnabledProperty(styleChannel));
+            addResetCtrlFunctionality(styleChannelToggel, () -> styleEditor.initIsChannelEnabledProperty(styleChannel));
+        }
+
+        // StyleSection
+
+        // Other controls
         controlACMPToggle.selectedProperty().bindBidirectional(styleEditor.isACMPEnabledProperty());
         addResetCtrlFunctionality(controlACMPToggle, () -> styleEditor.initIsACMPEnabledProperty());
 
@@ -177,26 +196,17 @@ public class StyleController extends EditorController {
 
         fingeringTypeComboBox.valueProperty().bindBidirectional(styleEditor.fingeringTypeProperty());
         addResetCtrlFunctionality(fingeringTypeComboBox, () -> styleEditor.initFingeringTypeProperty());
+        // disable fingeringTypeComboBox if controlACMPToggle is disabled
         fingeringTypeComboBox.disableProperty().bind(controlACMPToggle.selectedProperty().not());
-
-        for (int i = 0; i < 8; i++) {
-            JFXToggleButton styleChannelToggel = channelToggels.get(i);
-            StyleChannel styleChannel = StyleChannel.getChannel(i + 1);
-            styleChannelToggel.selectedProperty().bindBidirectional(styleEditor.isChannelEnabledProperty(styleChannel));
-            addResetCtrlFunctionality(styleChannelToggel, () -> styleEditor.initIsChannelEnabledProperty(styleChannel));
-        }
-
-        // StylePart
-        /// ...
-
     }
 
     @FXML
-    private void changeStylePart(ActionEvent event) {
+    private void changeStyleSection(ActionEvent event) {
         ToggleGroup stylePartGroup = new ToggleGroup();
 //		stylePartGroup.getToggles().addAll(intro1Button, intro2Button);
     }
 
+    //<editor-fold desc="Check this out later">
     // unbind the bindings before initializing some values in the saveFile-process
     // in order to avoid flickering buttons
     public final void unbindCriticalBindings() {
@@ -219,6 +229,7 @@ public class StyleController extends EditorController {
             i++;
         }
     }
+    //</editor-fold>
 
     /**
      * Sets a value range (0-127) for numbers in the given textField.
@@ -246,6 +257,11 @@ public class StyleController extends EditorController {
         });
     }
 
+    /**
+     * This TextFormatter is created by using the filter from the getFilter()-method.
+     *
+     * @return the TextFormatter used to keep the text in the volumeTextFields in the desired format
+     */
     private TextFormatter<String> getTextFormatter() {
         // https://uwesander.de/the-textformatter-class-in-javafx-how-to-restrict-user-input-in-a-text-field.html
         UnaryOperator<TextFormatter.Change> filter = getFilter();
@@ -268,5 +284,27 @@ public class StyleController extends EditorController {
             }
         };
     }
+
+}
+
+// https://github.com/jfoenixadmin/JFoenix/issues/431
+class ToggleButtonRestricted extends ToggleButton {
+
+    /**
+     * Toggles the state of the toggle button if and only if the toggle button
+     * has not been already selected or is not part of a {@link ToggleGroup}.
+     */
+    @Override
+    public void fire() {
+        // don't toggle from selected to not selected if part of a group
+        if (getToggleGroup() == null || !isSelected()) // fire always if not selected
+            super.fire();
+    }
+
+}
+
+class MyButton extends JFXToggleNode {
+
+
 
 }

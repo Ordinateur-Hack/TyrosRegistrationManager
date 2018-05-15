@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -107,8 +108,7 @@
             </StackPane>
          </children>
         </AnchorPane>
-        <JFXToggleButton fx:id="controlACMPToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="350.0" prefHeight="58.0" prefWidth="126.0" text="ACMP" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
-        <GridPane layoutX="9.0" layoutY="78.0" prefHeight="30.0" prefWidth="670.0" AnchorPane.leftAnchor="9.0">
+        <GridPane layoutX="102.0" layoutY="580.0" prefHeight="30.0" prefWidth="670.0" AnchorPane.leftAnchor="102.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -129,83 +129,119 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <JFXButton fx:id="mainAButton" buttonType="RAISED" prefWidth="41.0" style="-fx-background-color: #ff7043;" text="A" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" prefWidth="41.0" style="-fx-background-color: #ff7043;" text="A" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="mainBButton" buttonType="RAISED" layoutX="141.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="B" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="141.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="B" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="mainCButton" buttonType="RAISED" layoutX="210.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="C" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="210.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="C" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="mainDButton" buttonType="RAISED" layoutX="310.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="D" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="310.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="D" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="breakFillButton" buttonType="RAISED" layoutX="356.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="//" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="356.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="//" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="ending1Button" buttonType="RAISED" layoutX="68.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="I" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="I" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="ending2Button" buttonType="RAISED" layoutX="422.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="II" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="12" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="422.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="II" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="12" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="ending3Button" buttonType="RAISED" layoutX="474.0" layoutY="7.0" prefHeight="35.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="III" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="13" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="474.0" layoutY="7.0" prefHeight="35.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="III" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="13" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="intro1Button" buttonType="RAISED" layoutX="455.0" layoutY="7.0" onAction="#changeStylePart" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="I" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="455.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="I" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="intro2Button" buttonType="RAISED" layoutX="496.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="II" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="496.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="II" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="intro3Button" buttonType="RAISED" layoutX="537.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="III" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <JFXButton buttonType="RAISED" layoutX="537.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="III" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Segoe UI Bold" size="18.0" />
                     </font>
                 </JFXButton>
             </children>
         </GridPane>
-        <Label disable="true" layoutX="69.0" layoutY="45.0" text="Intro">
-            <font>
-                <Font name="Segoe UI" size="14.0" />
-            </font>
-        </Label>
-        <Label disable="true" layoutX="253.0" layoutY="45.0" text="Main Variation">
-            <font>
-                <Font name="Segoe UI" size="14.0" />
-            </font>
-        </Label>
-        <Label disable="true" layoutX="590.0" layoutY="45.0" text="Ending">
-            <font>
-                <Font name="Segoe UI" size="14.0" />
-            </font>
-        </Label>
-        <Label disable="true" layoutX="447.0" layoutY="45.0" text="Break">
-            <font>
-                <Font name="Segoe UI" size="14.0" />
-            </font>
-        </Label>
+      <GridPane hgap="4.0" layoutX="102.0" layoutY="45.0" prefHeight="76.0" prefWidth="630.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ToggleButton fx:id="intro1Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="intro2Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="intro3Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="mainAButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="A" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="mainBButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="B" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="mainCButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="C" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="mainDButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="D" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="breakFillButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="//" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="ending1Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="ending2Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" GridPane.columnIndex="12" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ToggleButton fx:id="ending3Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" GridPane.columnIndex="13" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+              <Label disable="true" text="Intro" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+                  <font>
+                      <Font name="Segoe UI" size="14.0" />
+                  </font>
+              </Label>
+              <Label disable="true" text="Main Variation" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.halignment="CENTER">
+                  <font>
+                      <Font name="Segoe UI" size="14.0" />
+                  </font>
+              </Label>
+              <Label disable="true" text="Break" GridPane.columnIndex="9" GridPane.halignment="CENTER">
+                  <font>
+                      <Font name="Segoe UI" size="14.0" />
+                  </font>
+              </Label>
+              <Label disable="true" text="Ending" GridPane.columnIndex="11" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+                  <font>
+                      <Font name="Segoe UI" size="14.0" />
+                  </font>
+              </Label>
+         </children>
+      </GridPane>
+        <JFXToggleButton fx:id="controlACMPToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="350.0" prefHeight="58.0" prefWidth="126.0" text="ACMP" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
         <JFXToggleButton fx:id="controlSyncStartToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="393.0" prefHeight="58.0" prefWidth="126.0" text="Sync Start" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
         <JFXToggleButton fx:id="controlSyncStopToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="436.0" prefHeight="58.0" prefWidth="126.0" text="Sync Stop" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
         <JFXComboBox fx:id="fingeringTypeComboBox" focusColor="#29b6f6" layoutX="165.0" layoutY="366.0" prefHeight="25.0" prefWidth="194.0" promptText="Fingering Type" />
