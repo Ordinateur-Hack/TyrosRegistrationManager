@@ -9,13 +9,10 @@ import com.yamaha.model.editor.FingeringType;
 import com.yamaha.model.editor.StyleChannel;
 import com.yamaha.model.editor.StyleEditor;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
 import javafx.util.converter.NumberStringConverter;
 
 import java.text.NumberFormat;
@@ -29,7 +26,7 @@ public class StyleController extends EditorController {
 
     //<editor-fold desc="FXML Labels">
     @FXML
-    private TextField volumeStyleTextField;
+    private TextField volumeGeneralTextField;
     @FXML
     private TextField volumeRHY1TextField;
     @FXML
@@ -47,7 +44,7 @@ public class StyleController extends EditorController {
     @FXML
     private TextField volumePHR2TextField;
 
-    private List<TextField> volumeStyleTextFields;
+    private List<TextField> volumeTextFields;
     //</editor-fold>
 
     //<editor-fold desc="FXML Sliders">
@@ -70,35 +67,35 @@ public class StyleController extends EditorController {
     @FXML
     private JFXSlider volumePHR2Slider;
 
-    private List<JFXSlider> volumeStyleSliders;
+    private List<JFXSlider> volumeSliders;
     //</editor-fold>
 
     //<editor-fold desc="FXML Toggle Buttons">
     @FXML
-    private JFXToggleButton RHY1Toggle;
+    private JFXToggleButton channelRHY1Toggle;
     @FXML
-    private JFXToggleButton RHY2Toggle;
+    private JFXToggleButton channelRHY2Toggle;
     @FXML
-    private JFXToggleButton BASSToggle;
+    private JFXToggleButton channelBASSToggle;
     @FXML
-    private JFXToggleButton CHD1Toggle;
+    private JFXToggleButton channelCHD1Toggle;
     @FXML
-    private JFXToggleButton CHD2Toggle;
+    private JFXToggleButton channelCHD2Toggle;
     @FXML
-    private JFXToggleButton PADToggle;
+    private JFXToggleButton channelPADToggle;
     @FXML
-    private JFXToggleButton PHR1Toggle;
+    private JFXToggleButton channelPHR1Toggle;
     @FXML
-    private JFXToggleButton PHR2Toggle;
+    private JFXToggleButton channelPHR2Toggle;
 
-    private List<JFXToggleButton> styleChannelToggels;
+    private List<JFXToggleButton> channelToggels;
 
     @FXML
-    private JFXToggleButton ACMPToggle;
+    private JFXToggleButton controlACMPToggle;
     @FXML
-    private JFXToggleButton SyncStartToggle;
+    private JFXToggleButton controlSyncStartToggle;
     @FXML
-    private JFXToggleButton SyncStopToggle;
+    private JFXToggleButton controlSyncStopToggle;
     //</editor-fold>
 
     //<editor-fold desc="FXML Combo Boxes">
@@ -133,16 +130,13 @@ public class StyleController extends EditorController {
 
     @FXML
     public void initialize() {
-        // Volume
-        volumeStyleTextFields = Arrays.asList(volumeRHY1TextField, volumeRHY2TextField, volumeBASSTextField,
+        volumeTextFields = Arrays.asList(volumeRHY1TextField, volumeRHY2TextField, volumeBASSTextField,
                 volumeCHD1TextField, volumeCHD2TextField, volumePADTextField, volumePHR1TextField, volumePHR2TextField);
-        volumeStyleSliders = Arrays.asList(volumeRHY1Slider, volumeRHY2Slider, volumeBASSSlider, volumeCHD1Slider,
+        volumeSliders = Arrays.asList(volumeRHY1Slider, volumeRHY2Slider, volumeBASSSlider, volumeCHD1Slider,
                 volumeCHD2Slider, volumePADSlider, volumePHR1Slider, volumePHR2Slider);
-        styleChannelToggels = Arrays.asList(RHY1Toggle, RHY2Toggle, BASSToggle, CHD1Toggle, CHD2Toggle, PADToggle,
-                PHR1Toggle, PHR2Toggle);
-
+        channelToggels = Arrays.asList(channelRHY1Toggle, channelRHY2Toggle, channelBASSToggle, channelCHD1Toggle,
+                channelCHD2Toggle, channelPADToggle, channelPHR1Toggle, channelPHR2Toggle);
         fingeringTypeComboBox.getItems().addAll(FingeringType.values());
-
     }
 
     public void updateUI() {
@@ -154,39 +148,39 @@ public class StyleController extends EditorController {
         // Volume
         volumeStyleSlider.valueProperty().bindBidirectional(styleEditor.volumeStyleProperty());
         addResetCtrlFunctionality(volumeStyleSlider, () -> styleEditor.initVolumeStyleProperty());
-        volumeStyleTextField.textProperty().bindBidirectional(volumeStyleSlider.valueProperty(), new
+        volumeGeneralTextField.textProperty().bindBidirectional(volumeStyleSlider.valueProperty(), new
                 NumberStringConverter(NumberFormat.getIntegerInstance()));
-        volumeStyleTextField.setTextFormatter(getTextFormatter());
-        addNumberRangeLimitation(volumeStyleTextField);
+        volumeGeneralTextField.setTextFormatter(getTextFormatter());
+        addNumberRangeLimitation(volumeGeneralTextField);
 
         for (int i = 0; i < 8; i++) {
             StyleChannel styleChannel = StyleChannel.getChannel(i + 1);
-            volumeStyleSliders.get(i).valueProperty().bindBidirectional(styleEditor.volumeProperty(styleChannel));
+            volumeSliders.get(i).valueProperty().bindBidirectional(styleEditor.volumeProperty(styleChannel));
             addResetCtrlFunctionality(volumeStyleSlider, () -> styleEditor.initVolumeProperty(styleChannel));
 
-            TextField volumeStyleTextField = volumeStyleTextFields.get(i);
-            volumeStyleTextField.textProperty().bindBidirectional(volumeStyleSliders.get(i).valueProperty(),
+            TextField volumeStyleTextField = volumeTextFields.get(i);
+            volumeStyleTextField.textProperty().bindBidirectional(volumeSliders.get(i).valueProperty(),
                     new NumberStringConverter(NumberFormat.getIntegerInstance()));
             volumeStyleTextField.setTextFormatter(getTextFormatter());
             addNumberRangeLimitation(volumeStyleTextField);
         }
 
         // ACMP
-        ACMPToggle.selectedProperty().bindBidirectional(styleEditor.isACMPEnabledProperty());
-        addResetCtrlFunctionality(ACMPToggle, () -> styleEditor.initIsACMPEnabledProperty());
+        controlACMPToggle.selectedProperty().bindBidirectional(styleEditor.isACMPEnabledProperty());
+        addResetCtrlFunctionality(controlACMPToggle, () -> styleEditor.initIsACMPEnabledProperty());
 
-        SyncStartToggle.selectedProperty().bindBidirectional(styleEditor.isSyncStartEnabledProperty());
-        addResetCtrlFunctionality(SyncStartToggle, () -> styleEditor.initIsSyncStartEnabledProperty());
+        controlSyncStartToggle.selectedProperty().bindBidirectional(styleEditor.isSyncStartEnabledProperty());
+        addResetCtrlFunctionality(controlSyncStartToggle, () -> styleEditor.initIsSyncStartEnabledProperty());
 
-        SyncStopToggle.selectedProperty().bindBidirectional(styleEditor.isSyncStopEnabledProperty());
-        addResetCtrlFunctionality(SyncStopToggle, () -> styleEditor.initIsSyncStopEnabledProperty());
+        controlSyncStopToggle.selectedProperty().bindBidirectional(styleEditor.isSyncStopEnabledProperty());
+        addResetCtrlFunctionality(controlSyncStopToggle, () -> styleEditor.initIsSyncStopEnabledProperty());
 
         fingeringTypeComboBox.valueProperty().bindBidirectional(styleEditor.fingeringTypeProperty());
         addResetCtrlFunctionality(fingeringTypeComboBox, () -> styleEditor.initFingeringTypeProperty());
-        fingeringTypeComboBox.disableProperty().bind(ACMPToggle.selectedProperty().not());
+        fingeringTypeComboBox.disableProperty().bind(controlACMPToggle.selectedProperty().not());
 
         for (int i = 0; i < 8; i++) {
-            JFXToggleButton styleChannelToggel = styleChannelToggels.get(i);
+            JFXToggleButton styleChannelToggel = channelToggels.get(i);
             StyleChannel styleChannel = StyleChannel.getChannel(i + 1);
             styleChannelToggel.selectedProperty().bindBidirectional(styleEditor.isChannelEnabledProperty(styleChannel));
             addResetCtrlFunctionality(styleChannelToggel, () -> styleEditor.initIsChannelEnabledProperty(styleChannel));
@@ -207,7 +201,7 @@ public class StyleController extends EditorController {
     // in order to avoid flickering buttons
     public final void unbindCriticalBindings() {
         int i = 1;
-        for (JFXToggleButton styleChannelToggel : styleChannelToggels) {
+        for (JFXToggleButton styleChannelToggel : channelToggels) {
             final int j = i;
             styleChannelToggel.selectedProperty().unbindBidirectional(styleEditor.isChannelEnabledProperty
                     (StyleChannel.getChannel(j)));
@@ -218,7 +212,7 @@ public class StyleController extends EditorController {
     // only testing
     public final void rebindCriticalBindings() {
         int i = 1;
-        for (JFXToggleButton styleChannelToggel : styleChannelToggels) {
+        for (JFXToggleButton styleChannelToggel : channelToggels) {
             final int j = i;
             styleChannelToggel.selectedProperty().bindBidirectional(styleEditor.isChannelEnabledProperty(StyleChannel
                     .getChannel(j)));
@@ -228,6 +222,7 @@ public class StyleController extends EditorController {
 
     /**
      * Sets a value range (0-127) for numbers in the given textField.
+     *
      * @param textField the textField to which the restriction should be applied
      */
     private void addNumberRangeLimitation(TextField textField) {
@@ -259,7 +254,7 @@ public class StyleController extends EditorController {
     }
 
     /**
-     * @return the filter used to keep the text in the volumeStyleTextFields in the desired format
+     * @return the filter used to keep the text in the volumeTextFields in the desired format
      */
     private UnaryOperator<TextFormatter.Change> getFilter() {
         return new UnaryOperator<TextFormatter.Change>() {
@@ -273,7 +268,6 @@ public class StyleController extends EditorController {
             }
         };
     }
-
 
 
 }
