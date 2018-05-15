@@ -36,3 +36,7 @@ public abstract class EditorController {
     }
 
 }
+
+interface Performer {
+    void perform();
+}

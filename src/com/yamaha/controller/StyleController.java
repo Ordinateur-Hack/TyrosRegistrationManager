@@ -269,9 +269,4 @@ public class StyleController extends EditorController {
         };
     }
 
-
-}
-
-interface Performer {
-    void perform();
 }
