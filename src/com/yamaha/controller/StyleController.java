@@ -164,14 +164,16 @@ public class StyleController extends EditorController {
 
         for (int i = 0; i < 8; i++) {
             StyleChannel styleChannel = StyleChannel.getChannel(i + 1);
-            volumeSliders.get(i).valueProperty().bindBidirectional(styleEditor.volumeProperty(styleChannel));
-            addResetCtrlFunctionality(volumeStyleSlider, () -> styleEditor.initVolumeProperty(styleChannel));
+            JFXSlider volumeSlider = volumeSliders.get(i);
+            volumeSlider.valueProperty().bindBidirectional(styleEditor.volumeProperty(styleChannel));
+            addResetCtrlFunctionality(volumeSlider, () -> styleEditor.initVolumeProperty(styleChannel));
 
-            TextField volumeStyleTextField = volumeTextFields.get(i);
-            volumeStyleTextField.textProperty().bindBidirectional(volumeSliders.get(i).valueProperty(),
+            TextField volumeTextField = volumeTextFields.get(i);
+            volumeTextField.textProperty().bindBidirectional(volumeSliders.get(i).valueProperty(),
                     new NumberStringConverter(NumberFormat.getIntegerInstance()));
-            volumeStyleTextField.setTextFormatter(getTextFormatter());
-            addNumberRangeLimitation(volumeStyleTextField);
+            volumeTextField.setTextFormatter(getTextFormatter());
+            addNumberRangeLimitation(volumeTextField);
+            addResetCtrlFunctionality(volumeTextField, () -> styleEditor.initVolumeProperty(styleChannel));
         }
 
         // Channels (Toggels)
