@@ -39,7 +39,7 @@ public enum StyleChannel {
         if (channelNumber < 1 || channelNumber > 8)
             throw new IllegalArgumentException("The channel number has to be in range of 1 to 8.");
         for (StyleChannel channel : StyleChannel.values()) {
-            if (channel.getChannelNumber() == channelNumber)
+            if (channel.channelNumber == channelNumber)
                 return channel;
         }
         return null;
