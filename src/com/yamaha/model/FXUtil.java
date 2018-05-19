@@ -4,6 +4,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
@@ -47,9 +48,9 @@ public abstract class FXUtil {
     // inspiration from http://www.jensd.de/wordpress/?p=2381
     /**
      * Adds a "AlwaysOneSelectedSupport" to the specified {@link ToggleGroup}.
-     * <br>This means that the ToggleGroup will behave like a {@link RadioButton}, that can only be selected but not
-     * to set to an unselected state.
-     * @param toggleGroup a ToggleGroup consisting of ToggleButtons
+     * <br>This means that the ToggleButtons of the given ToggleGroup will behave like {@link RadioButton}s, that
+     * is, always only one button can be selected and there is no case where no button is selected.
+     * @param toggleGroup a ToggleGroup consisting only of ToggleButtons
      * @throws IllegalArgumentException if the toggleGroup does not fully consist of ToggleButtons
      */
     public static void addAlwaysOneSelectedSupport(final ToggleGroup toggleGroup) throws IllegalArgumentException {
