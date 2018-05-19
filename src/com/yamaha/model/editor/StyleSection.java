@@ -1,5 +1,41 @@
 package com.yamaha.model.editor;
 
+/**
+ * The section of the style on the keyboard. The different sections are used to control what the "background band"
+ * plays. In other words, the instruments play different patterns when switching to another section. Normally, the
+ * climax is reached with section MAIN_D. Furthermore, there are sections which play a special role, e. g. the
+ * BREAK_FILL section that serves for a short break.
+ * <br><br>The main StyleSections describe the four buttons of the so-called "Main Variation" on the keyboard:
+ * <ul>
+ * <li>MAIN_A</li>
+ * <li>MAIN_B</li>
+ * <li>MAIN_C</li>
+ * <li>MAIN_D</li>
+ * </ul>
+ *
+ * <br>The special StyleSections describe the other seven "special" sections of the style:
+ * <ul>
+ * <li>INTRO_1</li>
+ * <li>INTRO_2</li>
+ * <li>INTRO_3</li>
+ * <li>BREAK_FILL</li>
+ * <li>ENDING_1</li>
+ * <li>ENDING_2</li>
+ * <li>ENDING_3</li>
+ * </ul>
+ *
+ * <br>The special StyleSections also include
+ * <ul>
+ * <li>A_FILL</li>
+ * <li>B_FILL</li>
+ * <li>C_FILL</li>
+ * <li>D_FILL</li>
+ * </ul>
+ * However, there is no button for these sections because they are indicated by flashing main StyleSection buttons.
+ *
+ * @see StyleEditor#mainStyleSectionProperty()
+ * @see StyleEditor#specialStyleSectionProperty()
+ */
 public enum StyleSection {
     // IMPORTANT: Do not change the order to this enum.
     INTRO_1(0),
@@ -42,5 +78,9 @@ public enum StyleSection {
                 return styleSection;
         }
         return null;
+    }
+
+    public boolean isFillIn() {
+        return this == A_FILL || this == B_FILL || this == C_FILL || this == D_FILL;
     }
 }
