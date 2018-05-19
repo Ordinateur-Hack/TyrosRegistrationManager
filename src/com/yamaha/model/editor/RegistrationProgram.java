@@ -8,17 +8,16 @@ import java.util.List;
 
 /**
  * A RegistrationProgram represents a registration button on the keyboard. It is used to
- * store the editors for the different Registration Memory Contents that can be set up
+ * store the editors for the different Registration Memory Content Groups that can be set up
  * on the keyboard, e. g. style, voice, song etc.
- * <p>The Controller has 8 RegistrationPrograms in order to represent the 8 registration buttons.
+ * <p>The FooterController has 8 RegistrationPrograms in order to represent the 8 registration buttons.
  * Thus, the RegistrationProgram allows to switch between these registration buttons and
  * to manipulate each setting individually.
  * <p>The RegistrationProgram provides hasX() methods, e g. hasStyle(), in order to check
- * if a specific "Registration Memory Contents"-group has been checked when setting up the
+ * if a specific Registration Memory Content Group has been checked when setting up the
  * registration button.
  * <p>NOTE: It's common that there are several empty registration buttons.
  * @author Dominic Plein
- * @version 1.0
  */
 public class RegistrationProgram {
 
