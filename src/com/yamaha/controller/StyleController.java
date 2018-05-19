@@ -304,9 +304,3 @@ class ToggleButtonRestricted extends ToggleButton {
     }
 
 }
-
-class MyButton extends JFXToggleNode {
-
-
-
-}
