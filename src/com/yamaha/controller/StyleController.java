@@ -3,18 +3,17 @@ package com.yamaha.controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
-import com.jfoenix.controls.JFXToggleNode;
 import com.yamaha.application.Main;
 import com.yamaha.model.FXUtil;
 import com.yamaha.model.editor.FingeringType;
 import com.yamaha.model.editor.StyleChannel;
 import com.yamaha.model.editor.StyleEditor;
+import com.yamaha.model.editor.StyleSection;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.util.converter.NumberStringConverter;
 
 import java.text.NumberFormat;
@@ -143,6 +142,7 @@ public class StyleController extends EditorController {
         fingeringTypeComboBox.getItems().addAll(FingeringType.values());
 
         styleSection = new ToggleGroup();
+        // IMPORTANT: Do not change the order of the elements in the styleSection.getToggles() array
         styleSection.getToggles().addAll(intro1Button, intro2Button, intro3Button, mainAButton, mainBButton,
                 mainCButton, mainDButton, breakFillButton, ending1Button, ending2Button, ending3Button);
         FXUtil.addAlwaysOneSelectedSupport(styleSection);
@@ -151,6 +151,9 @@ public class StyleController extends EditorController {
     public void updateUI() {
         styleEditor = Main.getFooterController().getCurrentPRG().getStyleEditor();
         addBindings();
+
+        // Initialize elements which couldn't be set up using bidirectional Bindings
+        styleSection.selectToggle(styleSection.getToggles().get(styleEditor.getStyleSection().ordinal()));
     }
 
     private void addBindings() {
@@ -185,6 +188,21 @@ public class StyleController extends EditorController {
         }
 
         // StyleSection
+        styleSection.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
+                StyleSection myStyleSection = StyleSection.values[styleSection.getToggles().indexOf(newToggle)];
+                styleEditor.setStyleSection(myStyleSection);
+            }
+        });
+
+        styleEditor.styleSectionProperty().addListener(new ChangeListener<StyleSection>() {
+            @Override
+            public void changed(ObservableValue<? extends StyleSection> observable, StyleSection oldSection,
+                                StyleSection newSection) {
+                styleSection.selectToggle(styleSection.getToggles().get(newSection.ordinal()));
+            }
+        });
 
         // Other controls
         controlACMPToggle.selectedProperty().bindBidirectional(styleEditor.isACMPEnabledProperty());
@@ -200,12 +218,6 @@ public class StyleController extends EditorController {
         addResetCtrlFunctionality(fingeringTypeComboBox, () -> styleEditor.initFingeringTypeProperty());
         // disable fingeringTypeComboBox if controlACMPToggle is disabled
         fingeringTypeComboBox.disableProperty().bind(controlACMPToggle.selectedProperty().not());
-    }
-
-    @FXML
-    private void changeStyleSection(ActionEvent event) {
-        ToggleGroup stylePartGroup = new ToggleGroup();
-//		stylePartGroup.getToggles().addAll(intro1Button, intro2Button);
     }
 
     //<editor-fold desc="Check this out later">

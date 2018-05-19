@@ -5,6 +5,7 @@ import com.yamaha.model.chunkFramework.BHd;
 import com.yamaha.model.chunkFramework.GPm;
 import com.yamaha.model.chunkFramework.GPmType;
 import javafx.beans.property.*;
+import com.yamaha.model.editor.StyleSection;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,8 @@ public class StyleEditor extends Editor {
         // Standard Style 07
         VOLUME(1),
         ACMP(3), // accompaniment
-        STYLE_PART(4),
+        STYLE_SECTION(4),
+        STYLE_SECTION2(10),
         FINGERING_TYPE(9), // refers to accompaniment
         SYNC_START(11),
         SYNC_STOP(12),
@@ -75,45 +77,13 @@ public class StyleEditor extends Editor {
         }
     }
 
-    public enum StylePart {
-        INTRO_1(0),
-        INTRO_2(1),
-        INTRO_3(2),
-        MAIN_A(8),
-        MAIN_B(9),
-        MAIN_C(10),
-        MAIN_D(11),
-        A_FILL(16),
-        B_FILL(17),
-        C_FILL(18),
-        D_FILL(19),
-        BREAK_FILL(24),
-        ENDING_1(32),
-        ENDING_2(33),
-        ENDING_3(34);
-
-        int representationNumber;
-
-        StylePart(int representationNumber) {
-            this.representationNumber = representationNumber;
-        }
-
-        public int getRepresentationNumber() {
-            return representationNumber;
-        }
-
-        public static StylePart getStylePart(int representationNumber) {
-            for (StylePart stylePart : StylePart.values()) {
-                if (stylePart.getRepresentationNumber() == representationNumber)
-                    return stylePart;
-            }
-            return null;
-        }
-    }
-
     // Standard Style 07
     private BooleanProperty isACMPEnabled;
-    private ObjectProperty<StylePart> stylePart;
+
+    /**
+     * the selected section of this style, e. g. Intro I, A
+     */
+    private ObjectProperty<StyleSection> styleSection;
     private BooleanProperty isSyncStartEnabled;
     private BooleanProperty isSyncStopEnabled;
 
@@ -158,11 +128,11 @@ public class StyleEditor extends Editor {
     public void initProperties() {
         initVolumeStyleProperty();
         initIsACMPEnabledProperty();
-        initStylePartProperty();
+        initStyleSectionProperty();
         initFingeringTypeProperty();
         initIsSyncStartEnabledProperty();
         initIsSyncStopEnabledProperty();
-        ;
+
         for (StyleChannel styleChannel : StyleChannel.values()) {
             initIsChannelEnabledProperty(styleChannel);
             initVolumeProperty(styleChannel);
@@ -172,7 +142,7 @@ public class StyleEditor extends Editor {
     public void mergeProperties() {
         mergeVolumeStyleProperty();
         mergeIsACMPEnabledProperty();
-        mergeStylePartProperty();
+        mergeStyleSectionProperty();
         mergeFingeringTypeProperty();
         mergeIsSyncStartEnabledProperty();
         mergeIsSyncStopEnabledProperty();
@@ -184,7 +154,7 @@ public class StyleEditor extends Editor {
 
 // ================================================================================================================= //
 
-
+    //<editor-fold desc="ACMP">
     // ||||||||||||||||||
     // ||||   ACMP   ||||
     // ||||||||||||||||||
@@ -232,41 +202,85 @@ public class StyleEditor extends Editor {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         setEnabled(gpmChunk, StyleFunction.ACMP.getDataBytePosition(), isACMPEnabled());
     }
+    //</editor-fold>
 
 
+    //<editor-fold desc="StyleSection">
     // |||||||||||||||||||||||
-    // ||||   StylePart   ||||
+    // ||||   StyleSection   ||||
     // |||||||||||||||||||||||
-    public void initStylePartProperty() {
-        GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        int representationNumber = Integer.parseInt(gpmChunk.getHexData(StyleFunction.STYLE_PART.getDataBytePosition
-                ()), 16);
-        setStylePart(StylePart.getStylePart(representationNumber));
+
+    /**
+     * @return the property {@link #styleSection}
+     */
+    public final ObjectProperty<StyleSection> styleSectionProperty() {
+        if (styleSection == null)
+            styleSection = new SimpleObjectProperty<>(StyleSection.MAIN_A);
+        return styleSection;
     }
 
-    public final StylePart getStylePart() {
-        if (stylePart != null)
-            return stylePart.get();
+    /**
+     * Initializes the property {@link #styleSection} by searching in the chunk's structure.
+     */
+    public void initStyleSectionProperty() {
+        GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
+        int representationNumber = Integer.parseInt(gpmChunk.getHexData(StyleFunction.STYLE_SECTION.getDataBytePosition
+                ()), 16);
+        setStyleSection(StyleSection.getStyleSection(representationNumber));
+    }
+
+    /**
+     * @return the current {@link #styleSection}
+     */
+    public final StyleSection getStyleSection() {
+        if (styleSection != null)
+            return styleSection.get();
         return null;
     }
 
-    public final void setStylePart(StylePart stylePart) {
-        stylePartProperty().set(stylePart);
+    /**
+     * Sets the current {@link #styleSection}.
+     *
+     * @param styleSection the {@link #styleSection} to select
+     */
+    public final void setStyleSection(StyleSection styleSection) {
+        styleSectionProperty().set(styleSection);
     }
 
-    public final ObjectProperty<StylePart> stylePartProperty() {
-        if (stylePart == null)
-            stylePart = new SimpleObjectProperty<>(StylePart.MAIN_A);
-        return stylePart;
-    }
-
-    public void mergeStylePartProperty() {
+    /**
+     * Merges the property {@link #styleSection} to the chunk's structure.
+     */
+    public void mergeStyleSectionProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        gpmChunk.changeHexDataByte(StyleFunction.STYLE_PART.getDataBytePosition(), Formatter.formatIntToHex
-                (getStylePart().getRepresentationNumber(), 1));
+        StyleSection styleSection = getStyleSection();
+        String representationNumberHex = Formatter.formatIntToHex(styleSection.getRepresentationNumber(), 1);
+        gpmChunk.changeHexDataByte(StyleFunction.STYLE_SECTION.getDataBytePosition(), representationNumberHex);
+
+        int dataBytePosition = StyleFunction.STYLE_SECTION2.getDataBytePosition();
+        // StyleSections referred to section A
+        if (styleSection == StyleSection.MAIN_A || styleSection == StyleSection.A_FILL)
+            gpmChunk.changeHexDataByte(dataBytePosition, Formatter.formatIntToHex(StyleSection.MAIN_A
+                    .getRepresentationNumber(), 1));
+            // StyleSections referred to section B
+        else if (styleSection == StyleSection.MAIN_B || styleSection == StyleSection.B_FILL) {
+            gpmChunk.changeHexDataByte(dataBytePosition, Formatter.formatIntToHex(StyleSection.MAIN_B
+                    .getRepresentationNumber(), 1));
+        }
+        // StyleSections referred to section C
+        else if (styleSection == StyleSection.MAIN_C || styleSection == StyleSection.C_FILL) {
+            gpmChunk.changeHexDataByte(dataBytePosition, Formatter.formatIntToHex(StyleSection.MAIN_C
+                    .getRepresentationNumber(), 1));
+        }
+        // StyleSections referred to section D
+        else if (styleSection == StyleSection.MAIN_D || styleSection == StyleSection.D_FILL)
+            gpmChunk.changeHexDataByte(dataBytePosition, Formatter.formatIntToHex(StyleSection.MAIN_D
+                    .getRepresentationNumber(), 1));
+
     }
+    //</editor-fold>
 
 
+    //<editor-fold desc="FingeringType">
     // ||||||||||||||||||||||||||||
     // ||||   Fingering Type   ||||
     // ||||||||||||||||||||||||||||
@@ -319,8 +333,10 @@ public class StyleEditor extends Editor {
         String hexFingeringType = Formatter.formatIntToHex(getFingeringType().getRepresentationNumber(), 1);
         gpmChunk.changeHexDataByte(StyleFunction.FINGERING_TYPE.getDataBytePosition(), hexFingeringType);
     }
+    //</editor-fold>
 
 
+    //<editor-fold desc="SyncStart">
     // ||||||||||||||||||||||||
     // ||||   Sync Start   ||||
     // ||||||||||||||||||||||||
@@ -351,8 +367,10 @@ public class StyleEditor extends Editor {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         setEnabled(gpmChunk, StyleFunction.SYNC_START.getDataBytePosition(), isSyncStartEnabled());
     }
+    //</editor-fold>
 
 
+    //<editor-fold desc="SyncStop">
     // |||||||||||||||||||||||
     // ||||   Sync Stop   ||||
     // |||||||||||||||||||||||
@@ -385,8 +403,10 @@ public class StyleEditor extends Editor {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
         setEnabled(gpmChunk, StyleFunction.SYNC_STOP.getDataBytePosition(), isSyncStopEnabled());
     }
+    //</editor-fold>
 
 
+    //<editor-fold desc="ChannelsOn/Off">
     // |||||||||||||||||||||||||||||
     // ||||   Channels On/Off   ||||
     // |||||||||||||||||||||||||||||
@@ -503,8 +523,10 @@ public class StyleEditor extends Editor {
         gpmChunk.changeHexDataByte(StyleFunction.CHANNEL_COMBINATION.getDataBytePosition(), channelCombination);
         setChannelEnabled(styleChannel, isChannelActive);
     }
+    //</editor-fold>
 
 
+    //<editor-fold desc="VolumeGeneral">
     // ||||||||||||||||||||||||||||
     // ||||   Volume General   ||||
     // ||||||||||||||||||||||||||||
@@ -536,8 +558,10 @@ public class StyleEditor extends Editor {
         GPm gpmChunk = getGPmChunk(GPmType.STYLE_ATTRIBUTES);
         setValueSlideControl(gpmChunk, StyleFunction.VOLUME.getDataBytePosition(), getVolumeStyle());
     }
+    //</editor-fold>
 
 
+    //<editor-fold desc="VolumeChannels">
     // |||||||||||||||||||||||||||||
     // ||||   Volume Channels   ||||
     // |||||||||||||||||||||||||||||
@@ -574,5 +598,6 @@ public class StyleEditor extends Editor {
         // indicated volume change
         setChanged(gpmChunk, StyleFunction.VOLUME_CHANNEL_CHANGE.getDataBytePosition(), true);
     }
+    //</editor-fold>
 
 }
