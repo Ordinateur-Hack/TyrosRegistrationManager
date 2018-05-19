@@ -5,7 +5,6 @@ import com.yamaha.model.chunkFramework.BHd;
 import com.yamaha.model.chunkFramework.GPm;
 import com.yamaha.model.chunkFramework.GPmType;
 import javafx.beans.property.*;
-import com.yamaha.model.editor.StyleSection;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,9 +34,9 @@ public class StyleEditor extends Editor {
         // Standard Style 07
         VOLUME(1),
         ACMP(3), // accompaniment
-        STYLE_SECTION(4),
-        STYLE_SECTION2(10),
-        FINGERING_TYPE(9), // refers to accompaniment
+        SPECIAL_STYLE_SECTION(4),
+        FINGERING_TYPE(9), // refers to accompaniment,
+        MAIN_STYLE_SECTION(10),
         SYNC_START(11),
         SYNC_STOP(12),
 
@@ -83,7 +82,8 @@ public class StyleEditor extends Editor {
     /**
      * the selected section of this style, e. g. Intro I, A
      */
-    private ObjectProperty<StyleSection> styleSection;
+    private ObjectProperty<StyleSection> mainStyleSection;
+    private ObjectProperty<StyleSection> specialStyleSection;
     private BooleanProperty isSyncStartEnabled;
     private BooleanProperty isSyncStopEnabled;
 
@@ -128,7 +128,8 @@ public class StyleEditor extends Editor {
     public void initProperties() {
         initVolumeStyleProperty();
         initIsACMPEnabledProperty();
-        initStyleSectionProperty();
+        initMainStyleSectionProperty();
+        initSpecialStyleSectionProperty();
         initFingeringTypeProperty();
         initIsSyncStartEnabledProperty();
         initIsSyncStopEnabledProperty();
@@ -142,7 +143,8 @@ public class StyleEditor extends Editor {
     public void mergeProperties() {
         mergeVolumeStyleProperty();
         mergeIsACMPEnabledProperty();
-        mergeStyleSectionProperty();
+        mergeMainStyleSectionProperty();
+        mergeSpecialStyleSectionProperty();
         mergeFingeringTypeProperty();
         mergeIsSyncStartEnabledProperty();
         mergeIsSyncStopEnabledProperty();
@@ -205,58 +207,108 @@ public class StyleEditor extends Editor {
     //</editor-fold>
 
 
-    //<editor-fold desc="StyleSection">
-    // |||||||||||||||||||||||
-    // ||||   StyleSection   ||||
-    // |||||||||||||||||||||||
+    //<editor-fold desc="Main StyleSection">
+    // |||||||||||||||||||||||||||||||
+    // ||||   Main StyleSection   ||||
+    // |||||||||||||||||||||||||||||||
 
     /**
-     * @return the property {@link #styleSection}
+     * @return the currently selected main {@link StyleSection}
      */
-    public final ObjectProperty<StyleSection> styleSectionProperty() {
-        if (styleSection == null)
-            styleSection = new SimpleObjectProperty<>(StyleSection.MAIN_A);
-        return styleSection;
+    public final ObjectProperty<StyleSection> mainStyleSectionProperty() {
+        if (mainStyleSection == null)
+            mainStyleSection = new SimpleObjectProperty<>(StyleSection.MAIN_A);
+        return mainStyleSection;
     }
 
     /**
-     * Initializes the property {@link #styleSection} by searching in the chunk's structure.
+     * Initializes the {@link #mainStyleSectionProperty()} by searching in the chunk's structure.
      */
-    public void initStyleSectionProperty() {
+    public void initMainStyleSectionProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        int representationNumber = Integer.parseInt(gpmChunk.getHexData(StyleFunction.STYLE_SECTION.getDataBytePosition
-                ()), 16);
-        setStyleSection(StyleSection.getStyleSection(representationNumber));
+        int representationNumber = Integer.parseInt(gpmChunk.getHexData(StyleFunction.MAIN_STYLE_SECTION
+                .getDataBytePosition()), 16);
+        setMainStyleSection(StyleSection.getStyleSection(representationNumber));
     }
 
     /**
-     * @return the current {@link #styleSection}
+     * @return the currently selected main {@link StyleSection}
      */
-    public final StyleSection getStyleSection() {
-        if (styleSection != null)
-            return styleSection.get();
+    public final StyleSection getMainStyleSection() {
+        if (mainStyleSection != null)
+            return mainStyleSection.get();
         return null;
     }
 
     /**
-     * Sets the current {@link #styleSection}.
-     *
-     * @param styleSection the {@link #styleSection} to select
+     * @param styleSection the main {@link StyleSection} to select
      */
-    public final void setStyleSection(StyleSection styleSection) {
-        styleSectionProperty().set(styleSection);
+    public final void setMainStyleSection(StyleSection styleSection) {
+        mainStyleSectionProperty().set(styleSection);
     }
 
     /**
-     * Merges the property {@link #styleSection} to the chunk's structure.
+     * Merges the {@link #mainStyleSectionProperty()} to the chunk's structure.
      */
-    public void mergeStyleSectionProperty() {
+    public void mergeMainStyleSectionProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        StyleSection styleSection = getStyleSection();
-        String representationNumberHex = Formatter.formatIntToHex(styleSection.getRepresentationNumber(), 1);
-        gpmChunk.changeHexDataByte(StyleFunction.STYLE_SECTION.getDataBytePosition(), representationNumberHex);
+        String representationNumberHex = Formatter.formatIntToHex(getMainStyleSection().getRepresentationNumber(),
+                1);
+        gpmChunk.changeHexDataByte(StyleFunction.MAIN_STYLE_SECTION.getDataBytePosition(), representationNumberHex);
+    }
+    //</editor-fold>
 
-        int dataBytePosition = StyleFunction.STYLE_SECTION2.getDataBytePosition();
+
+    //<editor-fold desc="Special StyleSection">
+    // ||||||||||||||||||||||||||||||||||
+    // ||||   Special StyleSection   ||||
+    // ||||||||||||||||||||||||||||||||||
+
+    /**
+     * @return the currently selected special {@link StyleSection}
+     */
+    public final ObjectProperty<StyleSection> specialStyleSectionProperty() {
+        if (specialStyleSection == null)
+            specialStyleSection = new SimpleObjectProperty<>(StyleSection.MAIN_A);
+        return specialStyleSection;
+    }
+
+    /**
+     * Initializes the {@link #specialStyleSectionProperty()} by searching in the chunk's structure.
+     */
+    public void initSpecialStyleSectionProperty() {
+        GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
+        int representationNumber = Integer.parseInt(gpmChunk.getHexData(StyleFunction.SPECIAL_STYLE_SECTION
+                .getDataBytePosition()), 16);
+        setSpecialStyleSection(StyleSection.getStyleSection(representationNumber));
+    }
+
+    /**
+     * @return the currently selected special {@link StyleSection}
+     */
+    public final StyleSection getSpecialStyleSection() {
+        if (specialStyleSection != null)
+            return specialStyleSection.get();
+        return null;
+    }
+
+    /**
+     * @param styleSection the special {@link StyleSection} to select
+     */
+    public final void setSpecialStyleSection(StyleSection styleSection) {
+        specialStyleSectionProperty().set(styleSection);
+    }
+
+    /**
+     * Merges the {@link #specialStyleSectionProperty()} to the chunk's structure.
+     */
+    public void mergeSpecialStyleSectionProperty() {
+        GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
+        String representationNumberHex = Formatter.formatIntToHex(getSpecialStyleSection().getRepresentationNumber(),
+                1);
+        gpmChunk.changeHexDataByte(StyleFunction.SPECIAL_STYLE_SECTION.getDataBytePosition(), representationNumberHex);
+
+        /*int dataBytePosition = StyleFunction.STYLE_SECTION2.getDataBytePosition();
         // StyleSections referred to section A
         if (styleSection == StyleSection.MAIN_A || styleSection == StyleSection.A_FILL)
             gpmChunk.changeHexDataByte(dataBytePosition, Formatter.formatIntToHex(StyleSection.MAIN_A
@@ -274,7 +326,7 @@ public class StyleEditor extends Editor {
         // StyleSections referred to section D
         else if (styleSection == StyleSection.MAIN_D || styleSection == StyleSection.D_FILL)
             gpmChunk.changeHexDataByte(dataBytePosition, Formatter.formatIntToHex(StyleSection.MAIN_D
-                    .getRepresentationNumber(), 1));
+                    .getRepresentationNumber(), 1));*/
 
     }
     //</editor-fold>
