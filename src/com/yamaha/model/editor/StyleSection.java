@@ -1,6 +1,6 @@
 package com.yamaha.model.editor;
 
-public enum SpecialStyleSection {
+public enum StyleSection {
     // IMPORTANT: Do not change the order to this enum.
     INTRO_1(0),
     INTRO_2(1),
@@ -18,26 +18,26 @@ public enum SpecialStyleSection {
     ENDING_2(33),
     ENDING_3(34);
 
-    public static final SpecialStyleSection values[] = values();
+    public static final StyleSection values[] = values();
     int representationNumber;
 
-    SpecialStyleSection(int representationNumber) {
+    StyleSection(int representationNumber) {
         this.representationNumber = representationNumber;
     }
 
     /**
-     * @return the representationNumber of this SpecialStyleSection
+     * @return the representationNumber of this StyleSection
      */
     public int getRepresentationNumber() {
         return representationNumber;
     }
 
     /**
-     * @param representationNumber the representationNumber of this SpecialStyleSection
+     * @param representationNumber the representationNumber of this StyleSection
      * @return the styleSection associated with the given representationNumber
      */
-    public static SpecialStyleSection getStyleSection(int representationNumber) {
-        for (SpecialStyleSection styleSection : SpecialStyleSection.values()) {
+    public static StyleSection getStyleSection(int representationNumber) {
+        for (StyleSection styleSection : StyleSection.values()) {
             if (styleSection.getRepresentationNumber() == representationNumber)
                 return styleSection;
         }
