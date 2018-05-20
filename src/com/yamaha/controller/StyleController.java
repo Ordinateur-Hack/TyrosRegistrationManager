@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 import com.yamaha.application.Main;
+import com.yamaha.model.BiMap;
 import com.yamaha.model.FXUtil;
 import com.yamaha.model.editor.FingeringType;
 import com.yamaha.model.editor.StyleChannel;
@@ -121,7 +122,8 @@ public class StyleController extends EditorController {
 
     private ToggleGroup mainStyleSectionGroup;
     private ToggleGroup specialStyleSectionGroup;
-
+    private BiMap<StyleSection, ToggleButton> biMapStyleSectionButton = new BiMap<>();
+    private BiMap<StyleSection, ToggleButton> biMapStyleSectionFillIn = new BiMap<>();
 
     @FXML
     private JFXToggleButton controlACMPToggle;
@@ -137,7 +139,7 @@ public class StyleController extends EditorController {
     //</editor-fold
 
     //<editor-fold desc="FXML Animations">
-    FadeTransition fillInTransition;
+    FadeTransition fillInTransition = new FadeTransition();
     //</editor-fold>
 
     @FXML
@@ -157,23 +159,42 @@ public class StyleController extends EditorController {
         specialStyleSectionGroup = new ToggleGroup();
         specialStyleSectionGroup.getToggles().addAll(intro1Button, intro2Button, intro3Button, breakFillButton,
                 ending1Button, ending2Button, ending3Button); // Do not change!
+
+        biMapStyleSectionButton.put(StyleSection.INTRO_1, intro1Button);
+        biMapStyleSectionButton.put(StyleSection.INTRO_2, intro2Button);
+        biMapStyleSectionButton.put(StyleSection.INTRO_3, intro3Button);
+        biMapStyleSectionButton.put(StyleSection.MAIN_A, mainAButton);
+        biMapStyleSectionButton.put(StyleSection.MAIN_B, mainBButton);
+        biMapStyleSectionButton.put(StyleSection.MAIN_C, mainCButton);
+        biMapStyleSectionButton.put(StyleSection.MAIN_D, mainDButton);
+        biMapStyleSectionButton.put(StyleSection.BREAK_FILL, breakFillButton);
+        biMapStyleSectionButton.put(StyleSection.ENDING_1, ending1Button);
+        biMapStyleSectionButton.put(StyleSection.ENDING_2, ending2Button);
+        biMapStyleSectionButton.put(StyleSection.ENDING_3, ending3Button);
+
+        biMapStyleSectionFillIn.put(StyleSection.A_FILL, mainAButton);
+        biMapStyleSectionFillIn.put(StyleSection.B_FILL, mainBButton);
+        biMapStyleSectionFillIn.put(StyleSection.C_FILL, mainCButton);
+        biMapStyleSectionFillIn.put(StyleSection.D_FILL, mainDButton);
+
     }
 
     public void updateUI() {
         styleEditor = Main.getFooterController().getCurrentPRG().getStyleEditor();
-        addBindings();
 
         // Initialize elements which couldn't be set up using bidirectional Bindings
-
         StyleSection mainStyleSection = styleEditor.getMainStyleSection();
-        mainStyleSectionGroup.selectToggle(mainStyleSectionGroup.getToggles().get(mainStyleSection
-                .getRepresentationNumber() - 8));
+        mainStyleSectionGroup.selectToggle(biMapStyleSectionButton.get(mainStyleSection));
 
         StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
-        if (specialStyleSection.isFillIn()) {
-            playFillInAnimation((ToggleButton) mainStyleSectionGroup.getToggles().get(specialStyleSection
-                    .getRepresentationNumber() - 16), true);
+        if (!specialStyleSection.isMainVariation()) {
+            playFillInAnimation(biMapStyleSectionButton.get(mainStyleSection), true);
+            if (!specialStyleSection.isFillIn()) {
+                specialStyleSectionGroup.selectToggle(biMapStyleSectionButton.get(specialStyleSection));
+            }
         }
+
+        addBindings();
     }
 
     private void addBindings() {
@@ -207,74 +228,70 @@ public class StyleController extends EditorController {
             addResetCtrlFunctionality(styleChannelToggel, () -> styleEditor.initIsChannelEnabledProperty(styleChannel));
         }
 
-        // StyleSection
-        for (Toggle mainToggleButton : mainStyleSectionGroup.getToggles()) {
-            // EXAMPLE: MAIN_A is at index 0, representation number for MAIN_A is 8 (int),
-            // representation number for A_FILL is 12 (int)
-            int fillInNumber = mainStyleSectionGroup.getToggles().indexOf(mainToggleButton) + 16;
+        //<editor-fold desc="StyleSection">
+        //////////////////
+        // StyleSection///
+        //////////////////
+        for (Toggle mainButton : mainStyleSectionGroup.getToggles()) {
+            ToggleButton mainToggleButton = ((ToggleButton) mainButton);
 
-            ((ToggleButton) mainToggleButton).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            // Do not use MOUSE_CLICKED since the mainToggleButton.isSelected() condition will then always be true
+            mainToggleButton.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    if (styleEditor.getSpecialStyleSection().isFillIn()) {
-                        // stop FIll-In on the clicked button
-                        playFillInAnimation(((ToggleButton) mainToggleButton), false);
-                        styleEditor.setSpecialStyleSection(StyleSection.getStyleSection(fillInNumber - 8));
-
+                    StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
+                    // if clicked on the same button
+//                    if (mainToggleButton == biMapStyleSectionButton.get(styleEditor.getMainStyleSection())) {
+                    if (mainToggleButton.isSelected()) {
+                        if (specialStyleSection.isMainVariation() || specialStyleSection.isIntroOrEnding()) {
+                            styleEditor.setSpecialStyleSection(biMapStyleSectionFillIn.getKey(mainToggleButton));
+                            if (specialStyleSection.isMainVariation()) {
+                                playFillInAnimation(mainToggleButton, true);
+                            }
+                        } else if (specialStyleSection.isFillIn() || specialStyleSection == StyleSection.BREAK_FILL) {
+                            styleEditor.setSpecialStyleSection(biMapStyleSectionButton.getKey(mainToggleButton));
+                            playFillInAnimation(mainToggleButton, false);
+                        }
                     }
-
-                    if (event.getClickCount() == 2) { // double click
-                        styleEditor.setSpecialStyleSection(StyleSection.getStyleSection(fillInNumber));
-                        playFillInAnimation(((ToggleButton) mainToggleButton), true);
-                    }
+                    specialStyleSectionGroup.selectToggle(null);
                 }
             });
 
-            ((ToggleButton) mainToggleButton).selectedProperty().addListener(new ChangeListener<Boolean>() {
+            mainStyleSectionGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
                 @Override
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    if (styleEditor.getSpecialStyleSection().isFillIn() && oldValue == true && newValue == false) {
-                        // if this button was active and another main button is selected now
-                        playFillInAnimation(((ToggleButton) mainToggleButton), false);
-                        styleEditor.setSpecialStyleSection(StyleSection.getStyleSection(fillInNumber - 8));
-                    }
-                    // }
+                public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
+                    ToggleButton newToggleButton = ((ToggleButton) newToggle);
+                    playFillInAnimation((ToggleButton) oldToggle, false); // disable animation on the previously
+                    // selected toggle
+                    playFillInAnimation(newToggleButton, true);
+                    styleEditor.setSpecialStyleSection(biMapStyleSectionFillIn.getKey(newToggleButton));
+                    styleEditor.setMainStyleSection(biMapStyleSectionButton.getKey(newToggleButton));
                 }
             });
         }
 
-        specialStyleSectionGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            @Override
-            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
-                styleEditor.setSpecialStyleSection(getSpecialStyleSection(((ToggleButton) newToggle)));
-            }
-        });
 
+        for (Toggle specialButton : specialStyleSectionGroup.getToggles()) {
+            ToggleButton specialToggleButton = ((ToggleButton) specialButton);
 
-        mainStyleSectionGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            @Override
-            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
-                styleEditor.setMainStyleSection(StyleSection.getStyleSection(mainStyleSectionGroup.getToggles()
-                        .indexOf(newToggle) + 8));
-            }
-        });
-
-        /*//StyleSection
-        styleSection.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            @Override
-            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
-                StyleSection myStyleSection = StyleSection.values[styleSection.getToggles().indexOf(newToggle)];
-                styleEditor.setStyleSection(myStyleSection);
-            }
-        });
-
-        styleEditor.styleSectionProperty().addListener(new ChangeListener<StyleSection>() {
-            @Override
-            public void changed(ObservableValue<? extends StyleSection> observable, StyleSection oldSection,
-                                StyleSection newSection) {
-                styleSection.selectToggle(styleSection.getToggles().get(newSection.ordinal()));
-            }
-        });*/
+            specialToggleButton.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
+                    StyleSection mainStyleSection = styleEditor.getMainStyleSection();
+                    if (specialToggleButton.isSelected()) {
+                        styleEditor.setSpecialStyleSection(mainStyleSection);
+                        playFillInAnimation(biMapStyleSectionButton.get(mainStyleSection), false);
+                    } else { // if clicked on another button (currently not selected)
+                        if (specialStyleSection.isMainVariation()) {
+                            playFillInAnimation(biMapStyleSectionButton.get(mainStyleSection), true);
+                        }
+                        styleEditor.setSpecialStyleSection(biMapStyleSectionButton.getKey(specialToggleButton));
+                    }
+                }
+            });
+        }
+        //</editor-fold>
 
         // Other controls
         controlACMPToggle.selectedProperty().bindBidirectional(styleEditor.isACMPEnabledProperty());
@@ -293,52 +310,22 @@ public class StyleController extends EditorController {
     }
 
     /**
-     *  Selects the section associated with the current Fill-In section, e. g. MAIN_A and FILL_A.
-     * @param styleSection the StyleSection representing the Fill-In to remove.
-     */
-//    private void removeFillIn(StyleSection styleSection) {
-//        if (styleSection.isFillIn()) {
-//            styleEditor.setSpecialStyleSection(StyleSection.getStyleSection(styleSection.getRepresentationNumber() -
-//                    8));
-//        }
-//    }
-
-
-    /**
+     * Adds a FillInTransition to a given toggleButton and plays it or stops the playing animation.
      * @param toggleButton the ToggleButton which opacity will be animated
      * @param enabled      true to start the animation, false to stop it
      */
     private void playFillInAnimation(ToggleButton toggleButton, boolean enabled) {
         if (enabled) {
-            fillInTransition = new FadeTransition(Duration.seconds(0.5), toggleButton);
+            fillInTransition = new FadeTransition(Duration.millis(160), toggleButton);
             fillInTransition.setFromValue(1.0);
             fillInTransition.setToValue(0.0);
             fillInTransition.setCycleCount(Animation.INDEFINITE);
             fillInTransition.setAutoReverse(true);
             fillInTransition.play();
         } else {
-            if (fillInTransition == null)
-                fillInTransition = new FadeTransition(Duration.seconds(0.5), toggleButton);
             fillInTransition.stop();
             toggleButton.setOpacity(1);
         }
-    }
-
-    /**
-     * @param toggleButton the {@link ToggleButton} representing a special {@link StyleSection}
-     * @return the {@link StyleSection} associated with the given {@link ToggleButton}
-     * @throws IllegalArgumentException if the {@link ToggleButton} does not represent a special {@link StyleSection}
-     */
-    private StyleSection getSpecialStyleSection(ToggleButton toggleButton) throws IllegalArgumentException {
-        int i = specialStyleSectionGroup.getToggles().indexOf(toggleButton);
-        if (i == -1) {
-            throw new IllegalArgumentException("The given ToggleButton must represent a special StyleSection");
-        }
-        else if (i == 3)
-            i = StyleSection.BREAK_FILL.getRepresentationNumber();
-        else if (i >= 4)
-            i += StyleSection.ENDING_1.getRepresentationNumber() - i;
-        return StyleSection.getStyleSection(i);
     }
 
     //<editor-fold desc="Check this out later">

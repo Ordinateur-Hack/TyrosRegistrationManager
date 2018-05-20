@@ -83,4 +83,13 @@ public enum StyleSection {
     public boolean isFillIn() {
         return this == A_FILL || this == B_FILL || this == C_FILL || this == D_FILL;
     }
+
+    public boolean isMainVariation() {
+        return this == MAIN_A || this == MAIN_B || this == MAIN_C || this == MAIN_D;
+    }
+
+    public boolean isIntroOrEnding() {
+        return this == INTRO_1 || this == INTRO_2 || this == INTRO_3 || this == ENDING_1 || this == ENDING_2
+                || this == ENDING_3;
+    }
 }
