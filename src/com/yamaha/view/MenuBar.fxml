@@ -11,20 +11,20 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="215.0" style="-fx-background-color: #00214E;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.MenuBarController">
+<AnchorPane prefHeight="700.0" prefWidth="215.0" style="-fx-background-color: #00214E;" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.MenuBarController">
     <children>
-        <Label layoutX="14.0" layoutY="22.0" text="Registration" textFill="WHITE">
+        <Label layoutX="14.0" layoutY="22.0" styleClass="white-text-fill" text="Registration" textFill="WHITE">
             <font>
                 <Font name="Segoe MDL2 Assets" size="24.0" />
             </font>
         </Label>
         <Line endX="100.0" layoutX="100.0" layoutY="60.0" startX="-40.0" stroke="WHITE" strokeWidth="2.5" />
-        <Label layoutX="101.0" layoutY="67.0" text="Manager" textFill="WHITE">
+        <Label layoutX="101.0" layoutY="67.0" styleClass="white-text-fill" text="Manager" textFill="WHITE">
             <font>
                 <Font name="Segoe MDL2 Assets" size="24.0" />
             </font>
         </Label>
-        <Label fx:id="fileName" layoutY="110.0" prefHeight="66.0" prefWidth="215.0" textFill="WHITE" textOverrun="WORD_ELLIPSIS" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Label fx:id="fileName" layoutY="110.0" prefHeight="66.0" prefWidth="215.0" styleClass="white-text-fill" textFill="WHITE" textOverrun="WORD_ELLIPSIS" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <font>
                 <Font name="Segoe UI" size="15.0" />
             </font>
@@ -34,22 +34,22 @@
         </Label>
       <VBox layoutX="-1.0" layoutY="178.0" prefHeight="388.0" prefWidth="202.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-              <JFXButton fx:id="homeButton" onAction="#loadHome" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" text="Home" textFill="WHITE" VBox.vgrow="ALWAYS">
+              <JFXButton fx:id="homeButton" onAction="#loadHome" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" styleClass="white-text-fill" text="Home" textFill="WHITE" VBox.vgrow="ALWAYS">
                   <font>
                       <Font name="Segoe UI" size="20.0" />
                   </font>
               </JFXButton>
-              <JFXButton fx:id="songButton" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" text="Song" textFill="WHITE" VBox.vgrow="ALWAYS">
+              <JFXButton fx:id="songButton" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" styleClass="white-text-fill" text="Song" textFill="WHITE" VBox.vgrow="ALWAYS">
                   <font>
                       <Font name="Segoe UI" size="20.0" />
                   </font>
               </JFXButton>
-              <JFXButton fx:id="styleButton" onAction="#loadStyle" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" text="Style" textFill="WHITE" VBox.vgrow="ALWAYS">
+              <JFXButton fx:id="styleButton" onAction="#loadStyle" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" styleClass="white-text-fill" text="Style" textFill="WHITE" VBox.vgrow="ALWAYS">
                   <font>
                       <Font name="Segoe UI" size="20.0" />
                   </font>
               </JFXButton>
-              <JFXButton fx:id="voiceButton" onAction="#loadVoice" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" text="Voice" textFill="WHITE" VBox.vgrow="ALWAYS">
+              <JFXButton fx:id="voiceButton" onAction="#loadVoice" prefHeight="55.0" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" styleClass="white-text-fill" text="Voice" textFill="WHITE" VBox.vgrow="ALWAYS">
                   <font>
                       <Font name="Segoe UI" size="20.0" />
                   </font>
@@ -65,12 +65,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-              <JFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#loadFile" prefHeight="1.0E10" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" text="Load File" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+              <JFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#loadFile" prefHeight="1.0E10" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" styleClass="white-text-fill" text="Load File" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
                   <font>
                       <Font name="Segoe UI Bold" size="15.0" />
                   </font>
               </JFXButton>
-              <JFXButton fx:id="saveButton" alignment="CENTER" onAction="#saveFile" prefHeight="1.0E10" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" text="Save File" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="1">
+              <JFXButton fx:id="saveButton" alignment="CENTER" onAction="#saveFile" prefHeight="1.0E10" prefWidth="1.0E10" ripplerFill="WHITE" style="-fx-background-radius: 0;" styleClass="white-text-fill" text="Save File" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="1">
                   <font>
                       <Font name="System Bold" size="15.0" />
                   </font>

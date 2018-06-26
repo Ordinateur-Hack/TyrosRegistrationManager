@@ -1,8 +1,10 @@
 package com.yamaha.controller;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.effects.JFXDepthManager;
 import com.yamaha.application.Main;
 import com.yamaha.model.BiMap;
 import com.yamaha.model.FXUtil;
@@ -16,6 +18,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
@@ -160,6 +163,13 @@ public class StyleController extends EditorController {
         specialStyleSectionGroup.getToggles().addAll(intro1Button, intro2Button, intro3Button, breakFillButton,
                 ending1Button, ending2Button, ending3Button); // Do not change!
 
+        /*for (Toggle toggleButton : mainStyleSectionGroup.getToggles()) {
+            addJFXRipplerEffect((Node) toggleButton, 5);
+        }
+        for (Toggle toggleButton : specialStyleSectionGroup.getToggles()) {
+            addJFXRipplerEffect((Node) toggleButton, 5);
+        }*/
+
         biMapStyleSectionButton.put(StyleSection.INTRO_1, intro1Button);
         biMapStyleSectionButton.put(StyleSection.INTRO_2, intro2Button);
         biMapStyleSectionButton.put(StyleSection.INTRO_3, intro3Button);
@@ -177,6 +187,11 @@ public class StyleController extends EditorController {
         biMapStyleSectionFillIn.put(StyleSection.C_FILL, mainCButton);
         biMapStyleSectionFillIn.put(StyleSection.D_FILL, mainDButton);
 
+    }
+
+    private void addJFXRipplerEffect(Node node, int level) {
+        JFXRippler rippler = new JFXRippler(node);
+        JFXDepthManager.setDepth(node, level);
     }
 
     public void updateUI() {
@@ -311,6 +326,7 @@ public class StyleController extends EditorController {
 
     /**
      * Adds a FillInTransition to a given toggleButton and plays it or stops the playing animation.
+     *
      * @param toggleButton the ToggleButton which opacity will be animated
      * @param enabled      true to start the animation, false to stop it
      */

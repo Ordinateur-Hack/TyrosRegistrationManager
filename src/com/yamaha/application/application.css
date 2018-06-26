@@ -1,3 +1,40 @@
+/*<editor-fold desc="General">*/
+* {
+	-fx-base:  #00214E;
+	-fx-text-fill: black;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.white-text-fill {
+	-fx-text-fill: white;
+}
+/*</editor-fold>*/
+
+
+/*<editor-fold desc="Style Section">*/
+.style-section .toggle-button{
+	-gray-background-color: #555555;
+	-fx-background-color: -gray-background-color;
+	-fx-text-fill: white;
+	-fx-background-insets: 0;
+}
+
+.style-section .toggle-button:hover {
+	-fx-background-color: derive(-gray-background-color, 35%);
+}
+
+.style-section .toggle-button:selected{
+	-fx-background-color: derive(-fx-base, 85%);
+}
+
+.style-section .jfx-rippler {
+	-jfx-rippler-fill: white;
+}
+/*</editor-fold>*/
+
+
+/*<editor-fold desc="JFX Sliders">*/
 .jfx-slider {
 	-jfx-default-thumb: #ff7043;
 }
@@ -36,3 +73,4 @@
 .jfx-slider:min:focused .colored-track {
 	-fx-background-color: #CCCCCC;
 }
+/*</editor-fold>*/

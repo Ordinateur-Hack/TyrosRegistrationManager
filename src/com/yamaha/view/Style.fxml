@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRippler?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.Label?>
@@ -108,85 +108,7 @@
             </StackPane>
          </children>
         </AnchorPane>
-        <GridPane layoutX="102.0" layoutY="580.0" prefHeight="30.0" prefWidth="670.0" AnchorPane.leftAnchor="102.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <JFXButton buttonType="RAISED" prefWidth="41.0" style="-fx-background-color: #ff7043;" text="A" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="141.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="B" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="210.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="C" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="310.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="D" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="356.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="//" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="I" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="422.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="II" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="12" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="474.0" layoutY="7.0" prefHeight="35.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="III" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="13" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="455.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="I" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="496.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="II" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton buttonType="RAISED" layoutX="537.0" layoutY="7.0" prefWidth="41.0" style="-fx-background-color: #29b6f6;" text="III" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Segoe UI Bold" size="18.0" />
-                    </font>
-                </JFXButton>
-            </children>
-        </GridPane>
-      <GridPane hgap="4.0" layoutX="102.0" layoutY="45.0" prefHeight="76.0" prefWidth="630.0">
+      <GridPane hgap="4.0" layoutX="102.0" layoutY="45.0" prefHeight="76.0" prefWidth="630.0" styleClass="style-section">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -208,17 +130,39 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ToggleButton fx:id="intro1Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="intro2Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="intro3Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="mainAButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="A" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="mainBButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="B" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="mainCButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="C" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="mainDButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="D" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="breakFillButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="//" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="ending1Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="ending2Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" GridPane.columnIndex="12" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <ToggleButton fx:id="ending3Button" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" GridPane.columnIndex="13" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <JFXRippler GridPane.rowIndex="1">
+                  <ToggleButton fx:id="intro1Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" />
+            </JFXRippler>
+            <JFXRippler GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="intro2Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" />
+            </JFXRippler>
+            <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="intro3Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" />
+            </JFXRippler>
+            <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="mainAButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="A" />
+            </JFXRippler>
+            <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="mainBButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="B" />
+            </JFXRippler>
+            <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="mainCButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="C" />
+            </JFXRippler>
+            <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="mainDButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="D" />
+            </JFXRippler>
+            <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="9" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="breakFillButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="//" />
+            </JFXRippler>
+            <JFXRippler GridPane.columnIndex="11" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="ending1Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" />
+            </JFXRippler>
+            <JFXRippler layoutX="56.0" layoutY="48.0" GridPane.columnIndex="12" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="ending2Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" />
+            </JFXRippler>
+            <JFXRippler GridPane.columnIndex="13" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="ending3Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" />
+            </JFXRippler>
               <Label disable="true" text="Intro" GridPane.columnSpan="3" GridPane.halignment="CENTER">
                   <font>
                       <Font name="Segoe UI" size="14.0" />

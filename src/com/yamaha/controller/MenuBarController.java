@@ -315,7 +315,7 @@ public class MenuBarController {
         currentButton.setStyle("-fx-background-color: transparent");
         // Set new Button
         currentButton = newButton;
-        currentButton.setStyle("-fx-background-color: #053B82");
+        // currentButton.setStyle("-fx-background-color: #053B82");
     }
 
     public RMGroup getCurrentRMGroup() {
