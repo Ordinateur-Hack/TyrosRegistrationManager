@@ -1,4 +1,4 @@
-package com.yamaha.model.editor;
+package com.yamaha.model.editor.Style;
 
 /**
  * The section of the style on the keyboard. The different sections are used to control what the "background band"

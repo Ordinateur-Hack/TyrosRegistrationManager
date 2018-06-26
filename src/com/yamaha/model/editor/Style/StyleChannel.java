@@ -1,4 +1,4 @@
-package com.yamaha.model.editor;
+package com.yamaha.model.editor.Style;
 
 /**
  * A StyleChannel represents one of the eight channels of a style:

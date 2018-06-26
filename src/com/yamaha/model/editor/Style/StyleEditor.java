@@ -1,9 +1,11 @@
-package com.yamaha.model.editor;
+package com.yamaha.model.editor.Style;
 
 import com.yamaha.model.Formatter;
 import com.yamaha.model.chunkFramework.BHd;
 import com.yamaha.model.chunkFramework.GPm;
 import com.yamaha.model.chunkFramework.GPmType;
+import com.yamaha.model.editor.Editor;
+import com.yamaha.model.editor.FingeringType;
 import javafx.beans.property.*;
 
 import java.util.Arrays;

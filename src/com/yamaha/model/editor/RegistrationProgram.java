@@ -2,6 +2,7 @@ package com.yamaha.model.editor;
 
 import com.yamaha.model.chunkFramework.BHd;
 import com.yamaha.model.chunkFramework.SpfF;
+import com.yamaha.model.editor.Style.StyleEditor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  * if a specific Registration Memory Content Group has been checked when setting up the
  * registration button.
  * <p>NOTE: It's common that there are several empty registration buttons.
+ *
  * @author Dominic Plein
  */
 public class RegistrationProgram {
@@ -25,7 +27,8 @@ public class RegistrationProgram {
     // change icon? no, the GPm-chunk saves this information
     // Registration Memory Content groups ...
     // has Registration Memory Content group
-    // how to check if the registration button is empty or not? iterate through the BHd-chunks; simply check the length of the BHd-chunk
+    // how to check if the registration button is empty or not? iterate through the BHd-chunks; simply check the
+    // length of the BHd-chunk
 
     private int registrationNumber; // the number of the registration button (in range 1 to 8)
     private BHd bhdChunk;
@@ -47,7 +50,8 @@ public class RegistrationProgram {
             throw new IllegalArgumentException("The registrationNumber has to be in range of 1 to 8");
         this.registrationNumber = registrationNumber;
 
-        bhdChunk = spffChunk.getBHdChunks().get(registrationNumber); // index 0 is bhdChunk for sequence, so BHd-chunk for first button is at index 1
+        bhdChunk = spffChunk.getBHdChunks().get(registrationNumber); // index 0 is bhdChunk for sequence, so
+        // BHd-chunk for first button is at index 1
         isEmpty = bhdChunk.getNumberOfDataBytes() == 0; // check if the RegistrationProgram contains data
 
         if (!isEmpty) { // initialize the editors
@@ -65,7 +69,7 @@ public class RegistrationProgram {
 
     public void transferEditorProperties() {
         if (hasData()) {
-            for (Editor editor: editors) {
+            for (Editor editor : editors) {
                 if (editor.isRepresented())
                     editor.mergeProperties();
             }
@@ -74,6 +78,7 @@ public class RegistrationProgram {
 
     /**
      * Returns if this RegistrationProgram has data, meaning if it is empty or not.
+     *
      * @return true if this RegistrationProgram has data, false if it is empty
      */
     public boolean hasData() {
@@ -91,7 +96,8 @@ public class RegistrationProgram {
             case VOICE:
                 // return voice.isRepresented();
             default:
-                return false; // if group button exists but is not handled here, rather return false than true in order to prevent a NullPointerException; pretend to the user that this group doesn't exist
+                return false; // if group button exists but is not handled here, rather return false than true in
+            // order to prevent a NullPointerException; pretend to the user that this group doesn't exist
         }
 
     }
