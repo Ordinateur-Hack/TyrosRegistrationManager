@@ -210,8 +210,6 @@ public class StyleController extends EditorController {
             }
         }
 
-        autoFillIn.setSelected(true);
-
         addBindings();
     }
 
@@ -255,7 +253,7 @@ public class StyleController extends EditorController {
 
             // Click on the same button (MAIN)
             // Do not use MOUSE_CLICKED since the mainToggleButton.isSelected() condition will then always be true
-            mainToggleButton.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            mainToggleButton.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
