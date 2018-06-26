@@ -7,6 +7,7 @@ import com.yamaha.model.editor.RMGroup;
 import com.yamaha.model.editor.RegistrationProgram;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToggleButton;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,35 +20,32 @@ public class FooterController {
     private RegistrationProgram[] prgs;
     private RegistrationProgram currentPRG;
 
+    //<editor-fold desc="PRG-buttons">
     @FXML
-    private JFXButton prg1Button;
+    private ToggleButton prg1Button;
     @FXML
-    private JFXButton prg2Button;
+    private ToggleButton prg2Button;
     @FXML
-    private JFXButton prg3Button;
+    private ToggleButton prg3Button;
     @FXML
-    private JFXButton prg4Button;
+    private ToggleButton prg4Button;
     @FXML
-    private JFXButton prg5Button;
+    private ToggleButton prg5Button;
     @FXML
-    private JFXButton prg6Button;
+    private ToggleButton prg6Button;
     @FXML
-    private JFXButton prg7Button;
+    private ToggleButton prg7Button;
     @FXML
-    private JFXButton prg8Button;
-    private static List<JFXButton> prgButtons;
+    private ToggleButton prg8Button;
+    private List<ToggleButton> prgButtons;
+    //</editor-fold>
 
     @FXML
     public void initialize() {
         prgButtons = Arrays.asList(prg1Button, prg2Button, prg3Button, prg4Button, prg5Button, prg6Button,
                 prg7Button, prg8Button);
-        for (JFXButton prgButton : prgButtons)
+        for (ToggleButton prgButton : prgButtons)
             prgButton.setDisable(true);
-
-        // reset color
-        for (JFXButton prgButton : prgButtons) {
-            prgButton.setStyle("-fx-background-color: #29b6f6");
-        }
 
         // initResetButton();
     }
@@ -57,18 +55,18 @@ public class FooterController {
      *
      * @param spffChunk the root element of the file structure
      */
-    public void initPRG(SpfF spffChunk) {
+    public void initPRGs(SpfF spffChunk) {
         initialize();
 
         prgs = new RegistrationProgram[8];
         for (int i = 1; i <= 8; i++) {
-            prgs[i-1] = new RegistrationProgram(spffChunk, i); // link every PRG-button to a RegistrationProgram
-            if (prgs[i-1].hasData()) {
-                prgButtons.get(i-1).setDisable(false);
+            prgs[i - 1] = new RegistrationProgram(spffChunk, i); // create new RegistrationPrograms for every PRG-button
+            if (prgs[i - 1].hasData()) {
+                prgButtons.get(i - 1).setDisable(false);
             } else {
                 // although at the beginning all buttons are disabled, buttons which don't store any data need to be
                 // disabled during runtime because they can be enabled when loading the second, third ... file.
-                prgButtons.get(i-1).setDisable(true);
+                prgButtons.get(i - 1).setDisable(true);
             }
         }
         currentPRG = prgs[0]; // first PRG-button as starting point
@@ -76,29 +74,21 @@ public class FooterController {
 
     @FXML
     public void changePRG(ActionEvent actionEvent) {
-        // old PRG
-        int prgIndex = currentPRG.getRegistrationNumber() - 1;
-        prgButtons.get(prgIndex).setStyle("-fx-background-color:  #29b6f6"); // blue
-
-        // new PRG
-        prgIndex = prgButtons.indexOf(actionEvent.getSource());
-        currentPRG = prgs[prgIndex];
-        prgButtons.get(prgIndex).setStyle("-fx-background-color:  #ff7043"); // orange
-
+        currentPRG = prgs[prgButtons.indexOf(actionEvent.getSource())];
         initMenuBarControls();
     }
 
     /**
-     * The menu bar controls are initialized every time the user clicks on another PRG-button.
+     * Initializes the menu bar controls every time the user clicks on a PRG-button.
      */
     private void initMenuBarControls() {
         MenuBarController menuBarController = Main.getMenuBarController();
         RMGroup currentRMGroup = menuBarController.getCurrentRMGroup(); // last RMGroup before changing the PRG
 
-        if (!currentPRG.hasRMGroup(currentRMGroup))
-            menuBarController.loadHome();
-        else
+        if (currentPRG.hasRMGroup(currentRMGroup))
             menuBarController.loadRMGroup(currentRMGroup);
+        else
+            menuBarController.loadHome();
 
         // find another solution for this one here
         // menuBarController.getRMGroupButton(RMGroup.STYLE).setDisable(!currentPRG.hasRMGroup(RMGroup.STYLE));
@@ -148,8 +138,8 @@ public class FooterController {
 
     public void initResetButton() {
         resetButton.setOnMouseClicked(event -> {
-            if (event.isControlDown())
-                resetButton.setStyle("-fx-background-color: #c63f17");
+//            if (event.isControlDown())
+//                resetButton.setStyle("-fx-background-color: #c63f17");
         });
     }
 

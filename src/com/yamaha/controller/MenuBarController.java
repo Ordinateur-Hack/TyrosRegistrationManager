@@ -137,7 +137,7 @@ public class MenuBarController {
             alert.setOnCloseRequest(event -> loadFile());
         }
         try {
-            Main.getFooterController().initPRG(spffChunk);
+            Main.getFooterController().initPRGs(spffChunk);
         } catch (Exception e) {
             System.err.println("Could not properly set up the PRG buttons.");
             e.printStackTrace();

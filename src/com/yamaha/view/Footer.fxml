@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -10,7 +12,7 @@
 
 <AnchorPane prefHeight="66.0" prefWidth="834.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.FooterController">
     <children>
-        <HBox alignment="CENTER" maxHeight="66.0" minWidth="1100.0" prefHeight="66.0" prefWidth="629.0" style="-fx-background-color: white; -fx-border-color: #D9DADC; -fx-border-width: 1 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER" maxHeight="66.0" minWidth="510.0" prefHeight="66.0" prefWidth="723.0" style="-fx-background-color: white; -fx-border-color: #D9DADC; -fx-border-width: 1 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane alignment="CENTER" prefHeight="44.0" prefWidth="399.0" HBox.hgrow="NEVER">
                     <columnConstraints>
@@ -27,46 +29,30 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="prg1Button" buttonType="RAISED" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="1" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="prg2Button" buttonType="RAISED" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="2" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="prg3Button" buttonType="RAISED" layoutX="47.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="3" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="prg4Button" buttonType="RAISED" layoutX="86.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="4" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="prg5Button" buttonType="RAISED" layoutX="125.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="5" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="prg6Button" buttonType="RAISED" layoutX="164.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="6" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="prg7Button" buttonType="RAISED" layoutX="203.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="7" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="prg8Button" buttonType="RAISED" layoutX="242.0" layoutY="14.0" onAction="#changePRG" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #29b6f6;" styleClass="white-text-fill" text="8" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="18.0" />
-                            </font>
-                        </JFXButton>
+                  <JFXRippler prefHeight="45.0" prefWidth="45.0">
+                        <ToggleButton fx:id="prg1Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="1" textAlignment="CENTER" />
+                  </JFXRippler>
+                  <JFXRippler layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0" GridPane.columnIndex="1">
+                        <ToggleButton fx:id="prg2Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="2" textAlignment="CENTER" />
+                  </JFXRippler>
+                  <JFXRippler layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0" GridPane.columnIndex="2">
+                        <ToggleButton fx:id="prg3Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="3" textAlignment="CENTER" />
+                  </JFXRippler>
+                  <JFXRippler layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0" GridPane.columnIndex="3">
+                        <ToggleButton fx:id="prg4Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="4" textAlignment="CENTER" />
+                  </JFXRippler>
+                  <JFXRippler layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0" GridPane.columnIndex="4">
+                        <ToggleButton fx:id="prg5Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="5" textAlignment="CENTER" />
+                  </JFXRippler>
+                  <JFXRippler layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0" GridPane.columnIndex="5">
+                        <ToggleButton fx:id="prg6Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="6" textAlignment="CENTER" />
+                  </JFXRippler>
+                  <JFXRippler layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0" GridPane.columnIndex="6">
+                        <ToggleButton fx:id="prg7Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="7" textAlignment="CENTER" />
+                  </JFXRippler>
+                  <JFXRippler layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0" GridPane.columnIndex="7">
+                        <ToggleButton fx:id="prg8Button" mnemonicParsing="false" onAction="#changePRG" prefHeight="45.0" prefWidth="45.0" styleClass="white-text-fill" text="8" textAlignment="CENTER" />
+                  </JFXRippler>
                     </children>
                 </GridPane>
             </children>
