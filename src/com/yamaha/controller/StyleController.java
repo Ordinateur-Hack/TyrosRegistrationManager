@@ -122,10 +122,12 @@ public class StyleController extends EditorController {
     private ToggleButton ending2Button;
     @FXML
     private ToggleButton ending3Button;
+    @FXML
+    private ToggleButton autoFillIn;
 
     private ToggleGroup mainStyleSectionGroup;
     private ToggleGroup specialStyleSectionGroup;
-    private BiMap<StyleSection, ToggleButton> biMapStyleSectionButton = new BiMap<>();
+    private BiMap<StyleSection, ToggleButton> biMapStyleSection = new BiMap<>();
     private BiMap<StyleSection, ToggleButton> biMapStyleSectionFillIn = new BiMap<>();
 
     @FXML
@@ -170,23 +172,22 @@ public class StyleController extends EditorController {
             addJFXRipplerEffect((Node) toggleButton, 5);
         }*/
 
-        biMapStyleSectionButton.put(StyleSection.INTRO_1, intro1Button);
-        biMapStyleSectionButton.put(StyleSection.INTRO_2, intro2Button);
-        biMapStyleSectionButton.put(StyleSection.INTRO_3, intro3Button);
-        biMapStyleSectionButton.put(StyleSection.MAIN_A, mainAButton);
-        biMapStyleSectionButton.put(StyleSection.MAIN_B, mainBButton);
-        biMapStyleSectionButton.put(StyleSection.MAIN_C, mainCButton);
-        biMapStyleSectionButton.put(StyleSection.MAIN_D, mainDButton);
-        biMapStyleSectionButton.put(StyleSection.BREAK_FILL, breakFillButton);
-        biMapStyleSectionButton.put(StyleSection.ENDING_1, ending1Button);
-        biMapStyleSectionButton.put(StyleSection.ENDING_2, ending2Button);
-        biMapStyleSectionButton.put(StyleSection.ENDING_3, ending3Button);
+        biMapStyleSection.put(StyleSection.INTRO_1, intro1Button);
+        biMapStyleSection.put(StyleSection.INTRO_2, intro2Button);
+        biMapStyleSection.put(StyleSection.INTRO_3, intro3Button);
+        biMapStyleSection.put(StyleSection.MAIN_A, mainAButton);
+        biMapStyleSection.put(StyleSection.MAIN_B, mainBButton);
+        biMapStyleSection.put(StyleSection.MAIN_C, mainCButton);
+        biMapStyleSection.put(StyleSection.MAIN_D, mainDButton);
+        biMapStyleSection.put(StyleSection.BREAK_FILL, breakFillButton);
+        biMapStyleSection.put(StyleSection.ENDING_1, ending1Button);
+        biMapStyleSection.put(StyleSection.ENDING_2, ending2Button);
+        biMapStyleSection.put(StyleSection.ENDING_3, ending3Button);
 
         biMapStyleSectionFillIn.put(StyleSection.A_FILL, mainAButton);
         biMapStyleSectionFillIn.put(StyleSection.B_FILL, mainBButton);
         biMapStyleSectionFillIn.put(StyleSection.C_FILL, mainCButton);
         biMapStyleSectionFillIn.put(StyleSection.D_FILL, mainDButton);
-
     }
 
     private void addJFXRipplerEffect(Node node, int level) {
@@ -199,15 +200,17 @@ public class StyleController extends EditorController {
 
         // Initialize elements which couldn't be set up using bidirectional Bindings
         StyleSection mainStyleSection = styleEditor.getMainStyleSection();
-        mainStyleSectionGroup.selectToggle(biMapStyleSectionButton.get(mainStyleSection));
+        mainStyleSectionGroup.selectToggle(biMapStyleSection.get(mainStyleSection));
 
         StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
         if (!specialStyleSection.isMainVariation()) {
-            playFillInAnimation(biMapStyleSectionButton.get(mainStyleSection), true);
+            playFillInAnimation(biMapStyleSection.get(mainStyleSection), true);
             if (!specialStyleSection.isFillIn()) {
-                specialStyleSectionGroup.selectToggle(biMapStyleSectionButton.get(specialStyleSection));
+                specialStyleSectionGroup.selectToggle(biMapStyleSection.get(specialStyleSection));
             }
         }
+
+        autoFillIn.setSelected(true);
 
         addBindings();
     }
@@ -250,42 +253,49 @@ public class StyleController extends EditorController {
         for (Toggle mainButton : mainStyleSectionGroup.getToggles()) {
             ToggleButton mainToggleButton = ((ToggleButton) mainButton);
 
+            // Click on the same button (MAIN)
             // Do not use MOUSE_CLICKED since the mainToggleButton.isSelected() condition will then always be true
             mainToggleButton.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
-                    // if clicked on the same button
-//                    if (mainToggleButton == biMapStyleSectionButton.get(styleEditor.getMainStyleSection())) {
-                    if (mainToggleButton.isSelected()) {
-                        if (specialStyleSection.isMainVariation() || specialStyleSection.isIntroOrEnding()) {
+                    if (mainToggleButton.isSelected()) { // if this button was selected when clicked
+                        // or: if (mainToggleButton == biMapStyleSection.get(styleEditor.getMainStyleSection())) {
+                        if (autoFillIn.isSelected() && specialStyleSection.isIntroOrEnding()
+                                || specialStyleSection.isMainVariation()) {
                             styleEditor.setSpecialStyleSection(biMapStyleSectionFillIn.getKey(mainToggleButton));
                             if (specialStyleSection.isMainVariation()) {
                                 playFillInAnimation(mainToggleButton, true);
-                            }
-                        } else if (specialStyleSection.isFillIn() || specialStyleSection == StyleSection.BREAK_FILL) {
-                            styleEditor.setSpecialStyleSection(biMapStyleSectionButton.getKey(mainToggleButton));
+                            } // if Intro or Ending the animation is already playing
+                        } else {
+                            styleEditor.setSpecialStyleSection(biMapStyleSection.getKey(mainToggleButton));
                             playFillInAnimation(mainToggleButton, false);
                         }
+                        specialStyleSectionGroup.selectToggle(null); // deselect all special StyleSection toggles
                     }
-                    specialStyleSectionGroup.selectToggle(null);
-                }
-            });
-
-            mainStyleSectionGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-                @Override
-                public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
-                    ToggleButton newToggleButton = ((ToggleButton) newToggle);
-                    playFillInAnimation((ToggleButton) oldToggle, false); // disable animation on the previously
-                    // selected toggle
-                    playFillInAnimation(newToggleButton, true);
-                    styleEditor.setSpecialStyleSection(biMapStyleSectionFillIn.getKey(newToggleButton));
-                    styleEditor.setMainStyleSection(biMapStyleSectionButton.getKey(newToggleButton));
                 }
             });
         }
 
+        // Click on another button (MAIN)
+        mainStyleSectionGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
+                ToggleButton newToggleButton = ((ToggleButton) newToggle);
+                playFillInAnimation((ToggleButton) oldToggle, false); // disable animation on the previously
+                // selected toggle
+                styleEditor.setMainStyleSection(biMapStyleSection.getKey(newToggleButton));
+                if (autoFillIn.isSelected() || styleEditor.getSpecialStyleSection() == StyleSection.BREAK_FILL) {
+                    styleEditor.setSpecialStyleSection(biMapStyleSectionFillIn.getKey(newToggleButton));
+                    playFillInAnimation(newToggleButton, true);
+                } else {
+                    styleEditor.setSpecialStyleSection(biMapStyleSection.getKey(newToggleButton));
+                }
+                specialStyleSectionGroup.selectToggle(null); // deselect all special StyleSection toggles
+            }
+        });
 
+        // Click on the same or another button (SPECIAL)
         for (Toggle specialButton : specialStyleSectionGroup.getToggles()) {
             ToggleButton specialToggleButton = ((ToggleButton) specialButton);
 
@@ -294,14 +304,14 @@ public class StyleController extends EditorController {
                 public void handle(MouseEvent event) {
                     StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
                     StyleSection mainStyleSection = styleEditor.getMainStyleSection();
-                    if (specialToggleButton.isSelected()) {
+                    if (specialToggleButton.isSelected()) { // if this button was selected when clicked
                         styleEditor.setSpecialStyleSection(mainStyleSection);
-                        playFillInAnimation(biMapStyleSectionButton.get(mainStyleSection), false);
-                    } else { // if clicked on another button (currently not selected)
+                        playFillInAnimation(biMapStyleSection.get(mainStyleSection), false);
+                    } else { // if clicked on another button (i. e. this button was not selected when clicked)
+                        styleEditor.setSpecialStyleSection(biMapStyleSection.getKey(specialToggleButton));
                         if (specialStyleSection.isMainVariation()) {
-                            playFillInAnimation(biMapStyleSectionButton.get(mainStyleSection), true);
+                            playFillInAnimation(biMapStyleSection.get(mainStyleSection), true);
                         }
-                        styleEditor.setSpecialStyleSection(biMapStyleSectionButton.getKey(specialToggleButton));
                     }
                 }
             });
@@ -371,7 +381,6 @@ public class StyleController extends EditorController {
 
     /**
      * Sets a value range (0-127) for numbers in the given textField.
-     *
      * @param textField the textField to which the restriction should be applied
      */
     private void addNumberRangeLimitation(TextField textField) {
@@ -397,7 +406,6 @@ public class StyleController extends EditorController {
 
     /**
      * This TextFormatter is created by using the filter from the getFilter()-method.
-     *
      * @return the TextFormatter used to keep the text in the volumeTextFields in the desired format
      */
     private TextFormatter<String> getTextFormatter() {

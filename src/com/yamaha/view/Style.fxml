@@ -189,5 +189,6 @@
         <JFXToggleButton fx:id="controlSyncStartToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="393.0" prefHeight="58.0" prefWidth="126.0" text="Sync Start" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
         <JFXToggleButton fx:id="controlSyncStopToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="436.0" prefHeight="58.0" prefWidth="126.0" text="Sync Stop" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
         <JFXComboBox fx:id="fingeringTypeComboBox" focusColor="#29b6f6" layoutX="165.0" layoutY="366.0" prefHeight="25.0" prefWidth="194.0" promptText="Fingering Type" />
+      <JFXToggleButton fx:id="autoFillIn" layoutX="758.0" layoutY="73.0" text="Auto Fill In" />
     </children>
 </AnchorPane>
