@@ -5,7 +5,8 @@
 	-fx-font-family: "Segoe UI";
 	-text-fill-dark: black;
 	-text-fill-bright: white;
-	-standard-selected-color: derive(-fx-base, 85%);
+	-standard-hover-color: #042E68;
+	-standard-selected-color: #033C81;
 	-red-color: #a83c44;
 }
 
@@ -46,11 +47,15 @@
 }
 
 #menu-bar .toggle-button:hover {
-	-fx-background-color: derive(-red-color, 35%);
+	-fx-background-color: -standard-hover-color;
+
 }
 
 #menu-bar .toggle-button:selected {
-	-fx-background-color: -red-color;
+	-fx-background-color: -standard-selected-color;
+	/*-fx-effect: dropshadow(gaussian, darkgray, 50, 0.0, 0, 0);*/
+	-drop-shadow-color: derive(-fx-base, -10%);
+	-fx-effect: dropshadow(gaussian, -drop-shadow-color, 5, 0.0, 0, 2);
 }
 /*</editor-fold>*/
 
@@ -70,6 +75,34 @@
 }
 /*</editor-fold>*/
 
+.jfx-toggle-button {
+	-jfx-toggle-color: -red-color;
+}
+
+.jfx-toggle-button .jfx-rippler {
+	-jfx-rippler-fill: -red-color;
+}
+
+/*.jfx-toggle-button:selected {
+	-fx-background-radius: 5px;
+	-fx-background-color: derive(-fx-base, 85%);
+}*/
+.combo-box .input-line, .combo-box .input-focused-line {
+	-fx-background-color: -red-color;
+}
+
+.combo-box-popup .list-view .jfx-list-cell {
+	-fx-text-fill: white;
+}
+
+.combo-box-popup .list-view .jfx-list-cell:hover {
+	-fx-background-color: derive(-red-color, 35%);
+}
+
+.combo-box-popup .list-view .jfx-list-cell:selected {
+	-fx-background-color: -red-color;
+}
+
 /*<editor-fold desc="PRG buttons (Footer)">*/
 #prg-button .toggle-button {
 	-fx-text-fill: -text-fill-bright;
@@ -86,41 +119,22 @@
 
 /*<editor-fold desc="JFX Sliders">*/
 .jfx-slider {
-	-jfx-default-thumb: #ff7043;
+	/*-jfx-default-thumb: #ff7043;*/
+	-jfx-default-thumb: -red-color;
+}
+
+.jfx-slider:focused {
+	-jfx-default-thumb: -fx-base;
+}
+
+.jfx-slider > .animated-thumb {
+	-fx-pref-width: 0px;
+	-fx-pref-height: 0px;
 }
 
 .jfx-slider .slider-value {
-	-fx-stroke: TRANSPARENT;
-	-fx-font-size: 1.2em;
-	-fx-font-family: sans-serif;
+	-fx-stroke: transparent;
+	-fx-fill: transparent;
 }
 
-.jfx-slider .animated-thumb {
-    -fx-pref-width: 0px;
-    -fx-pref-height: 0px;
-}
-
-/*
-.jfx-slider .colored-track {
-    -fx-background-color: TRANSPARENT;
-}
-*/
-
-.jfx-slider:focused .thumb {
-    -fx-background-color: #29b6f6;
-    /* -fx-background-insets: -1; */
-}
-
-.jfx-slider:focused .colored-track {
-	-fx-background-color: #29b6f6;
-}
-
-/* Minimum */
-.jfx-slider:min:focused .thumb {
-	-fx-background-color: #CCCCCC;
-}
-
-.jfx-slider:min:focused .colored-track {
-	-fx-background-color: #CCCCCC;
-}
 /*</editor-fold>*/
