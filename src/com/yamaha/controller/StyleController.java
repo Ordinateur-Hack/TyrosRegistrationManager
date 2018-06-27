@@ -165,13 +165,6 @@ public class StyleController extends EditorController {
         specialStyleSectionGroup.getToggles().addAll(intro1Button, intro2Button, intro3Button, breakFillButton,
                 ending1Button, ending2Button, ending3Button); // Do not change!
 
-        /*for (Toggle toggleButton : mainStyleSectionGroup.getToggles()) {
-            addJFXRipplerEffect((Node) toggleButton, 5);
-        }
-        for (Toggle toggleButton : specialStyleSectionGroup.getToggles()) {
-            addJFXRipplerEffect((Node) toggleButton, 5);
-        }*/
-
         biMapStyleSection.put(StyleSection.INTRO_1, intro1Button);
         biMapStyleSection.put(StyleSection.INTRO_2, intro2Button);
         biMapStyleSection.put(StyleSection.INTRO_3, intro3Button);
@@ -190,11 +183,6 @@ public class StyleController extends EditorController {
         biMapStyleSectionFillIn.put(StyleSection.D_FILL, mainDButton);
     }
 
-    private void addJFXRipplerEffect(Node node, int level) {
-        JFXRippler rippler = new JFXRippler(node);
-        JFXDepthManager.setDepth(node, level);
-    }
-
     public void updateUI() {
         styleEditor = Main.getFooterController().getCurrentPRG().getStyleEditor();
 
@@ -208,7 +196,8 @@ public class StyleController extends EditorController {
             if (!specialStyleSection.isFillIn()) {
                 specialStyleSectionGroup.selectToggle(biMapStyleSection.get(specialStyleSection));
             }
-        }
+    }
+        autoFillIn.setSelected(true);
 
         addBindings();
     }
@@ -253,7 +242,7 @@ public class StyleController extends EditorController {
 
             // Click on the same button (MAIN)
             // Do not use MOUSE_CLICKED since the mainToggleButton.isSelected() condition will then always be true
-            mainToggleButton.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            mainToggleButton.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     StyleSection specialStyleSection = styleEditor.getSpecialStyleSection();
