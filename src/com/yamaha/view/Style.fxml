@@ -16,7 +16,7 @@
 
 <AnchorPane minWidth="0.0" prefHeight="644.0" prefWidth="1044.0" styleClass="content-holder" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.StyleController">
     <children>
-      <GridPane hgap="4.0" layoutX="30.0" layoutY="70.0" prefHeight="76.0" prefWidth="630.0" styleClass="style-section">
+      <GridPane id="style-section" hgap="4.0" layoutX="30.0" layoutY="70.0" prefHeight="76.0" prefWidth="630.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

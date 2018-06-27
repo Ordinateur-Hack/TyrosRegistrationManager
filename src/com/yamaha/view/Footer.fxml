@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="66.0" prefWidth="834.0" styleClass="content-holder" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.FooterController">
     <children>
-        <HBox alignment="CENTER" maxHeight="66.0" minWidth="510.0" prefHeight="66.0" prefWidth="723.0" style="-fx-background-color: white; -fx-border-color: #D9DADC; -fx-border-width: 1 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox id="prg-button" alignment="CENTER" maxHeight="66.0" minWidth="510.0" prefHeight="66.0" prefWidth="723.0" style="-fx-background-color: white; -fx-border-color: #D9DADC; -fx-border-width: 1 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane alignment="CENTER" prefHeight="44.0" prefWidth="399.0" HBox.hgrow="NEVER">
                     <columnConstraints>

@@ -2,6 +2,7 @@
 .root {
 	/* Constants */
 	-fx-base: #00214E;
+	-fx-font-family: "Segoe UI";
 	-text-fill-dark: black;
 	-text-fill-bright: white;
 	-standard-selected-color: derive(-fx-base, 85%);
@@ -12,10 +13,12 @@
 	-fx-text-fill: -text-fill-dark;
 	-fx-focus-color: transparent;
 	-fx-faint-focus-color: transparent;
+
 }
 
 .toggle-button {
 	-fx-background-insets: 0;
+	-fx-background-radius: 0;
 }
 
 .jfx-rippler {
@@ -33,37 +36,50 @@
 	-fx-background-color: #00214E;
 }
 
-#menu-bar * {
+#menu-bar *{
 	-fx-text-fill: -text-fill-bright;
+}
+
+#menu-bar .toggle-button {
+	-fx-font-size: 2em;
+	-fx-background-color: transparent;
+}
+
+#menu-bar .toggle-button:hover {
+	-fx-background-color: derive(-red-color, 35%);
+}
+
+#menu-bar .toggle-button:selected {
+	-fx-background-color: -red-color;
 }
 /*</editor-fold>*/
 
 /*<editor-fold desc="Style Section">*/
-#style-section.toggle-button {
+#style-section .toggle-button {
 	-gray-background-color: #555555;
 	-fx-background-color: -gray-background-color;
 	-fx-text-fill: -text-fill-bright;
 }
 
-#style-section.toggle-button:hover {
+#style-section .toggle-button:hover {
 	-fx-background-color: derive(-gray-background-color, 35%);
 }
 
-#style-section.toggle-button:selected {
+#style-section .toggle-button:selected {
 	-fx-background-color: -standard-selected-color;
 }
 /*</editor-fold>*/
 
 /*<editor-fold desc="PRG buttons (Footer)">*/
-#prg-button.toggle-button {
+#prg-button .toggle-button {
 	-fx-text-fill: -text-fill-bright;
 }
 
-#prg-button.toggle-button:hover {
+#prg-button .toggle-button:hover {
 	-fx-background-color: derive(-red-color, 35%);
 }
 
-#prg-button.toggle-button:selected {
+#prg-button .toggle-button:selected {
 	-fx-background-color: -red-color;
 }
 /*</editor-fold>*/

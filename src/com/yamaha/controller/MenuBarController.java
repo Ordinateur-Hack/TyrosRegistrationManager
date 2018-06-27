@@ -13,12 +13,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class MenuBarController {
@@ -31,40 +34,50 @@ public class MenuBarController {
     @FXML
     private Label fileName;
     @FXML
-    private JFXButton homeButton;
+    private ToggleButton homeButton;
     @FXML
     // Load button calls 'loadFile' on action
     private JFXButton saveButton;
 
     // Registration Memory Content Groups:
     @FXML
-    private JFXButton songButton;
+    private ToggleButton songButton;
     @FXML
-    private JFXButton styleButton;
+    private ToggleButton styleButton;
     @FXML
-    private JFXButton voiceButton;
+    private ToggleButton voiceButton;
     @FXML
-    private List<JFXButton> rmGroupButtons;
-    private JFXButton currentButton;
+    private List<ToggleButton> rmGroupButtons;
+    private ToggleGroup buttonsToggleGroup = new ToggleGroup();
+    private HashMap<RMGroup, ToggleButton> rmGroupToggleButtonMap;
 
     /**
      * Initializes the program by setting up the Registration Memory Content Group buttons.
      */
     @FXML
     public void initialize() {
+        rmGroupToggleButtonMap = new HashMap<>();
+        rmGroupToggleButtonMap.put(RMGroup.TITLE, homeButton);
+        rmGroupToggleButtonMap.put(RMGroup.SONG, songButton);
+        rmGroupToggleButtonMap.put(RMGroup.STYLE, styleButton);
+        rmGroupToggleButtonMap.put(RMGroup.VOICE, voiceButton);
+
         rmGroupButtons = Arrays.asList(songButton, styleButton, voiceButton); // extend later!
+        buttonsToggleGroup = new ToggleGroup();
+        buttonsToggleGroup.getToggles().addAll(rmGroupButtons);
+        buttonsToggleGroup.getToggles().add(homeButton);
+        FXUtil.addAlwaysOneSelectedSupport(buttonsToggleGroup);
+
         // Set Home button as starting point
-        currentButton = homeButton;
         currentRMGroup = RMGroup.TITLE;
 
         // Disable most buttons
-        for (JFXButton rmGroupButton : rmGroupButtons)
+        for (ToggleButton rmGroupButton : rmGroupButtons)
             rmGroupButton.setDisable(true);
         homeButton.setDisable(true);
         saveButton.setDisable(true);
 
         Main.loadEmptyEditorsPane();
-        currentButton.setStyle("-fx-background-color: transparent");
     }
 
     /**
@@ -103,7 +116,7 @@ public class MenuBarController {
         String fullFileName = selectedFile.getName();
         // remove file ending .RGT for the displayed file name
         fileName.setText(fullFileName.substring(0, fullFileName.length() - 4));
-        for (JFXButton rmGroupButton : rmGroupButtons)
+        for (ToggleButton rmGroupButton : rmGroupButtons)
             rmGroupButton.setDisable(true);
         saveButton.setDisable(false); // from now on: saveButton stays active all the time
 
@@ -215,7 +228,7 @@ public class MenuBarController {
 
     public void loadRMGroup(RMGroup rmGroup) {
         String rmPath = rmGroup.toString();
-        rmPath = rmPath.charAt(0) + rmPath.substring(1).toLowerCase();
+        rmPath = rmPath.charAt(0) + rmPath.substring(1).toLowerCase(); // not necessarily needed
         if (rmGroup == RMGroup.TITLE)
             rmPath = "Home"; // This has to be done in order to guarantee consistency: the linked RMGroup is called
         // TITLE and not HOME. The keyboard doesn't has something comparable to 'Home', this is only to provide the
@@ -234,40 +247,18 @@ public class MenuBarController {
         ((EditorController) loader.getController()).updateUI(); // it has to be ensured that all Controllers linked
         // to the Views extend EditorController!
 
-//		changeButtonActive(rmGroupButtonToActivate);
+        selectRMGroup(rmGroup);
         currentRMGroup = rmGroup;
-        try {
-            changeButtonActive(getButtonForRMGroup(rmGroup));
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            System.err.println("Failed to get the button for the appropriate RMGroup. \n"
-                    + "There is no button for this RMGroup?");
-        }
-        currentRMGroup = rmGroup;
-    }
-
-    /**
-     * @param rmGroup the Registration Memory Content Group
-     * @return the button responsible for the given rmGroup
-     */
-    private JFXButton getButtonForRMGroup(RMGroup rmGroup) {
-        switch (rmGroup) {
-            case TITLE:
-                return homeButton;
-            case STYLE:
-                return styleButton;
-            default:
-                return null;
-        }
     }
 
     /**
      * Enables or disables the button associated with the given rmGroup.
+     *
      * @param rmGroup the Registration Memory Content group
      * @param enabled indicated whether the button should be enabled or disabled
      */
     public void enableRMGroupButton(RMGroup rmGroup, boolean enabled) {
-        getButtonForRMGroup(rmGroup).setDisable(!enabled);
+        rmGroupToggleButtonMap.get(rmGroup).setDisable(!enabled);
     }
 
     @FXML
@@ -292,7 +283,7 @@ public class MenuBarController {
 
     @FXML
     public void loadVoice() {
-        AnchorPane voice = null;
+        /*AnchorPane voice = null;
         try {
             voice = FXMLLoader.load(getClass().getResource("/view/Voice.fxml"));
         } catch (IOException e) {
@@ -300,22 +291,12 @@ public class MenuBarController {
         }
         Main.getRightPane().setCenter(voice);
         // initialize
-        changeButtonActive(voiceButton);
-        currentRMGroup = RMGroup.VOICE;
+        currentRMGroup = RMGroup.VOICE;*/
     }
 
-    /**
-     * Changes which button is focused/active.<br>
-     * The button is given a special color.
-     *
-     * @param newButton the new active button
-     */
-    private void changeButtonActive(JFXButton newButton) {
-        // Set old button
-        currentButton.setStyle("-fx-background-color: transparent");
-        // Set new Button
-        currentButton = newButton;
-        // currentButton.setStyle("-fx-background-color: #053B82");
+    private void selectRMGroup(RMGroup rmGroup) {
+        buttonsToggleGroup.selectToggle(rmGroupToggleButtonMap.get(rmGroup));
+        currentRMGroup = rmGroup;
     }
 
     public RMGroup getCurrentRMGroup() {
