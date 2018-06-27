@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="0.0" prefHeight="644.0" prefWidth="1044.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.StyleController">
+<AnchorPane minWidth="0.0" prefHeight="644.0" prefWidth="1044.0" styleClass="content-holder" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.StyleController">
     <children>
       <GridPane hgap="4.0" layoutX="30.0" layoutY="70.0" prefHeight="76.0" prefWidth="630.0" styleClass="style-section">
          <columnConstraints>
@@ -39,37 +39,37 @@
          </rowConstraints>
          <children>
             <JFXRippler GridPane.rowIndex="1">
-                  <ToggleButton fx:id="intro1Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" />
+                  <ToggleButton id="style-section" fx:id="intro1Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" />
             </JFXRippler>
             <JFXRippler GridPane.columnIndex="1" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="intro2Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" />
+                  <ToggleButton id="style-section" fx:id="intro2Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" />
             </JFXRippler>
             <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="intro3Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" />
+                  <ToggleButton id="style-section" fx:id="intro3Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" />
             </JFXRippler>
             <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="mainAButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="A" />
+                  <ToggleButton id="style-section" fx:id="mainAButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="A" />
             </JFXRippler>
             <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="mainBButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="B" />
+                  <ToggleButton id="style-section" fx:id="mainBButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="B" />
             </JFXRippler>
             <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="mainCButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="C" />
+                  <ToggleButton id="style-section" fx:id="mainCButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="C" />
             </JFXRippler>
             <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="mainDButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="D" />
+                  <ToggleButton id="style-section" fx:id="mainDButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="D" />
             </JFXRippler>
             <JFXRippler layoutX="10.0" layoutY="10.0" GridPane.columnIndex="9" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="breakFillButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="//" />
+                  <ToggleButton id="style-section" fx:id="breakFillButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="//" />
             </JFXRippler>
             <JFXRippler GridPane.columnIndex="11" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="ending1Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" />
+                  <ToggleButton id="style-section" fx:id="ending1Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="I" />
             </JFXRippler>
             <JFXRippler layoutX="56.0" layoutY="48.0" GridPane.columnIndex="12" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="ending2Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" />
+                  <ToggleButton id="style-section" fx:id="ending2Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="II" />
             </JFXRippler>
             <JFXRippler GridPane.columnIndex="13" GridPane.rowIndex="1">
-                  <ToggleButton fx:id="ending3Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" />
+                  <ToggleButton id="style-section" fx:id="ending3Button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="III" />
             </JFXRippler>
               <Label disable="true" text="Intro" GridPane.columnSpan="3" GridPane.halignment="CENTER">
                   <font>
@@ -123,42 +123,42 @@
                         <JFXSlider fx:id="volumePHR1Slider" layoutX="542.0" layoutY="33.0" max="127.0" orientation="VERTICAL" value="-0.0" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <JFXSlider fx:id="volumePHR2Slider" layoutX="613.0" layoutY="33.0" max="127.0" orientation="VERTICAL" value="-0.0" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <JFXSlider fx:id="volumeStyleSlider" layoutX="185.0" layoutY="33.0" max="127.0" orientation="VERTICAL" value="-0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXToggleButton fx:id="channelRHY1Toggle" contentDisplay="TOP" size="8.0" text="RHY1" toggleColor="#ff7043" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelRHY1Toggle" contentDisplay="TOP" size="9.0" text="RHY1" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="channelRHY2Toggle" contentDisplay="TOP" layoutX="75.0" layoutY="124.0" size="8.0" text="RHY2" toggleColor="#ff7043" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelRHY2Toggle" contentDisplay="TOP" layoutX="75.0" layoutY="124.0" size="9.0" text="RHY2" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="channelBASSToggle" contentDisplay="TOP" layoutX="192.0" layoutY="124.0" size="8.0" text="BASS" toggleColor="#ff7043" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelBASSToggle" contentDisplay="TOP" layoutX="192.0" layoutY="124.0" size="9.0" text="BASS" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="channelCHD1Toggle" contentDisplay="TOP" layoutX="271.0" layoutY="124.0" size="8.0" text="CHD 1" toggleColor="#ff7043" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelCHD1Toggle" contentDisplay="TOP" layoutX="271.0" layoutY="124.0" size="9.0" text="CHD 1" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="channelCHD2Toggle" contentDisplay="TOP" layoutX="402.0" layoutY="124.0" size="8.0" text="CHD 2" toggleColor="#ff7043" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelCHD2Toggle" contentDisplay="TOP" layoutX="402.0" layoutY="124.0" size="9.0" text="CHD 2" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="channelPADToggle" contentDisplay="TOP" layoutX="504.0" layoutY="124.0" size="8.0" text="PAD" toggleColor="#ff7043" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelPADToggle" contentDisplay="TOP" layoutX="504.0" layoutY="124.0" size="9.0" text="PAD" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="channelPHR1Toggle" contentDisplay="TOP" layoutX="564.0" layoutY="124.0" size="8.0" text="PHR1" toggleColor="#ff7043" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelPHR1Toggle" contentDisplay="TOP" layoutX="564.0" layoutY="124.0" size="9.0" text="PHR1" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="channelPHR2Toggle" contentDisplay="TOP" layoutX="713.0" layoutY="124.0" size="8.0" text="PHR2" toggleColor="#ff7043" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="channelPHR2Toggle" contentDisplay="TOP" layoutX="713.0" layoutY="124.0" size="9.0" text="PHR2" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="Segoe UI" size="12.0" />
                             </font>
@@ -181,10 +181,10 @@
                 </GridPane>
          </children>
       </StackPane>
-        <JFXToggleButton fx:id="controlACMPToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="387.0" prefHeight="58.0" prefWidth="126.0" text="ACMP" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
-        <JFXToggleButton fx:id="controlSyncStartToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="430.0" prefHeight="58.0" prefWidth="126.0" text="Sync Start" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
-        <JFXToggleButton fx:id="controlSyncStopToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="473.0" prefHeight="58.0" prefWidth="126.0" text="Sync Stop" toggleColor="#29b6f6" AnchorPane.leftAnchor="14.0" />
-        <JFXComboBox fx:id="fingeringTypeComboBox" focusColor="#29b6f6" layoutX="165.0" layoutY="403.0" prefHeight="25.0" prefWidth="194.0" promptText="Fingering Type" />
+        <JFXToggleButton fx:id="controlACMPToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="387.0" prefHeight="58.0" prefWidth="126.0" text="ACMP" AnchorPane.leftAnchor="14.0" />
+        <JFXToggleButton fx:id="controlSyncStartToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="430.0" prefHeight="58.0" prefWidth="126.0" text="Sync Start" AnchorPane.leftAnchor="14.0" />
+        <JFXToggleButton fx:id="controlSyncStopToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="473.0" prefHeight="58.0" prefWidth="126.0" text="Sync Stop" AnchorPane.leftAnchor="14.0" />
+        <JFXComboBox fx:id="fingeringTypeComboBox" layoutX="165.0" layoutY="403.0" prefHeight="25.0" prefWidth="194.0" promptText="Fingering Type" />
       <JFXToggleButton fx:id="autoFillIn" layoutX="14.0" layoutY="34.0" text="Auto Fill In" />
     </children>
 </AnchorPane>

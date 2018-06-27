@@ -1,14 +1,29 @@
 package com.yamaha.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.transitions.JFXFillTransition;
 import com.yamaha.application.Main;
+import com.yamaha.model.FXUtil;
 import com.yamaha.model.chunkFramework.SpfF;
 import com.yamaha.model.editor.RMGroup;
 import com.yamaha.model.editor.RegistrationProgram;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +59,10 @@ public class FooterController {
     public void initialize() {
         prgButtons = Arrays.asList(prg1Button, prg2Button, prg3Button, prg4Button, prg5Button, prg6Button,
                 prg7Button, prg8Button);
+        ToggleGroup prgButtonsGroup = new ToggleGroup();
+        prgButtonsGroup.getToggles().addAll(prgButtons);
+        FXUtil.addAlwaysOneSelectedSupport(prgButtonsGroup);
+
         for (ToggleButton prgButton : prgButtons)
             prgButton.setDisable(true);
 
@@ -104,6 +123,7 @@ public class FooterController {
                 menuBarController.enableRMGroup(rmGroup, false);
         }*/
 
+        // temporary solution with "working RMGroups"
         List<RMGroup> workingRMGroups = Arrays.asList(RMGroup.TITLE, RMGroup.STYLE);
         for (RMGroup rmGroup : workingRMGroups) {
             if (currentPRG.hasRMGroup(rmGroup)) {

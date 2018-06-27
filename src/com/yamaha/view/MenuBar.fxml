@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="215.0" style="-fx-background-color: #00214E;" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.MenuBarController">
+<AnchorPane id="menu-bar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="215.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.MenuBarController">
     <children>
         <Label layoutX="14.0" layoutY="22.0" styleClass="white-text-fill" text="Registration" textFill="WHITE">
             <font>
