@@ -34,7 +34,8 @@ public class StyleEditor extends Editor {
      */
     public enum StyleFunction {
         // Standard Style 07
-        VOLUME(1),
+        STYLE_NAME1(1),
+        STYLE_NAME2(2),
         ACMP(3), // accompaniment
         SPECIAL_STYLE_SECTION(4),
         FINGERING_TYPE(9), // refers to accompaniment,
@@ -43,6 +44,7 @@ public class StyleEditor extends Editor {
         SYNC_STOP(12),
 
         // Style Attributes 08
+        VOLUME(1),
         CHANNEL_COMBINATION(8), // the channel combination is stored in one byte unlike in the Song where
         // every channel has its own byte
         VOLUME_CHANNEL_CHANGE(12);
@@ -79,6 +81,7 @@ public class StyleEditor extends Editor {
     }
 
     // Standard Style 07
+    private ObjectProperty<StyleName> styleName;
     private BooleanProperty isACMPEnabled;
 
     /**
@@ -129,6 +132,7 @@ public class StyleEditor extends Editor {
 
     public void initProperties() {
         initVolumeStyleProperty();
+        initStyleNameProperty();
         initIsACMPEnabledProperty();
         initMainStyleSectionProperty();
         initSpecialStyleSectionProperty();
@@ -144,6 +148,7 @@ public class StyleEditor extends Editor {
 
     public void mergeProperties() {
         mergeVolumeStyleProperty();
+        mergeStyleNameProperty();
         mergeIsACMPEnabledProperty();
         mergeMainStyleSectionProperty();
         mergeSpecialStyleSectionProperty();
@@ -157,6 +162,59 @@ public class StyleEditor extends Editor {
     }
 
 // ================================================================================================================= //
+
+    //<editor-fold desc="Style name">
+    // ||||||||||||||||||||||||
+    // ||||   Style name   ||||
+    // ||||||||||||||||||||||||
+
+    /**
+     * @return the name of the style ({@link StyleName})
+     */
+    public final ObjectProperty<StyleName> styleNameProperty() {
+        if (styleName == null)
+            styleName = new SimpleObjectProperty<>(StyleName.EASY_POP);
+        return styleName;
+    }
+
+    /**
+     * Initializes the {@link #styleNameProperty()} by searching in the chunk's structure.
+     */
+    public void initStyleNameProperty() {
+        GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
+        String styleName1Hex = gpmChunk.getHexData(StyleFunction.STYLE_NAME1.getDataBytePosition());
+        String styleName2Hex = gpmChunk.getHexData(StyleFunction.STYLE_NAME2.getDataBytePosition());
+        setStyleName(StyleName.getStyleName(styleName1Hex, styleName2Hex));
+    }
+
+    /**
+     * @return the {@link StyleName} of this style
+     */
+    public final StyleName getStyleName() {
+        if (styleName != null)
+            return styleName.get();
+        return null;
+    }
+
+    /**
+     * @param styleName the {@link StyleName} to set this style to
+     */
+    public final void setStyleName(StyleName styleName) {
+        styleNameProperty().set(styleName);
+    }
+
+    /**
+     * Merges the {@link #styleNameProperty()} to the chunk's structure.
+     */
+    public void mergeStyleNameProperty() {
+        GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
+        String styleNameHex1 = getStyleName().getHex1();
+        String styleNameHex2 = getStyleName().getHex2();
+        gpmChunk.changeHexDataByte(StyleFunction.STYLE_NAME1.getDataBytePosition(), styleNameHex1);
+        gpmChunk.changeHexDataByte(StyleFunction.STYLE_NAME2.getDataBytePosition(), styleNameHex2);
+    }
+    //</editor-fold>
+
 
     //<editor-fold desc="ACMP">
     // ||||||||||||||||||
@@ -649,7 +707,7 @@ public class StyleEditor extends Editor {
         setValueSlideControl(gpmChunk, styleChannel.getChannelNumber() + 12 /* position of data byte for the first
         channel is 13 */, getVolume(styleChannel));
 
-        // indicated volume change
+        // indicate volume change
         setChanged(gpmChunk, StyleFunction.VOLUME_CHANNEL_CHANGE.getDataBytePosition(), true);
     }
     //</editor-fold>
