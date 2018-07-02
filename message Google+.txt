@@ -1,7 +1,0 @@
-At the moment, I'm writing my own Registration Manager for the Tyros 3 in Java. Therefore, I examine the .RGT-files with a HEX-editor and summarize my results in a specification for these files.
-
-You can find the basic structure of an .RGT-file here: http://www.heikoplate.de/pdf/tyros_registrationfiles_deutsch.pdf. Heiko Plate did a great job in analyzing the structure of these files, however lots of functions are missing there. That's why I examined them on my own and by this time, I can already state which byte(s) stand(s) for which functionalities for most of the functions on the Tyros 3 (althought only a very small part is already implemented in my program).
-
- You can download the current .jar file by clicking on the link below.
-The program is not yet finished and has currently only a few functionalities. Moreover, it is still sensitive to some errors, so don't be surprised if something won't work.
-I hope you like it anyway.
