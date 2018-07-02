@@ -203,7 +203,7 @@ public class StyleController extends EditorController {
     }
         autoFillIn.setSelected(true);
 
-        styleNameLabel.setText(styleEditor.getStyleName().getStringRep());
+        styleNameLabel.setText(styleEditor.getStyleName());
 
         addBindings();
     }

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<styles>
+  <genre name="Pop&amp;Rock">
+    <style>
+      <name>HardRock</name>
+      <pos>16 40</pos>
+    </style>
+    <style>
+      <name>80'sPowerRock</name>
+      <pos>16 3F</pos>
+    </style>
+    <style>
+      <name>80'sPopRock</name>
+      <pos>16 53</pos>
+    </style>
+    <style>
+      <name>80'sGtrPop</name>
+      <pos>16 51</pos>
+    </style>
+    <style>
+      <name>BritRockPop</name>
+      <pos>16 52</pos>
+    </style>
+    <style>
+      <name>EasyPop</name>
+      <pos>17 40</pos>
+    </style>
+    <style>
+      <name>Live8Beat</name>
+      <pos>16 46</pos>
+    </style>
+    <style>
+      <name>Classic8Beat</name>
+      <pos>17 21</pos>
+    </style>
+    <style>
+      <name>Cool8Beat</name>
+      <pos>16 03</pos>
+    </style>
+    <style>
+      <name>UKSoulPop</name>
+      <pos>16 85</pos>
+    </style>
+    <style>
+      <name>80'sSynthRock</name>
+      <pos>22 82</pos>
+    </style>
+    <style>
+      <name>80'sPop</name>
+      <pos>16 54</pos>
+    </style>
+    <style>
+      <name>60'sVintageRock</name>
+      <pos>16 44</pos>
+    </style>
+    <style>
+      <name>60'sPianoPop</name>
+      <pos>17 23</pos>
+    </style>
+    <style>
+      <name>60'sVintagePop</name>
+      <pos>17 AB</pos>
+    </style>
+    <style>
+      <name>ContempPop</name>
+      <pos>20 12</pos>
+    </style>
+    <style>
+      <name>ChartPianoShfl</name>
+      <pos>24 08</pos>
+    </style>
+    <style>
+      <name>ChartRockShfl</name>
+      <pos>24 09</pos>
+    </style>
+    <style>
+      <name>90'sRockBallad</name>
+      <pos>20 49</pos>
+    </style>
+    <style>
+      <name>80's8Beat</name>
+      <pos>17 26</pos>
+    </style>
+    <style>
+      <name>StandardRock</name>
+      <pos>16 47</pos>
+    </style>
+    <style>
+      <name>ContempRock</name>
+      <pos>16 4E</pos>
+    </style>
+    <style>
+      <name>AcousticRock</name>
+      <pos>20 44</pos>
+    </style>
+    <style>
+      <name>FunkPopRock</name>
+      <pos>20 43</pos>
+    </style>
+    <style>
+      <name>PowerRock</name>
+      <pos>16 43</pos>
+    </style>
+    <style>
+      <name>Uptempo8Beat</name>
+      <pos>17 20</pos>
+    </style>
+    <style>
+      <name>8BeatModern</name>
+      <pos>16 04</pos>
+    </style>
+    <style>
+      <name>VintageGtrPop</name>
+      <pos>16 01</pos>
+    </style>
+    <style>
+      <name>WestCoastPop</name>
+      <pos>20 04</pos>
+    </style>
+    <style>
+      <name>Straight8Pop</name>
+      <pos>16 1D</pos>
+    </style>
+    <style>
+      <name>SoftRock</name>
+      <pos>16 42</pos>
+    </style>
+    <style>
+      <name>ContempRockBld</name>
+      <pos>20 45</pos>
+    </style>
+    <style>
+      <name>BritPop</name>
+      <pos>20 01</pos>
+    </style>
+    <style>
+      <name>BritPopSwing</name>
+      <pos>1A 00</pos>
+    </style>
+    <style>
+      <name>60'sChartSwing</name>
+      <pos>0E 01</pos>
+    </style>
+    <style>
+      <name>ChartGuitarPop</name>
+      <pos>16 1E</pos>
+    </style>
+    <style>
+      <name>70's8Beat</name>
+      <pos>16 06</pos>
+    </style>
+    <style>
+      <name>60's8Beat</name>
+      <pos>16 00</pos>
+    </style>
+    <style>
+      <name>60'sGuitarPop</name>
+      <pos>16 05</pos>
+    </style>
+    <style>
+      <name>BubblegumPop</name>
+      <pos>16 07</pos>
+    </style>
+    <style>
+      <name>90'sGuitarPop</name>
+      <pos>20 02</pos>
+    </style>
+    <style>
+      <name>SouthernRock</name>
+      <pos>16 48</pos>
+    </style>
+    <style>
+      <name>CaribbeanRock</name>
+      <pos>16 4A</pos>
+    </style>
+    <style>
+      <name>Unplugged1</name>
+      <pos>16 0A</pos>
+    </style>
+    <style>
+      <name>Unplugged2</name>
+      <pos>16 0B</pos>
+    </style>
+    <style>
+      <name>60'sPopRock</name>
+      <pos>16 45</pos>
+    </style>
+    <style>
+      <name>RockSHuffle</name>
+      <pos>1E 40</pos>
+    </style>
+    <style>
+      <name>8BeatGtrPop</name>
+      <pos>16 02</pos>
+    </style>
+    <style>
+      <name>Classic16Beat</name>
+      <pos>20 2D</pos>
+    </style>
+    <style>
+      <name>JazzPop</name>
+      <pos>24 03</pos>
+    </style>
+    <style>
+      <name>KoolShuffle</name>
+      <pos>24 05</pos>
+    </style>
+    <style>
+      <name>PopShuffle</name>
+      <pos>24 00</pos>
+    </style>
+    <style>
+      <name>FusionShuffle</name>
+      <pos>24 02</pos>
+    </style>
+    <style>
+      <name>ScandPopShuffle</name>
+      <pos>1A 62</pos>
+    </style>
+    <style>
+      <name>J-PopHit</name>
+      <pos>20 09</pos>
+    </style>
+    <stlye>
+      <name>Live8Beat</name>
+      <pos>16 46</pos>
+    </stlye>
+  </genre>
+  <genre name="Ballad">
+    <style>
+      <name>Test</name>
+      <pos>10 30</pos>
+    </style>
+  </genre>
+</styles>

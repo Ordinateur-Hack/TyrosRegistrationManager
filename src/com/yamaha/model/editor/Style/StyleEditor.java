@@ -81,7 +81,7 @@ public class StyleEditor extends Editor {
     }
 
     // Standard Style 07
-    private ObjectProperty<StyleName> styleName;
+    private StringProperty styleName;
     private BooleanProperty isACMPEnabled;
 
     /**
@@ -169,11 +169,11 @@ public class StyleEditor extends Editor {
     // ||||||||||||||||||||||||
 
     /**
-     * @return the name of the style ({@link StyleName})
+     * @return the name of the style
      */
-    public final ObjectProperty<StyleName> styleNameProperty() {
+    public final StringProperty styleNameProperty() {
         if (styleName == null)
-            styleName = new SimpleObjectProperty<>(StyleName.EASY_POP);
+            styleName = new SimpleStringProperty("Easy Pop");
         return styleName;
     }
 
@@ -182,24 +182,24 @@ public class StyleEditor extends Editor {
      */
     public void initStyleNameProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        String styleName1Hex = gpmChunk.getHexData(StyleFunction.STYLE_NAME1.getDataBytePosition());
-        String styleName2Hex = gpmChunk.getHexData(StyleFunction.STYLE_NAME2.getDataBytePosition());
-        setStyleName(StyleName.getStyleName(styleName1Hex, styleName2Hex));
+        String pos1 = gpmChunk.getHexData(StyleFunction.STYLE_NAME1.getDataBytePosition());
+        String pos2 = gpmChunk.getHexData(StyleFunction.STYLE_NAME2.getDataBytePosition());
+        setStyleName(StyleName.getStyleName(pos1, pos2));
     }
 
     /**
-     * @return the {@link StyleName} of this style
+     * @return the {@link StyleNameOld} of this style
      */
-    public final StyleName getStyleName() {
+    public final String getStyleName() {
         if (styleName != null)
             return styleName.get();
         return null;
     }
 
     /**
-     * @param styleName the {@link StyleName} to set this style to
+     * @param styleName the StyleName to set this style to
      */
-    public final void setStyleName(StyleName styleName) {
+    public final void setStyleName(String styleName) {
         styleNameProperty().set(styleName);
     }
 
@@ -208,8 +208,8 @@ public class StyleEditor extends Editor {
      */
     public void mergeStyleNameProperty() {
         GPm gpmChunk = getGPmChunk(GPmType.STANDARD_STYLE);
-        String styleNameHex1 = getStyleName().getHex1();
-        String styleNameHex2 = getStyleName().getHex2();
+        String styleNameHex1 = StyleName.getPos(getStyleName()).get(0);
+        String styleNameHex2 = StyleName.getPos(getStyleName()).get(1);
         gpmChunk.changeHexDataByte(StyleFunction.STYLE_NAME1.getDataBytePosition(), styleNameHex1);
         gpmChunk.changeHexDataByte(StyleFunction.STYLE_NAME2.getDataBytePosition(), styleNameHex2);
     }
