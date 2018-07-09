@@ -32,6 +32,10 @@
 
 /*</editor-fold>*/
 
+.jfx-text-field {
+	-jfx-focus-color: -red-color;
+}
+
 /*<editor-fold desc="Menu Bar">*/
 #menu-bar {
 	-fx-background-color: #00214E;
@@ -87,20 +91,57 @@
 	-fx-background-radius: 5px;
 	-fx-background-color: derive(-fx-base, 85%);
 }*/
-.combo-box .input-line, .combo-box .input-focused-line {
+
+.autocomplete-list {
+	-fx-fixed-cell-size: 30px;
+	-fx-pref-height: 30px;
+}
+
+.jfx-combo-box {
+	-fx-prompt-text-fill: #6e6e6e;
+	-jfx-focus-color: -red-color; /*prompt text*/
+}
+
+.jfx-combo-box .input-line, .jfx-combo-box .input-focused-line {
 	-fx-background-color: -red-color;
 }
 
-.combo-box-popup .list-view .jfx-list-cell {
+.jfx-combo-box .list-view .scroll-bar > .thumb {
+	-fx-background-color: -red-color;
+}
+.jfx-combo-box .list-view .scroll-bar > .track-background {
+	-fx-background-color: -fx-base;
+}
+
+/*.jfx-combo-box .list-view {
+	-fx-background-color: transparent;
+	-fx-border-color: -fx-base;
+	-fx-border-width: 3px;
+	-fx-border-style: solid inside;
+}*/
+
+.jfx-combo-box .arrow-button {
+	-fx-background-color: derive(-red-color, 50%);
+}
+
+.jfx-combo-box .list-view{
+	-fx-background-color: -red-color;
+}
+
+.jfx-combo-box .jfx-list-cell {
+	-fx-background-color: white;
+	-fx-text-fill: -text-fill-dark;
+	-fx-background-insets: -10px; /* so that there is no gap between adjacent cells */
+}
+
+.jfx-combo-box .jfx-list-cell:hover{
+	-fx-background-color: derive(-red-color, 35%);
 	-fx-text-fill: white;
 }
 
-.combo-box-popup .list-view .jfx-list-cell:hover {
-	-fx-background-color: derive(-red-color, 35%);
-}
-
-.combo-box-popup .list-view .jfx-list-cell:selected {
+.jfx-combo-box .jfx-list-cell:selected {
 	-fx-background-color: -red-color;
+	-fx-text-fill: white;
 }
 
 /*<editor-fold desc="PRG buttons (Footer)">*/
