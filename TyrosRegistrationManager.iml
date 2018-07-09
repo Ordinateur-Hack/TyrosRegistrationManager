@@ -10,22 +10,10 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://C:/Program Files (x86)/Java/External Libraries/jfoenix-9.0.1.jar!/" />
+          <root url="jar://C:/Program Files (x86)/Java/External Libraries/jfoenix-9.0.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://C:/Program Files (x86)/Java/External Libraries/jfoenix-9.0.4.jar!/" />
-          <root url="file://$MODULE_DIR$" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/src" />
-        </SOURCES>
       </library>
     </orderEntry>
   </component>
