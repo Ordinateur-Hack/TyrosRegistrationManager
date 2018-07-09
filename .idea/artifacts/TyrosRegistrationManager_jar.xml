@@ -4,7 +4,7 @@
     <root id="archive" name="TyrosRegistrationManager.jar">
       <element id="module-output" name="TyrosRegistrationManager" />
       <element id="dir-copy" path="$PROJECT_DIR$" />
-      <element id="extracted-dir" path="C:/Program Files (x86)/Java/External Libraries/jfoenix-9.0.1.jar" path-in-jar="/" />
+      <element id="file-copy" path="C:/Program Files (x86)/Java/External Libraries/jfoenix-9.0.4.jar" />
     </root>
   </artifact>
 </component>
