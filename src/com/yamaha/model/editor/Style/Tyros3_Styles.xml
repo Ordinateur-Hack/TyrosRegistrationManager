@@ -186,7 +186,7 @@
       <pos>16 45</pos>
     </style>
     <style>
-      <name>RockSHuffle</name>
+      <name>RockShuffle</name>
       <pos>1E 40</pos>
     </style>
     <style>
@@ -221,15 +221,373 @@
       <name>J-PopHit</name>
       <pos>20 09</pos>
     </style>
-    <stlye>
-      <name>Live8Beat</name>
-      <pos>16 46</pos>
-    </stlye>
   </genre>
   <genre name="Ballad">
     <style>
-      <name>Test</name>
-      <pos>10 30</pos>
+      <name>ModernPopBld</name>
+      <pos>20 2F</pos>
+    </style>
+    <style>
+      <name>SoulR&amp;B</name>
+      <pos>20 30</pos>
+    </style>
+    <style>
+      <name>70'sGlamPiano</name>
+      <pos>17 40</pos>
+    </style>
+    <style>
+      <name>70'sChartBallad</name>
+      <pos>16 3E</pos>
+    </style>
+    <style>
+      <name>ChilloutCafe</name>
+      <pos>20 32</pos>
+    </style>
+    <style>
+      <pos>20 33</pos>
+      <name>90'sCoolBallad</name>
+    </style>
+    <style>
+      <name>80'sSmoothBld</name>
+      <pos>20 34</pos>
+    </style>
+    <style>
+      <name>R&amp;BSoulBallad</name>
+      <pos>20 89</pos>
+    </style>
+    <style>
+      <name>8BeatBallad1</name>
+      <pos>16 3A</pos>
+    </style>
+    <style>
+      <name>8BeatBallad2</name>
+      <pos>16 24</pos>
+    </style>
+    <style>
+      <name>PopGtrBallad</name>
+      <pos>16 36</pos>
+    </style>
+    <style>
+      <name>EasyBallad</name>
+      <pos>16 26</pos>
+    </style>
+    <style>
+      <name>EPBallad</name>
+      <pos>16 29</pos>
+    </style>
+    <style>
+      <name>PowerBallad</name>
+      <pos>16 25</pos>
+    </style>
+    <style>
+      <name>EpicBallad</name>
+      <pos>16 2A</pos>
+    </style>
+    <style>
+      <name>16BeatBallad1</name>
+      <pos>20 20</pos>
+    </style>
+    <style>
+      <name>16BeatBallad2</name>
+      <pos>20 21</pos>
+    </style>
+    <style>
+      <name>80'sEPBallad</name>
+      <pos>16 39</pos>
+    </style>
+    <style>
+      <name>70'sPopBallad</name>
+      <pos>16 23</pos>
+    </style>
+    <style>
+      <name>80'sBoyBand</name>
+      <pos>20 2C</pos>
+    </style>
+    <style>
+      <name>Chillout1</name>
+      <pos>20 07</pos>
+    </style>
+    <style>
+      <name>Chillout2</name>
+      <pos>20 08</pos>
+    </style>
+    <style>
+      <name>PopWaltz</name>
+      <pos>1C 20</pos>
+    </style>
+    <style>
+      <name>ContempPopBld</name>
+      <pos>20 23</pos>
+    </style>
+    <style>
+      <name>80'sMovieBallad</name>
+      <pos>20 10</pos>
+    </style>
+    <style>
+      <name>6-8SlowRock1</name>
+      <pos>1E 23</pos>
+    </style>
+    <style>
+      <name>16BeatPop</name>
+      <pos>20 22</pos>
+    </style>
+    <style>
+      <name>6-8SlowRock2</name>
+      <pos>1E 01</pos>
+    </style>
+    <style>
+      <name>6-8Modern</name>
+      <pos>1E 20</pos>
+    </style>
+    <style>
+      <name>6-8Orchestral</name>
+      <pos>1E 21</pos>
+    </style>
+    <style>
+      <name>12-8Ballad</name>
+      <pos>1E 24</pos>
+    </style>
+    <style>
+      <name>OrganBallad</name>
+      <pos>16 28</pos>
+    </style>
+    <style>
+      <name>PianoBallad</name>
+      <pos>16 20</pos>
+    </style>
+    <style>
+      <name>RomanticBallad</name>
+      <pos>16 22</pos>
+    </style>
+    <style>
+      <name>AnalogBallad</name>
+      <pos>20 26</pos>
+    </style>
+    <style>
+      <name>GuitarBallad</name>
+      <pos>16 27</pos>
+    </style>
+    <style>
+      <name>LoveSong</name>
+      <pos>16 21</pos>
+    </style>
+    <style>
+      <name>NewR&amp;BBallad</name>
+      <pos>22 E0</pos>
+    </style>
+    <style>
+      <name>ChartBallad</name>
+      <pos>20 24</pos>
+    </style>
+    <style>
+      <name>PopNewAge</name>
+      <pos>20 25</pos>
+    </style>
+    <style>
+      <name>Slow&amp;Easy</name>
+      <pos>24 04</pos>
+    </style>
+    <style>
+      <name>PopPianoBallad</name>
+      <pos>16 2B</pos>
+    </style>
+    <style>
+      <name>AcousticBallad</name>
+      <pos>14 00</pos>
+    </style>
+    <style>
+      <name>GuitarSerenade</name>
+      <pos>07 E3</pos>
+    </style>
+  </genre>
+  <genre name="Dance">
+    <style>
+      <name>Electronica</name>
+      <pos>20 D5</pos>
+    </style>
+    <style>
+      <name>ModernHipHop</name>
+      <pos>17 24</pos>
+    </style>
+    <style>
+      <name>FunkyHouse</name>
+      <pos>16 AA</pos>
+    </style>
+    <style>
+      <name>Clubdance1</name>
+      <pos>20 D6</pos>
+    </style>
+    <style>
+      <name>Clubdance2</name>
+      <pos>16 C0</pos>
+    </style>
+    <style>
+      <name>FunkDisco</name>
+      <pos>20 8A</pos>
+    </style>
+    <style>
+      <name>80'sSynDisco</name>
+      <pos>20 A9</pos>
+    </style>
+    <style>
+      <name>SynthPop</name>
+      <pos>20 31</pos>
+    </style>
+    <style>
+      <name>70'sDisco1</name>
+      <pos>20 A2</pos>
+    </style>
+    <style>
+      <name>70'sDisco2</name>
+      <pos>16 A0</pos>
+    </style>
+    <style>
+      <name>DreamDance</name>
+      <pos>20 C4</pos>
+    </style>
+    <style>
+      <name>TrancePop</name>
+      <pos>20 D1</pos>
+    </style>
+    <style>
+      <name>Garage</name>
+      <pos>20 D7</pos>
+    </style>
+    <style>
+      <pos>24 E6</pos>
+      <name>Dancehall</name>
+    </style>
+    <style>
+      <name>Groundbeat</name>
+      <pos>24 C3</pos>
+    </style>
+    <style>
+      <name>70'sDiscoFunk</name>
+      <pos>20 A3</pos>
+    </style>
+    <style>
+      <name>DiscoPhilly</name>
+      <pos>20 A0</pos>
+    </style>
+    <style>
+      <name>90'sDisco</name>
+      <pos>20 A5</pos>
+    </style>
+    <style>
+      <name>80'sDisco</name>
+      <pos>22 C0</pos>
+    </style>
+    <style>
+      <name>DiscoTeens</name>
+      <pos>20 CB</pos>
+    </style>
+    <style>
+      <name>Ibiza2004</name>
+      <pos>20 C7</pos>
+    </style>
+    <style>
+      <name>Ibiza2002</name>
+      <pos>16 C2</pos>
+    </style>
+    <style>
+      <name>EuroTrance</name>
+      <pos>16 C3</pos>
+    </style>
+    <style>
+      <name>RetroPop</name>
+      <pos>16 C5</pos>
+    </style>
+    <style>
+      <name>CelticTrance</name>
+      <pos>20 D0</pos>
+    </style>
+    <style>
+      <name>FrenchHouse</name>
+      <pos>20 C9</pos>
+    </style>
+    <style>
+      <name>ClubHouse</name>
+      <pos>24 C2</pos>
+    </style>
+    <style>
+      <name>DiscoHouse</name>
+      <pos>16 A4</pos>
+    </style>
+    <style>
+      <name>House</name>
+      <pos>24 C1</pos>
+    </style>
+    <style>
+      <name>SwingHouse</name>
+      <pos>20 C0</pos>
+    </style>
+    <style>
+      <name>ClassicHipHop</name>
+      <pos>16 E0</pos>
+    </style>
+    <style>
+      <name>NewHipHop</name>
+      <pos>20 E0</pos>
+    </style>
+    <style>
+      <name>EuroHipHop</name>
+      <pos>24 E0</pos>
+    </style>
+    <style>
+      <name>USHipHop</name>
+      <pos>20 E2</pos>
+    </style>
+    <style>
+      <name>TripHop</name>
+      <pos>20 C1</pos>
+    </style>
+    <style>
+      <name>PopR&amp;B</name>
+      <pos>24 E3</pos>
+    </style>
+    <style>
+      <name>NewR&amp;B</name>
+      <pos>22 E1</pos>
+    </style>
+    <style>
+      <name>ChartR&amp;B</name>
+      <pos>16 1C</pos>
+    </style>
+    <style>
+      <name>ChartPop1</name>
+      <pos>16 C8</pos>
+    </style>
+    <style>
+      <name>ChartPop2</name>
+      <pos>22 C2</pos>
+    </style>
+    <style>
+      <name>TechnoParty</name>
+      <pos>20 C1</pos>
+    </style>
+    <style>
+      <name>LatinDJ's</name>
+      <pos>20 CA</pos>
+    </style>
+    <style>
+      <name>USPop</name>
+      <pos>16 C1</pos>
+    </style>
+    <style>
+      <name>DiscoChocolate</name>
+      <pos>22 A0</pos>
+    </style>
+    <style>
+      <name>6-8Trance</name>
+      <pos>1E C0</pos>
+    </style>
+    <style>
+      <name>HipHopLight</name>
+      <pos>24 01</pos>
+    </style>
+    <style>
+      <name>HipHopGroove</name>
+      <pos>24 E4</pos>
     </style>
   </genre>
 </styles>

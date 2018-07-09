@@ -16,7 +16,7 @@
 
 <AnchorPane minWidth="0.0" prefHeight="644.0" prefWidth="1044.0" styleClass="content-holder" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.StyleController">
     <children>
-      <GridPane id="style-section" hgap="4.0" layoutX="30.0" layoutY="70.0" prefHeight="76.0" prefWidth="630.0">
+      <GridPane id="style-section" hgap="4.0" layoutX="30.0" layoutY="80.0" prefHeight="76.0" prefWidth="630.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -184,17 +184,8 @@
         <JFXToggleButton fx:id="controlACMPToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="387.0" prefHeight="58.0" prefWidth="126.0" text="ACMP" AnchorPane.leftAnchor="14.0" />
         <JFXToggleButton fx:id="controlSyncStartToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="430.0" prefHeight="58.0" prefWidth="126.0" text="Sync Start" AnchorPane.leftAnchor="14.0" />
         <JFXToggleButton fx:id="controlSyncStopToggle" alignment="CENTER_LEFT" layoutX="14.0" layoutY="473.0" prefHeight="58.0" prefWidth="126.0" text="Sync Stop" AnchorPane.leftAnchor="14.0" />
-        <JFXComboBox fx:id="fingeringTypeComboBox" layoutX="165.0" layoutY="403.0" prefHeight="25.0" prefWidth="194.0" promptText="Fingering Type" />
-      <JFXToggleButton fx:id="autoFillIn" layoutX="14.0" layoutY="36.0" text="Auto Fill In" />
-      <Label fx:id="styleNameLabel" layoutX="119.0" layoutY="15.0" prefHeight="30.0" text="Default">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="30.0" layoutY="15.0" prefHeight="30.0" text="Style name:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
+        <JFXComboBox fx:id="fingeringTypeComboBox" labelFloat="true" layoutX="165.0" layoutY="403.0" prefHeight="25.0" prefWidth="194.0" promptText="Fingering Type" />
+      <JFXToggleButton fx:id="autoFillIn" layoutX="14.0" layoutY="50.0" size="9.0" text="Auto Fill In" />
+      <JFXComboBox fx:id="styleNameComboBox" editable="true" labelFloat="true" layoutX="30.0" layoutY="22.0" prefHeight="25.0" prefWidth="209.0" promptText="Style Name" />
     </children>
 </AnchorPane>

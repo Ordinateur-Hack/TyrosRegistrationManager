@@ -82,4 +82,17 @@ public class StyleName {
         return Arrays.asList("00", "00");
     }
 
+    /**
+     * @return an array containing all style names, in the order they're declared
+     */
+    public static String[] styleNameValues() {
+        NodeList nameNodes = doc.getElementsByTagName("name");
+        int length = nameNodes.getLength();
+        String[] styleNames = new String[length];
+        for (int i = 0; i < length; i++) {
+            styleNames[i] = nameNodes.item(i).getTextContent();
+        }
+        return styleNames;
+    }
+
 }

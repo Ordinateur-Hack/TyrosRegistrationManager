@@ -1,9 +1,6 @@
 package com.yamaha.controller;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.*;
 import com.jfoenix.effects.JFXDepthManager;
 import com.yamaha.application.Main;
 import com.yamaha.model.BiMap;
@@ -11,23 +8,31 @@ import com.yamaha.model.FXUtil;
 import com.yamaha.model.editor.FingeringType;
 import com.yamaha.model.editor.Style.StyleChannel;
 import com.yamaha.model.editor.Style.StyleEditor;
+import com.yamaha.model.editor.Style.StyleName;
 import com.yamaha.model.editor.Style.StyleSection;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
+import javax.print.DocFlavor;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 public class StyleController extends EditorController {
@@ -55,9 +60,6 @@ public class StyleController extends EditorController {
     private TextField volumePHR2TextField;
 
     private List<TextField> volumeTextFields;
-
-    @FXML
-    private Label styleNameLabel;
     //</editor-fold>
 
     //<editor-fold desc="FXML Sliders">
@@ -145,6 +147,9 @@ public class StyleController extends EditorController {
     //<editor-fold desc="FXML Combo Boxes">
     @FXML
     private JFXComboBox<FingeringType> fingeringTypeComboBox;
+    @FXML
+    private JFXComboBox<String> styleNameComboBox;
+    private TextField styleNameComboBoxEditor;
     //</editor-fold
 
     //<editor-fold desc="FXML Animations">
@@ -160,6 +165,55 @@ public class StyleController extends EditorController {
         channelToggels = Arrays.asList(channelRHY1Toggle, channelRHY2Toggle, channelBASSToggle, channelCHD1Toggle,
                 channelCHD2Toggle, channelPADToggle, channelPHR1Toggle, channelPHR2Toggle);
         fingeringTypeComboBox.getItems().addAll(FingeringType.values());
+
+        String[] styleNamesAlphabetical = StyleName.styleNameValues();
+        Arrays.sort(styleNamesAlphabetical, String.CASE_INSENSITIVE_ORDER);
+        styleNameComboBox.getItems().addAll(styleNamesAlphabetical);
+
+        // https://github.com/jfoenixadmin/JFoenix/issues/220
+        JFXAutoCompletePopup<String> autoCompletePopup = new JFXAutoCompletePopup<>();
+        autoCompletePopup.getStyleClass().add("jfx-combo-box");
+        autoCompletePopup.getSuggestions().addAll(styleNamesAlphabetical);
+
+        //SelectionHandler sets the value of the comboBox
+        autoCompletePopup.setSelectionHandler(event -> {
+            /*styleNameComboBox.setValue(event.getObject());*/
+            styleNameComboBox.getSelectionModel().select(event.getObject());
+        });
+        autoCompletePopup.setSuggestionsCellFactory(param -> {
+            return new JFXListCell<>();
+        });
+
+        styleNameComboBoxEditor = styleNameComboBox.getEditor();
+        styleNameComboBoxEditor.addEventHandler(KeyEvent.ANY, event -> {
+            // or: editor.textProperty().addListener(observable -> {...});
+            if (!event.getCode().isNavigationKey() && !event.getCode().isWhitespaceKey()) {
+                //The filter method uses the Predicate to filter the Suggestions defined above
+                //I choose to use the contains method while ignoring cases
+                autoCompletePopup.filter(stringItem -> stringItem.toLowerCase().contains(
+                        styleNameComboBoxEditor.getText().toLowerCase()));
+                //Hide the autocomplete popup if the filtered suggestions is empty or when the box's original popup is open
+                if (autoCompletePopup.getFilteredSuggestions().isEmpty() || styleNameComboBox.isShowing() ||
+                        event.getCode().isModifierKey()) {
+                    autoCompletePopup.hide();
+                } else {
+                    styleNameComboBox.getSelectionModel().clearSelection();
+                    autoCompletePopup.show(styleNameComboBoxEditor);
+                }
+            } else {
+                event.consume();
+            }
+        });
+        styleNameComboBoxEditor.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            if (event.getClickCount() == 2) {
+                styleNameComboBoxEditor.setText("");
+            }
+        });
+        styleNameComboBoxEditor.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (!newValue && styleNameComboBox.getSelectionModel().isEmpty()) {
+                styleEditor.initStyleNameProperty();
+            }
+        }));
 
         mainStyleSectionGroup = new ToggleGroup();
         mainStyleSectionGroup.getToggles().addAll(mainAButton, mainBButton, mainCButton, mainDButton); // Do not change!
@@ -191,6 +245,12 @@ public class StyleController extends EditorController {
         styleEditor = Main.getFooterController().getCurrentPRG().getStyleEditor();
 
         // Initialize elements which couldn't be set up using bidirectional Bindings
+        updateStyleSectionUI();
+
+        addBindings();
+    }
+
+    private void updateStyleSectionUI() {
         StyleSection mainStyleSection = styleEditor.getMainStyleSection();
         mainStyleSectionGroup.selectToggle(biMapStyleSection.get(mainStyleSection));
 
@@ -200,12 +260,8 @@ public class StyleController extends EditorController {
             if (!specialStyleSection.isFillIn()) {
                 specialStyleSectionGroup.selectToggle(biMapStyleSection.get(specialStyleSection));
             }
-    }
+        }
         autoFillIn.setSelected(true);
-
-        styleNameLabel.setText(styleEditor.getStyleName());
-
-        addBindings();
     }
 
     private void addBindings() {
@@ -274,17 +330,20 @@ public class StyleController extends EditorController {
         mainStyleSectionGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) {
-                ToggleButton newToggleButton = ((ToggleButton) newToggle);
-                playFillInAnimation((ToggleButton) oldToggle, false); // disable animation on the previously
-                // selected toggle
-                styleEditor.setMainStyleSection(biMapStyleSection.getKey(newToggleButton));
-                if (autoFillIn.isSelected() || styleEditor.getSpecialStyleSection() == StyleSection.BREAK_FILL) {
-                    styleEditor.setSpecialStyleSection(biMapStyleSectionFillIn.getKey(newToggleButton));
-                    playFillInAnimation(newToggleButton, true);
-                } else {
-                    styleEditor.setSpecialStyleSection(biMapStyleSection.getKey(newToggleButton));
+                if (oldToggle != null) { // when we reset StyleSection, then all ToggleButtons will be deselected in
+                    // order to prevent that the button we switched to is blinking when "Auto Fill In" is enabled
+                    ToggleButton newToggleButton = ((ToggleButton) newToggle);
+                    playFillInAnimation((ToggleButton) oldToggle, false); // disable animation on the previously
+                    // selected toggle
+                    styleEditor.setMainStyleSection(biMapStyleSection.getKey(newToggleButton));
+                    if (autoFillIn.isSelected() || styleEditor.getSpecialStyleSection() == StyleSection.BREAK_FILL) {
+                        styleEditor.setSpecialStyleSection(biMapStyleSectionFillIn.getKey(newToggleButton));
+                        playFillInAnimation(newToggleButton, true);
+                    } else {
+                        styleEditor.setSpecialStyleSection(biMapStyleSection.getKey(newToggleButton));
+                    }
+                    specialStyleSectionGroup.selectToggle(null); // deselect all special StyleSection toggles
                 }
-                specialStyleSectionGroup.selectToggle(null); // deselect all special StyleSection toggles
             }
         });
 
@@ -309,6 +368,13 @@ public class StyleController extends EditorController {
                 }
             });
         }
+
+        for (Toggle toggle : mainStyleSectionGroup.getToggles()) {
+            addResetCtrlFunctionality((Node) toggle, () -> resetStyleSection());
+        }
+        for (Toggle toggle : specialStyleSectionGroup.getToggles()) {
+            addResetCtrlFunctionality((Node) toggle, () -> resetStyleSection());
+        }
         //</editor-fold>
 
         // Other controls
@@ -325,6 +391,10 @@ public class StyleController extends EditorController {
         addResetCtrlFunctionality(fingeringTypeComboBox, () -> styleEditor.initFingeringTypeProperty());
         // disable fingeringTypeComboBox if controlACMPToggle is disabled
         fingeringTypeComboBox.disableProperty().bind(controlACMPToggle.selectedProperty().not());
+
+        styleNameComboBox.valueProperty().bindBidirectional(styleEditor.styleNameProperty());
+        addResetCtrlFunctionality(styleNameComboBox, () -> styleEditor.initStyleNameProperty());
+        addResetCtrlFunctionality(styleNameComboBoxEditor, () -> styleEditor.initStyleNameProperty());
     }
 
     /**
@@ -345,6 +415,20 @@ public class StyleController extends EditorController {
             fillInTransition.stop();
             toggleButton.setOpacity(1);
         }
+    }
+
+    private void resetStyleSection() {
+        for (Toggle toggle : mainStyleSectionGroup.getToggles()) {
+            playFillInAnimation((ToggleButton) toggle, false);
+        }
+        for (Toggle toggle : specialStyleSectionGroup.getToggles()) {
+            playFillInAnimation((ToggleButton) toggle, false);
+        }
+        mainStyleSectionGroup.selectToggle(null);
+        specialStyleSectionGroup.selectToggle(null);
+        styleEditor.initMainStyleSectionProperty();
+        styleEditor.initSpecialStyleSectionProperty();
+        updateStyleSectionUI();
     }
 
     //<editor-fold desc="Check this out later">
