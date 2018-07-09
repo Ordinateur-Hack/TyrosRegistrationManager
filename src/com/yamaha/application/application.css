@@ -36,6 +36,10 @@
 	-jfx-focus-color: -red-color;
 }
 
+.jfx-text-field .input-line {
+	-fx-background-color: -red-color;
+}
+
 /*<editor-fold desc="Menu Bar">*/
 #menu-bar {
 	-fx-background-color: #00214E;
