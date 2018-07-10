@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" styleClass="popup-anchor-pane" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yamaha.controller.StyleChooserController">
+   <children>
+      <AnchorPane styleClass="content-holder" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <Label fx:id="cancelButton" layoutX="614.0" layoutY="421.0" styleClass="cancel-button" text="CANCEL" AnchorPane.bottomAnchor="21.857142857142858" AnchorPane.rightAnchor="98.0" />
+            <JFXButton layoutX="680.0" layoutY="415.0" prefHeight="30.0" prefWidth="65.0" text="OK" AnchorPane.bottomAnchor="14.714285714285715" AnchorPane.rightAnchor="14.857142857142861" />
+            <GridPane hgap="50.0" layoutX="6.0" layoutY="6.0" maxHeight="-Infinity" prefHeight="390.0" prefWidth="750.0" vgap="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="359.8571319580078" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="341.142822265625" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <AnchorPane prefHeight="56.0" prefWidth="363.0" styleClass="selector-item">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.rowIndex="1">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="20.0" layoutY="99.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.rowIndex="2">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="20.0" layoutY="177.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.rowIndex="3">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="20.0" layoutY="255.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.rowIndex="4">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="20.0" layoutY="333.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.columnIndex="1">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="424.0" layoutY="20.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="424.0" layoutY="99.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="424.0" layoutY="177.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="424.0" layoutY="255.0" prefHeight="56.0" prefWidth="363.0" styleClass="selector-item" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <Line id="selector-stroke" endX="64.0" endY="57.0" startX="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane layoutY="8.0" prefHeight="56.0" prefWidth="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label id="additional-stuff" alignment="CENTER" text="Pro" />
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="64.0" prefHeight="30.0" prefWidth="319.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="306.0" text="HipHopGroove" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+            <Separator layoutX="9.0" layoutY="395.0" opacity="0.29" prefHeight="7.0" prefWidth="723.0" AnchorPane.bottomAnchor="57.57142857142857" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

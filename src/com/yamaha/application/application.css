@@ -7,6 +7,7 @@
 	-text-fill-bright: white;
 	-standard-hover-color: #042E68;
 	-standard-selected-color: #033C81;
+	-standard-drop-shadow-color: #afafaf;
 	-red-color: #a83c44;
 }
 
@@ -38,6 +39,18 @@
 
 .jfx-text-field .input-line {
 	-fx-background-color: -red-color;
+}
+
+.content-holder .jfx-button {
+	-fx-text-fill: -text-fill-bright;
+	-fx-background-color: -red-color;
+	/*-fx-border-width: 1px;
+	-fx-border-radius: 12px;
+	-fx-border-color: -red-color;*/
+}
+
+.content-holder .jfx-button:pressed {
+	-fx-effect: dropshadow(gaussian, -standard-drop-shadow-color, 10, 0, 0, 2);
 }
 
 /*<editor-fold desc="Menu Bar">*/
@@ -183,3 +196,36 @@
 }
 
 /*</editor-fold>*/
+
+.popup-anchor-pane {
+	-fx-background-color: transparent;
+}
+
+.popup-anchor-pane .content-holder {
+	-fx-background-color: white;
+	-fx-background-radius: 4px;
+	-fx-effect: dropshadow(gaussian, -standard-drop-shadow-color, 20, 0.4, 0, 6);
+
+	-fx-border-radius: 4px;
+	-fx-border-width: 1px;
+	-fx-border-color: -red-color;
+}
+
+.cancel-button {
+	-fx-text-fill: -red-color;
+	-fx-font-size: 1.1em;
+}
+
+.selector-item {
+	-fx-background-color: derive(-fx-base, 50%);
+}
+.selector-item .label {
+	-fx-font-size: 1.5em;
+	-fx-text-fill: -text-fill-bright;
+}
+.selector-item #additional-stuff {
+	-fx-font-size: 1.2em;
+}
+.selector-item #selector-stroke {
+	-fx-stroke: white;
+}

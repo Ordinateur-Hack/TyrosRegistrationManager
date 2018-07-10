@@ -17,16 +17,28 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
 import javax.print.DocFlavor;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Collections;
@@ -507,6 +519,13 @@ public class StyleController extends EditorController {
             }
         };
     }
+
+    @FXML
+    private void openStyleChooser() {
+        StyleChooserController.openStyleChooser();
+    }
+
+
 }
 
 // https://github.com/jfoenixadmin/JFoenix/issues/431
